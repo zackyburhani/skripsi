@@ -14,8 +14,12 @@
 Route::get('/', 'ControllerDashboard@index');
 
 //crawling twitter
-Route::get('/crawling', 'ControllerCrawlingTwitter@index');
+Route::get('/crawling', 'ControllerCrawlingTwitter@index')->name('crawling.index');
+Route::post('/crawling', 'ControllerCrawlingTwitter@crawling_data')->name('crawling.crawling_data');
 
 //kosa kata
 Route::get('/singkatan', 'ControllerKosaKata@singkatan');
 Route::get('/emoticon', 'ControllerKosaKata@emoticon');
+
+// preprocessing
+Route::get('/preprocessing', 'ControllerPreprocessing@preprocessing');

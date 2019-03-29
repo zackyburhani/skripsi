@@ -20,7 +20,9 @@
                             <div class="page-header-breadcrumb">
                                 <ul class="breadcrumb-title">
                                     <li class="breadcrumb-item">
-                                        <a href="index-1.htm"> <i class="feather icon-home"></i> </a>
+                                        <a href="/"> Dashboard </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#">Kosa Kata</a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="/emoticon">Emoticon</a>
                                     </li>
