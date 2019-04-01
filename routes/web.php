@@ -23,3 +23,9 @@ Route::get('/emoticon', 'ControllerKosaKata@emoticon');
 
 // preprocessing
 Route::get('/preprocessing', 'ControllerPreprocessing@preprocessing');
+
+Route::post('/singkatan','ControllerKosaKata@store_singkatan');
+Route::get('/singkatan_all','ControllerKosaKata@all_singkatan');
+Route::get('/singkatan/{singkatan}','ControllerKosaKata@get_singkatan');
+Route::put('/singkatan/{singkatan}','ControllerKosaKata@update_singkatan');
+Route::delete('/singkatan/{singkatan}','ControllerKosaKata@delete_singkatan');

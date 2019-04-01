@@ -42,12 +42,13 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <p>Cari Tweet <i class="fa fa-twitter"></i></p>
-                                            <select class="js-example-tags col-sm-12" name="keywords[]" multiple="multiple">
-                                            </select>
+                                            <input type="text" class="form-control col-sm-12" name="keywords" placeholder="Masukkan Kata Kunci">
+                                            {{-- <select class="js-example-tags col-sm-12" name="keywords[]" multiple="multiple">
+                                            </select> --}}
                                         </div> 
                                         <div class="col-sm-2">
                                             <p> <i class="fa fa-serch"></i></p>
-                                            <input type="number" name="count" class="form-control">
+                                            <input type="number" name="count" class="form-control" placeholder="Jumlah">
                                         </div>                
                                         <div class="col-sm-2">
                                             <p> <i class="fa fa-serch"></i></p>
@@ -68,13 +69,13 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $no=1; ?>
-                                                    <?php foreach($data as $key) { ?>
+                                                    @foreach($data as $key)
                                                     <tr>
-                                                        <td>{{$no++}}</td>
+                                                        <td align="center">{{$no++."."}}</td>
                                                         <td>{{$key->screen_name}}</td>
                                                         <td>{{$key->full_text}}</td>
                                                     </tr>
-                                                    <?php } ?>
+                                                    @endforeach
                                                 </tbody>
                                                 <tfoot>
                                                 <tr>

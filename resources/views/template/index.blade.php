@@ -16,6 +16,7 @@
     <meta name="description" content="#">
     <meta name="keywords" content="flat ui, admin Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" href="{{'files\assets\images\favicon.ico'}}" type="image/x-icon">
     <!-- Google font-->
@@ -38,6 +39,19 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="{{'files\assets\css\style.css'}}">
     <link rel="stylesheet" type="text/css" href="{{'files\assets\css\jquery.mCustomScrollbar.css'}}">
+    <!-- sweet alert framework -->
+    <link rel="stylesheet" type="text/css" href="{{'files\assets\css\sweetalert.css'}}">
+    <!-- pnotify -->
+    <link rel="stylesheet" type="text/css" href="{{'files\assets\css\pnotify.custom.min.css'}}">
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="{{'files\bower_components\jquery\js\jquery.min.js'}}"></script>
+    <script type="text/javascript" src="{{'files\bower_components\jquery-ui\js\jquery-ui.min.js'}}"></script>
+    <script type="text/javascript" src="{{'files\bower_components\popper.js\js\popper.min.js'}}"></script>
+    <script type="text/javascript" src="{{'files\bower_components\bootstrap\js\bootstrap.min.js'}}"></script>
+    <!-- sweet alert js -->
+    <script type="text/javascript" src="{{'files\assets\js\sweetalert.min.js'}}"></script>
+    <!-- pnotify -->
+    <script type="text/javascript" src="{{'files\assets\js\pnotify.custom.min.js'}}"></script>
 </head>
 
 <body>
@@ -192,12 +206,6 @@
         </div>
     </div>
 
-    <!-- Required Jquery -->
-    <script type="text/javascript" src="{{'files\bower_components\jquery\js\jquery.min.js'}}"></script>
-    <script type="text/javascript" src="{{'files\bower_components\jquery-ui\js\jquery-ui.min.js'}}"></script>
-    <script type="text/javascript" src="{{'files\bower_components\popper.js\js\popper.min.js'}}"></script>
-    <script type="text/javascript" src="{{'files\bower_components\bootstrap\js\bootstrap.min.js'}}"></script>
-
     <!-- jquery slimscroll js -->
     <script type="text/javascript" src="{{'files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js'}}"></script>
     <!-- modernizr js -->
@@ -241,7 +249,6 @@
     <script type="text/javascript" src="{{'files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js'}}"></script>
     <script type="text/javascript" src="{{'files\bower_components\multiselect\js\jquery.multi-select.js'}}"></script>
     <script type="text/javascript" src="{{'files\assets\pages\advance-elements\select2-custom.js'}}"></script>
-    
     <!-- Global site tag (gtag.js) - Google Analytics -->
     {{-- <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script> --}}
     <script>
