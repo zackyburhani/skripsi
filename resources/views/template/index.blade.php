@@ -25,6 +25,8 @@
     <link rel="stylesheet" type="text/css" href="{{'files\bower_components\bootstrap\css\bootstrap.min.css'}}">
     <!-- feather Awesome -->
     <link rel="stylesheet" type="text/css" href="{{'files\assets\icon\feather\css\feather.css'}}">
+    <!-- upload -->
+    <link rel="stylesheet" type="text/css" href="{{'files\assets\css\upload.css'}}">
     <!-- font Awesome -->
     <link rel="stylesheet" type="text/css" href="{{'files\assets\icon\font-awesome\css\font-awesome.min.css'}}">
     <!-- Data Table Css -->
@@ -52,6 +54,8 @@
     <script type="text/javascript" src="{{'files\assets\js\sweetalert.min.js'}}"></script>
     <!-- pnotify -->
     <script type="text/javascript" src="{{'files\assets\js\pnotify.custom.min.js'}}"></script>
+    <!-- upload -->
+    <script type="text/javascript" src="{{'files\assets\js\upload.js'}}"></script>
 </head>
 
 <body>

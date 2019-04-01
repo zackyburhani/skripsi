@@ -101,5 +101,5 @@
         </div>
     </div>
 </div>
-<script src="{{asset('js/singkatan.js')}}"></script>
+<script src="{{asset('js/kosakata/singkatan.js')}}"></script>
 @endsection
