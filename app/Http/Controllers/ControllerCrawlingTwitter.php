@@ -39,46 +39,68 @@ class ControllerCrawlingTwitter extends Controller
         return redirect('/crawling');
     }
 
-    public function export(){
-        return Excel::create('data_crawling', function($excel) {
-            $excel->sheet('Data Crawling', function($sheet) {
-                $twitter = TwitterStream::all();
-                if($twitter == ""){
-                    return response()->json(null);
-                }
-                $i=1;
-                foreach ($twitter as $key) {
-                    
-                    $cetak[] = [
-                        'No' => $i++,
-                        'id' => $key->id,
-                        'tweet_id' => $key->tweet_id,
-                        'screen_name' => $key->screen_name,
-                        'full_text' => $key->full_text,
-                        'Class' => $key->class,
-                        'Ubah Class' =>''
-                    ];
-                }
-
-                $sheet->cells('A1:G1', function ($cells) {
-                    $cells->setBackground('#ffcc00');
-                    $cells->setAlignment('center');
+    public function export($format)
+    {
+        if($format == 'xlsx'){
+            return Excel::create('data_crawling', function($excel) {
+                $excel->sheet('Data Crawling', function($sheet) {
+                    $twitter = TwitterStream::all();
+                    if($twitter == ""){
+                        return response()->json(null);
+                    }
+                    $i=1;
+                    foreach ($twitter as $key) {
+                        
+                        $cetak[] = [
+                            'No' => $i++,
+                            'id' => $key->id,
+                            'tweet_id' => $key->tweet_id,
+                            'screen_name' => $key->screen_name,
+                            'full_text' => $key->full_text,
+                            'Class' => $key->class,
+                            'Ubah Class' =>''
+                        ];
+                    }
+    
+                    $sheet->cells('A1:G1', function ($cells) {
+                        $cells->setBackground('#ffcc00');
+                        $cells->setAlignment('center');
+                    });
+                    $sheet->setWidth(array(
+                        'A' => 5,
+                        'B' => 7,
+                        'C' => 25,
+                        'D' => 20,
+                        'E' => 250,
+                        'F' => 10,
+                        'G' => 10
+                    ));
+                    $sheet->fromModel($cetak);
                 });
-                $sheet->setWidth(array(
-                    'A' => 5,
-                    'B' => 7,
-                    'C' => 25,
-                    'D' => 20,
-                    'E' => 250,
-                    'F' => 10,
-                    'G' => 10
-                ));
-                $sheet->fromModel($cetak);
-            });
-        })->download('xlsx');
+            })->download($format);
+        } else {
+            return Excel::create('data_crawling', function($excel) {
+                $excel->sheet('Data Crawling', function($sheet) {
+                    $twitter = TwitterStream::all();
+                    if($twitter == ""){
+                        return response()->json(null);
+                    }
+                    foreach ($twitter as $key) {
+                        
+                        $cetak[] = [
+                            "full_text" => $this->tokenizing($key->full_text),
+                            ";" => ";",
+                            "Class" => $key->class,
+                        ];
+                    }
+                    $sheet->fromModel($cetak);
+                });
+            })->download($format);
+        }
     }
 
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
         $filename = $request->file('data_crawling');
         $data = Excel::selectSheets('Data Crawling')->load($filename)->get();
 
@@ -87,13 +109,19 @@ class ControllerCrawlingTwitter extends Controller
         }
 
         foreach($data as $excel){
-            $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
+            if($excel->ubah_class != ""){
+                $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
+            }
         }
 
-        if(!$upload){
-            return response()->json(true);
-        } else {
-            return response()->json(error);
-        }
+        return $upload;
+    }
+
+    private function tokenizing($data)
+    {
+      $tokenizing = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
+      $string = str_replace('  ', ' ', $tokenizing);
+      $lower = strtolower($string);
+      return $lower;
     }
 }

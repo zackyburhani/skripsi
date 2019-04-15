@@ -2,150 +2,115 @@
 
 @section('main')
 <input id="url_root" type="hidden" value="{{ url("") }}">
-<div class="pcoded-content">
-    <div class="pcoded-inner-content">
-        <div class="main-body">
-            <div class="page-wrapper">
+<section class="content-header">
+    <h1>
+        Data Stream
+        <!-- <small>Control panel</small> -->
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/crawling"><i class="fa fa-twitter"></i> Crawling Data Twitter</a></li>
+    </ol>
+</section>
 
-                <!-- Page-header start -->
-                <div class="page-header">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="page-header-title">
-                                <div class="d-inline">
-                                    <h4>Data Stream</h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="page-header-breadcrumb">
-                                <ul class="breadcrumb-title">
-                                    <li class="breadcrumb-item">
-                                        <a href="index-1.htm"> <i class="feather icon-home"></i> </a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="/crawling">Crawling Data Twitter</a>
-                                    </li>
-                                   </ul>
-                            </div>
-                        </div>
-                    </div>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <button class="btn btn-success btn-export" value="xlsx"><i class="fa fa-file-excel-o"></i> Export XLSX</button>
+                    <button class="btn btn-success btn-export" value="csv"><i class="fa fa-file-o"></i> Export CSV</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Import XLSX</button>
                 </div>
-
-                <div class="page-header">
-                    <div class="row align-items-end">
-                        <div class="col-lg-8">
-                            <div class="d-inline">
-                                <button class="btn btn-success btn-export"><i class="fa fa-file-excel-o"></i> Export XLSX</button>
-                            </div>
-                                
-                            <div class="d-inline">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Import XLSX</button>
-                            </div>
-                        </div>   
-                    </div>
-                </div>
-                
-                <!-- Page-header end -->
+                <div class="panel-body">
                 <form method="post" action="{{ route('crawling.crawling_data') }}">
-                @csrf
-                <!-- Page-body start -->
-                <div class="page-body">
+                    @csrf
                     <div class="row">
-                        <div class="col-sm-12">
-                            <!-- Zero config.table start -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <p>Cari Tweet <i class="fa fa-twitter"></i></p>
-                                            <input type="text" class="form-control col-sm-12" name="keywords" placeholder="Masukkan Kata Kunci">
-                                            {{-- <select class="js-example-tags col-sm-12" name="keywords[]" multiple="multiple">
-                                            </select> --}}
-                                        </div> 
-                                        <div class="col-sm-2">
-                                            <p> <i class="fa fa-serch"></i></p>
-                                            <input type="number" name="count" class="form-control" placeholder="Jumlah">
-                                        </div>                
-                                        <div class="col-sm-2">
-                                            <p> <i class="fa fa-serch"></i></p>
-                                            <button class="btn btn-info btn-block">Search <i class="fa fa-search"></i></button>
-                                        </div>                           
-                                    </div>
-                                    <hr>
-                                </div>
-                                <div class="card-block">
-                                    <div class="dt-responsive table-responsive">
-                                        <table id="simpletable" class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Username</th>
-                                                    <th>Tweet</th>
-                                                    <th width="100px">Class</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php $no=1; ?>
-                                                    @foreach($data as $key)
-                                                    <tr>
-                                                        <td align="center">{{$no++."."}}</td>
-                                                        <td>{{$key->screen_name}}</td>
-                                                        <td>{{$key->full_text}}</td>
-                                                        <td>{{$key->class}}</td>
-                                                        <td></td>
-                                                    </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Zero config.table end -->
-                            </div>
-                        </div>
+                        <div class="col-sm-8">
+                            <p>Cari Tweet <i class="fa fa-twitter"></i></p>
+                            <input type="text" class="form-control col-sm-12" name="keywords" placeholder="Masukkan Kata Kunci">
+                        </div> 
+                        <div class="col-sm-2">
+                            <p> <i class="fa fa-serch"></i></p>
+                            <input type="number" name="count" class="form-control" placeholder="Jumlah">
+                        </div>                
+                        <div class="col-sm-2">
+                            <p> <i class="fa fa-serch"></i></p>
+                            <button class="btn btn-info btn-block">Search <i class="fa fa-search"></i></button>
+                        </div>                           
                     </div>
-                    <!-- Page-body end -->
+                    <br>
+                    <hr>
+                    <table style="table-layout:fixed" id="table-crawling" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th width="7%"><center>No.<center></th>
+                                <th width="15%"><center>Username<center></th>
+                                <th width="55%"><center>Tweet<center></th>
+                                <th><center>Class<center></th>
+                                <th><center>Action</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $no=1; ?>
+                            @foreach($data as $key)
+                            <tr>
+                                <td align="center">{{$no++."."}}</td>
+                                <td>{{$key->screen_name}}</td>
+                                <td>{{$key->full_text}}</td>
+                                <td align="center">{{$key->class}}</td>
+                                <td align="center">
+                                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <form id="frmUpload" enctype="multipart/form-data">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Upload XLSX</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-xlsx"></i>Upload XLSX</h4>
                 </div>
                 <div class="modal-body">
                     <div class="input-group">
                         <input type="text" class="form-control file-upload-text" disabled placeholder="select a file..." />
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-info file-upload-btn">
-                                Browse...
-                               <input type="file" class="file-upload" name="data_crawling" />
-                            </button>
+                        <button type="button" class="btn btn-info file-upload-btn">
+                            Browse...
+                            <input type="file" class="file-upload" name="data_crawling" />
+                        </button>
                         </span>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
                     <button type="submit" class="btn btn-primary btn-upload">Import XLSX</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
+
 <script type="text/javascript">
+$(document).ready( function () {
+    $('#table-crawling').DataTable();
+});
 $(document).on('click','.btn-export',function(e) {
     var url = $('#url_root').val();
-    window.location.href = url + '/export-crawling';
+    parameter = $(this).val();
+    window.location.href = url + '/export-crawling/' + parameter;
 });
     
 
@@ -186,6 +151,5 @@ $('#frmUpload').submit( function(e) {
         }
     });
 });
-
 </script>
 @endsection

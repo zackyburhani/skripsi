@@ -1,6 +1,8 @@
 var url = $('#url').val();
 var url_root = $('#url_root').val();
-singkatan_table()
+singkatan_table();
+$('#table-singkatan').DataTable();
+
 //display data edit
 $(document).on('click','.edit-singkatan',function(){
     var singkatan_id = $(this).val();

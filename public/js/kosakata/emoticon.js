@@ -1,6 +1,8 @@
 var url = $('#url').val();
 var url_root = $('#url_root').val();
-emoticon_table()
+emoticon_table();
+$('#table-emoticon').DataTable();
+
 //display data edit
 $(document).on('click','.edit-emoticon',function(){
     var emoticon_id = $(this).val();
