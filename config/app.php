@@ -163,7 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Thujohn\Twitter\TwitterServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Yajra\DataTables\DataTablesServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -229,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Twitter' => Thujohn\Twitter\Facades\Twitter::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];

@@ -1,6 +1,7 @@
 @extends('template.index')
 
 @section('main')
+<input id="url" type="hidden" value="{{ \Request::url() }}">
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
@@ -44,10 +45,10 @@
                         <thead>
                             <tr>
                                 <th width="7%"><center>No.<center></th>
-                                <th width="15%"><center>Username<center></th>
+                                <th width="14%"><center>Username<center></th>
                                 <th width="55%"><center>Tweet<center></th>
                                 <th><center>Class<center></th>
-                                <th><center>Action</center></th>
+                                <th width="50px"><center>Action</center></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,11 +57,22 @@
                             <tr>
                                 <td align="center">{{$no++."."}}</td>
                                 <td>{{$key->screen_name}}</td>
-                                <td>{{$key->full_text}}</td>
-                                <td align="center">{{$key->class}}</td>
+                                <?php if($key->class == 'positif') { ?>
+                                    <td style="color:#0074D9"><span id="{{$key->id}}">{{$key->full_text}}</span></td> 
+                                <?php } else if($key->class == 'negatif') { ?>
+                                    <td style="color:#FF4136"><span id="{{$key->id}}">{{$key->full_text}}</span></td>
+                                <?php } else { ?>
+                                    <td style="color:#000000"><span id="{{$key->id}}">{{$key->full_text}}</span></td>
+                                <?php } ?>
                                 <td align="center">
-                                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    <select class="dropdown form-control" name="klasifikasi" onchange="class_sentiment(this.value)">
+                                        <option style="color:red" <?php if($key->class=="netral") echo 'selected="selected"'; ?> value="{{$key->id}}|netral">Netral</option>
+                                        <option <?php if($key->class=="positif") echo 'selected="selected"'; ?> value="{{$key->id}}|positif|">Positif</option> 
+                                        <option <?php if($key->class=="negatif") echo 'selected="selected"'; ?> value="{{$key->id}}|negatif|">Negatif</option>                   
+                                   </select>
+                                </td>
+                                <td align="center">
+                                <button class="btn btn-danger delete-tweet" value="{{$key->id}}" type="button"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                             @endforeach
@@ -113,7 +125,6 @@ $(document).on('click','.btn-export',function(e) {
     window.location.href = url + '/export-crawling/' + parameter;
 });
     
-
 $('#frmUpload').submit( function(e) {
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
@@ -151,5 +162,100 @@ $('#frmUpload').submit( function(e) {
         }
     });
 });
+
+//delete item
+$(document).on('click','.delete-tweet',function(){
+    var id = $(this).val();
+    $.ajaxSetup({
+        beforeSend: function(xhr, type) {
+            if (!type.crossDomain) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            }
+        },
+    });
+    var url = $('#url').val();
+    swal({
+        title: "Anda Yakin Ingin Menghapus Data?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: url + '/' + id,
+                success: function (data) {
+                    new PNotify({
+                        title: 'Sukses !',
+                        text: 'Data Berhasi Dihapus',
+                        type: 'success'
+                    });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    new PNotify({
+                        title: 'Error !',
+                        text: 'Terdapat Kesalahan Sistem',
+                        type: 'error'
+                    });
+                }
+            });
+        } else {
+            swal.close();
+        }
+      });
+});
+
+function class_sentiment(model)
+{
+    $.ajaxSetup({
+            beforeSend: function(xhr, type) {
+                if (!type.crossDomain) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                }
+            },
+        });
+        var url = $('#url').val();
+        var explode = model.split("|");
+        var id = explode[0];
+        var formData = {
+            klasifikasi : explode[1],
+            id : id
+        }
+        var type = "PUT";
+        $.ajax({
+            type: type,
+            url: url + '/' + id,
+            data: formData,
+            dataType: 'json',
+            success: function (data) {
+                new PNotify({
+                    title: 'Sukses !',
+                    text: 'Data Berhasi Diubah',
+                    type: 'success'
+                });
+                tag = "#"+data.id;
+                if(data.class == 'positif'){
+                    $(tag).css("color", "#0074D9");
+                } else if(data.class == 'negatif'){
+                    $(tag).css("color", "#FF4136");
+                } else {
+                    $(tag).css("color", "#000000");
+                }
+                console.log(tag)
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                new PNotify({
+                    title: 'Error !',
+                    text: 'Terdapat Kesalahan Sistem',
+                    type: 'error'
+                });
+            }
+        });
+}
+
 </script>
 @endsection

@@ -123,10 +123,15 @@
                         </ul>
                     </li>
                     <li>
-                      <a href="/preprocessing">
-                          <i class="fa fa-gears"></i> <span>Preprocessing</span>
-                      </a>
-                  </li>
+                        <a href="/preprocessing">
+                            <i class="fa fa-gears"></i> <span>Preprocessing</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/analisa">
+                            <i class="fa fa-pie-chart"></i> <span>Analisa Data</span>
+                        </a>
+                    </li>
                 </ul>
             </section>
             <!-- /.sidebar -->

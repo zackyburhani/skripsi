@@ -18,6 +18,8 @@ Route::get('/crawling', 'ControllerCrawlingTwitter@index')->name('crawling.index
 Route::post('/crawling', 'ControllerCrawlingTwitter@crawling_data')->name('crawling.crawling_data');
 Route::get('/export-crawling/{export}', 'ControllerCrawlingTwitter@export')->name('export-crawling');
 Route::post('/upload-crawling', 'ControllerCrawlingTwitter@upload')->name('upload-crawling');
+Route::delete('/crawling/{crawling}','ControllerCrawlingTwitter@destroy_crawling');
+Route::put('/crawling/{crawling}','ControllerCrawlingTwitter@update_crawling');
 
 //singkatan
 Route::get('/singkatan', 'ControllerKosaKata@singkatan');
@@ -46,8 +48,11 @@ Route::delete('/stopword/{stopword}','ControllerKosaKata@delete_stopword');
 // preprocessing
 Route::get('/preprocessing', 'ControllerPreprocessing@preprocessing');
 Route::post('/preprocessing', 'ControllerPreprocessing@store_preprocessing');
+Route::post('/klasifikasi', 'ControllerPreprocessing@store_klasifikasi');
 
+// analisa
+Route::get('/analisa', 'ControllerAnalisa@index');
 
 // Stemming
-Route::get('/stemming', 'ControllerPreprocessing@stemming');
-Route::post('/stemming', 'ControllerPreprocessing@stemming_post');
+// Route::get('/stemming', 'ControllerPreprocessing@stemming');
+// Route::post('/stemming', 'ControllerPreprocessing@stemming_post');

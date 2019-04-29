@@ -14,39 +14,7 @@ class ControllerPreprocessing extends Controller
         $title = "Data Preprocessing";
         return view('preprocessing', compact('title'));
     }
-
-    public function stopWord($searchString) 
-    {
-        $stopwords = Stopword::all();
-        foreach($stopwords as $stop){
-            $list[] = $stop->stopword;
-        }
-        $wordsFromSearchString = str_word_count($searchString, true);
-        $finalWords = array_diff($wordsFromSearchString, $list);
-        return implode(" ", $finalWords);
-    }
-
-    //Unicode
-    
-    public static function convert_from_latin1_to_utf8_recursively($dat)
-    {
-        if (is_string($dat)) {
-            return utf8_encode($dat);
-        } elseif (is_array($dat)) {
-            $ret = [];
-            foreach ($dat as $i => $d) $ret[ $i ] = self::convert_from_latin1_to_utf8_recursively($d);
-
-            return $ret;
-        } elseif (is_object($dat)) {
-            foreach ($dat as $i => $d) $dat->$i = self::convert_from_latin1_to_utf8_recursively($d);
-
-            return $dat;
-        } else {
-            return $dat;
-        }
-   }
    
-
     public function store_preprocessing()
     {
         $twitter = TwitterStream::all();
@@ -54,7 +22,9 @@ class ControllerPreprocessing extends Controller
             $preprocessing = $tweet->full_text;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
-            $stopword = $this->stopWord($cleansing);
+            $tokenizing = $this->tokenizing($cleansing);
+            $stopword = $this->stopWord($tokenizing);
+            $stemming = $this->stemming($stopword);
             $data[] = [
                 'case_folding' => [
                     'screen_name' => $tweet->screen_name,
@@ -64,9 +34,17 @@ class ControllerPreprocessing extends Controller
                     'screen_name' => $tweet->screen_name,
                     'full_text' => $cleansing
                 ],
+                'tokenizing' => [
+                    'screen_name' => $tweet->screen_name,
+                    'full_text' => $tokenizing
+                ],
                 'stopword' => [
                     'screen_name' => $tweet->screen_name,
                     'full_text' => $stopword
+                ],
+                'stemming' => [
+                    'screen_name' => $tweet->screen_name,
+                    'full_text' => $stemming
                 ],
             ];
         }
@@ -85,38 +63,81 @@ class ControllerPreprocessing extends Controller
     {
         $data = preg_replace('/#([\w-]+)/i', '', $data); //  #remove tag
         $data = preg_replace('/@([\w-]+)/i', '', $data); // #remove @someone
-        $data = str_replace('rt :', '', $data); // #remove RT
+        $data = str_replace('rt : ', '', $data); // #remove RT
+        $data = str_replace(',', '  ', $data);
+        $data = str_replace('.', '  ', $data);
         $data = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', '', $data); //remove url
         $data = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
-        $data = str_replace('  ', ' ', $data);
+        $data = trim(preg_replace('/\s+/', ' ', $data));
         return $data;
     }
 
-    public function stemming()
+    public function tokenizing($string)
     {
-        $title = "Data Preprocessing";
-        return view('stemming', compact('title'));
+        $array = explode(' ', $string);
+        return $array;
     }
 
-    public function stemming_post(Request $request)
+    public function stopWord($data) 
     {
-        $kata = $request->kata;
-        $stemming = new ControllerStemming();
-        /* 1. Cek Kata di Kamus jika Ada SELESAI */
-        if($stemming->ceKamus($kata)){ // Cek Kamus
-            return $kata; // Jika Ada kembalikan
+        $searchString = implode(" ",$data);
+        $stopwords = Stopword::all();
+        foreach($stopwords as $stop){
+            $list[] = $stop->stopword;
         }
-        /* 2. Buang Infection suffixes (\-lah", \-kah", \-ku", \-mu", atau \-nya") */
-        $kata = $stemming->Del_Inflection_Suffixes($kata);
-
-        /* 3. Buang Derivation suffix (\-i" or \-an") */
-        $kata = $stemming->Del_Derivation_Suffixes($kata);
-
-        /* 4. Buang Derivation prefix */
-        $kata = $stemming->Del_Derivation_Prefix($kata);
-
-        $title = "hasil";
-        return view('stemming', compact(['title','kata']));
+        $wordsFromSearchString = str_word_count($searchString, true);
+        $finalWords = array_diff($wordsFromSearchString, $list);
+        $implode = implode(" ", $finalWords);
+        $array = $this->tokenizing($implode);
+        return $array;
     }
+
+    public function stemming($kata)
+    {
+        $stemming = new ControllerStemming();
+        $term = array();
+        foreach($kata as $value){
+            /* 1. Cek Kata di Kamus jika Ada SELESAI */
+            if($stemming->ceKamus($value)){ // Cek Kamus
+                array_push($term,$value); // Jika Ada push kedalam array
+                continue;
+            }
+            /* 2. Buang Infection suffixes (\-lah", \-kah", \-ku", \-mu", atau \-nya") */
+            $value = $stemming->Del_Inflection_Suffixes($value);
+
+            /* 3. Buang Derivation suffix (\-i" or \-an") */
+            $value = $stemming->Del_Derivation_Suffixes($value);
+
+            /* 4. Buang Derivation prefix */
+            $value = $stemming->Del_Derivation_Prefix($value);
+
+            array_push($term,$value);
+        }
+        return $term;
+    }
+
+    //Unicode
+    private static function convert_from_latin1_to_utf8_recursively($dat)
+    {
+        if (is_string($dat)) {
+            return utf8_encode($dat);
+        } elseif (is_array($dat)) {
+            $ret = [];
+            foreach ($dat as $i => $d) $ret[ $i ] = self::convert_from_latin1_to_utf8_recursively($d);
+
+            return $ret;
+        } elseif (is_object($dat)) {
+            foreach ($dat as $i => $d) $dat->$i = self::convert_from_latin1_to_utf8_recursively($d);
+
+            return $dat;
+        } else {
+            return $dat;
+        }
+   }
+
+   public function store_klasifikasi()
+   {
+       
+   }
 
 }

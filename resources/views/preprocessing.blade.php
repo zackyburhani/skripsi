@@ -19,8 +19,8 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button class="btn btn-primary btn-preprocessing" value="preprocessing"><i
-                            class="fa fa-gears"></i> Mulai Preprocessing</button>
+                    <button class="btn btn-primary btn-preprocessing" value="preprocessing"><i class="fa fa-gear"></i>
+                        Mulai Preprocessing</button>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -29,10 +29,8 @@
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#casefolding" data-toggle="tab">Case Folding</a></li>
                                     <li><a href="#cleansing" data-toggle="tab">Cleansing</a></li>
-                                    <li><a href="#stopword" data-toggle="tab">Stopword Removal</a></li>
-                                    <li><a href="#emoticon" data-toggle="tab">Convert Emoticon</a></li>
-                                    <li><a href="#negation" data-toggle="tab">Convert Negation</a></li>
                                     <li><a href="#tokenizing" data-toggle="tab">Tokenizing</a></li>
+                                    <li><a href="#stopword" data-toggle="tab">Stopword Removal</a></li>
                                     <li><a href="#stemming" data-toggle="tab">Stemming</a></li>
                                 </ul>
                                 <div class="tab-content">
@@ -74,63 +72,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="tab-pane" id="stopword">
-                                        <table id="table-stopword" class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th width="40px">
-                                                        <center>No.</center>
-                                                    </th>
-                                                    <th width="150px">
-                                                        <center>Username</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Tweet</center>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="stopword-tbody">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane" id="emoticon">
-                                        <table id="table-emoticon" class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th width="40px">
-                                                        <center>No.</center>
-                                                    </th>
-                                                    <th width="150px">
-                                                        <center>Username</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Tweet</center>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="emoticon-tbody">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane" id="negation">
-                                        <table id="table-negation" class="table table-striped table-bordered nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th width="40px">
-                                                        <center>No.</center>
-                                                    </th>
-                                                    <th width="150px">
-                                                        <center>Username</center>
-                                                    </th>
-                                                    <th>
-                                                        <center>Tweet</center>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="negation-tbody">
-                                            </tbody>
-                                        </table>
-                                    </div>
                                     <div class="tab-pane" id="tokenizing">
                                         <table id="table-tokenizing" class="table table-striped table-bordered nowrap">
                                             <thead>
@@ -147,6 +88,25 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="tokenizing-tbody">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="stopword">
+                                        <table id="table-stopword" class="table table-striped table-bordered nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th width="40px">
+                                                        <center>No.</center>
+                                                    </th>
+                                                    <th width="150px">
+                                                        <center>Username</center>
+                                                    </th>
+                                                    <th>
+                                                        <center>Tweet</center>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="stopword-tbody">
                                             </tbody>
                                         </table>
                                     </div>

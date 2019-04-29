@@ -10,6 +10,10 @@ $(document).on('click', '.btn-preprocessing', function (e) {
     });
     e.preventDefault();
     var url = $('#url_root').val();
+    $('.btn-preprocessing').attr('disabled',true);
+    $('.btn-preprocessing i.fa-gear').addClass('fa-spin');
+    var button = '<button class="btn btn-success btn-simpan" value="prediksi-nbc"><i class="fa fa-file-text"></i> Proses Klasifikasi</button>';
+    var klasifikasi = $('.btn-simpan');
     $.ajax({
         type: 'POST',
         url: url + "/preprocessing",
@@ -20,14 +24,25 @@ $(document).on('click', '.btn-preprocessing', function (e) {
             casefolding_table(data);
             cleansing_table(data);
             stopword_table(data);
+            tokenizing_table(data);
+            stemming_table(data);
+            $('.btn-preprocessing').attr('disabled',false);
+            $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
+            
+            if (!klasifikasi.length){
+                $('.panel-heading').append(button);
+            }
+            
             new PNotify({
                 title: 'Sukses !',
-                text: 'Data Berhasil Diubah',
+                text: data.length+' Data Berhasil Diproses',
                 type: 'success'
             });
         },
         error: function (data) {
             console.log('Error:', data);
+            $('.btn-preprocessing').attr('disabled',false);
+            $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
             new PNotify({
                 title: 'Error !',
                 text: 'Terdapat Kesalahan Sistem',
@@ -37,62 +52,134 @@ $(document).on('click', '.btn-preprocessing', function (e) {
     });
 });
 
+$(document).on('click', '.btn-simpan', function (e) {
+    parameter = $(this).val();
+    $.ajaxSetup({
+        beforeSend: function (xhr, type) {
+            if (!type.crossDomain) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
+                    'content'));
+            }
+        },
+    });
+    e.preventDefault();
+    var url = $('#url_root').val();
+    
+    swal({
+        title: "Anda Yakin Ingin Memproses Klasifikasi?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "POST",
+                url: url + '/klasifikasi',
+                success: function (data) {
+                    new PNotify({
+                        title: 'Sukses !',
+                        text: 'Data Berhasi Dihapus',
+                        type: 'success'
+                    });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    new PNotify({
+                        title: 'Error !',
+                        text: 'Terdapat Kesalahan Sistem',
+                        type: 'error'
+                    });
+                }
+            });
+        } else {
+            swal.close();
+        }
+      });
+});
+
 function casefolding_table(data) {
     var html = '';
     var i;
     var no = 1;
-    for (i = 0; i < data.length; i++) {
-        html +=
-            '<tr>' +
-            '<td align="center">' + no++ + '.' + '</td>' +
-            '<td>' + data[i].case_folding.screen_name + '</td>' +
-            '<td class="anjing">' + data[i].case_folding.full_text + '</td>' +
-            '</tr>';
-    }
+    $.each( data, function( key1, value1 ) {
+        html = html + '<tr>';
+        html = html + '<td align="center">'+ no++ +'.' +'</td>';
+        html = html + '<td >'+value1.case_folding.screen_name+'</td>';
+        html = html + '<td >'+ value1.case_folding.full_text +'</td>';
+        html = html + '</tr>';
+    });
     $('#casefolding-tbody').html(html);
 }
 
 function cleansing_table(data) {
     var html = '';
-    var i;
     var no = 1;
-    for (i = 0; i < data.length; i++) {
-        html +=
-            '<tr>' +
-            '<td align="center">' + no++ + '.' + '</td>' +
-            '<td>' + data[i].cleansing.screen_name + '</td>' +
-            '<td>' + data[i].cleansing.full_text + '</td>' +
-            '</tr>';
-    }
+    $.each( data, function( key1, value1 ) {
+            html = html + '<tr>';
+            html = html + '<td align="center">'+ no++ +'.' +'</td>';
+            html = html + '<td >'+value1.cleansing.screen_name+'</td>';
+            html = html + '<td >'+ value1.cleansing.full_text +'</td>';
+            html = html + '</tr>';
+    });
     $('#cleansing-tbody').html(html);
 }
 
-function casefolding_table(data) {
+function tokenizing_table(data) {
     var html = '';
-    var i;
     var no = 1;
-    for (i = 0; i < data.length; i++) {
-        html +=
-            '<tr>' +
-            '<td align="center">' + no++ + '.' + '</td>' +
-            '<td>' + data[i].case_folding.screen_name + '</td>' +
-            '<td>' + data[i].case_folding.full_text + '</td>' +
-            '</tr>';
-    }
-    $('#casefolding-tbody').html(html);
+    var rows = '';
+    $.each( data, function( key1, value1 ) {
+        rows = value1.tokenizing.full_text;
+        $.each( rows, function( key2, value2 ) {
+            html = html + '<tr>';
+            if(key2 == 0){
+                html = html + '<td align="center" rowspan="'+ value1.tokenizing.full_text.length +'">'+ no++ +'.' +'</td>';
+                html = html + '<td rowspan="'+ value1.tokenizing.full_text.length +'">'+value1.tokenizing.screen_name+'</td>';
+            }
+            html = html + '<td align="center">'+value2+'</td>';
+            html = html + '</tr>';
+        });
+    });
+    $('#tokenizing-tbody').html(html);
 }
 
 function stopword_table(data) {
     var html = '';
-    var i;
     var no = 1;
-    for (i = 0; i < data.length; i++) {
-        html +=
-            '<tr>' +
-            '<td align="center">' + no++ + '.' + '</td>' +
-            '<td>' + data[i].stopword.screen_name + '</td>' +
-            '<td>' + data[i].stopword.full_text + '</td>' +
-            '</tr>';
-    }
+    var rows = '';
+    console.log(data)
+    $.each( data, function( key1, value1 ) {
+        rows = value1.stopword.full_text;
+        $.each( rows, function( key2, value2 ) {
+            html = html + '<tr>';
+            if(key2 == 0){
+                html = html + '<td align="center" rowspan="'+ value1.stopword.full_text.length +'">'+ no++ +'.' +'</td>';
+                html = html + '<td rowspan="'+ value1.stopword.full_text.length +'">'+value1.stopword.screen_name+'</td>';
+            }
+            html = html + '<td align="center">'+value2+'</td>';
+            html = html + '</tr>';
+        });
+    });
     $('#stopword-tbody').html(html);
+}
+
+function stemming_table(data) {
+    var html = '';
+    var no = 1;
+    var rows = '';
+    $.each( data, function( key1, value1 ) {
+        rows = value1.stemming.full_text;
+        $.each( rows, function( key2, value2 ) {
+            html = html + '<tr>';
+            if(key2 == 0){
+                html = html + '<td align="center" rowspan="'+ value1.stemming.full_text.length +'">'+ no++ +'.' +'</td>';
+                html = html + '<td rowspan="'+ value1.stemming.full_text.length +'">'+value1.stemming.screen_name+'</td>';
+            }
+            html = html + '<td align="center">'+value2+'</td>';
+            html = html + '</tr>';
+        });
+    });
+    $('#stemming-tbody').html(html);
 }

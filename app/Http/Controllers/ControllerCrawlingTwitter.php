@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Twitter;
 use App\Models\TwitterStream;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class ControllerCrawlingTwitter extends Controller
 {
     public function index()
     {
         $title = "Data Stream";
-        $data = TwitterStream::orderBy('id','ASC')->get();
+        $data = TwitterStream::orderBy('id_crawling','DESC')->get();
         return view('crawling', compact(['title','data']));
     }
 
@@ -23,17 +24,15 @@ class ControllerCrawlingTwitter extends Controller
         $tweets = Twitter::getSearch(['count' => $count, 'q' => $keywords,'tweet_mode' => 'extended', 'format' => 'json']);
         $someObject = json_decode($tweets);
         $data = $someObject->statuses;
-        $konvert = json_encode($data) ;
+        $konvert = json_encode($data); 
         $someObject = json_decode($konvert);
         for($i=0; $i<count($someObject) ; $i++) {
             $twitter = new TwitterStream;
             $twitter->tweet_id = $someObject[$i]->id;
-            $twitter->name = $someObject[$i]->user->name;
-            $twitter->screen_name = $someObject[$i]->user->screen_name;
-            $twitter->full_text = $someObject[$i]->full_text;
-            $twitter->created_at =$someObject[$i]->created_at;
-            $twitter->id_str = $someObject[$i]->id_str;
-            $twitter->followers_count = $someObject[$i]->user->followers_count;
+            $twitter->username = $someObject[$i]->user->screen_name;
+            $twitter->tweet = $someObject[$i]->full_text;
+            $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
+            $twitter->status ="0";
             $twitter->save();
         }
         return redirect('/crawling');
@@ -53,11 +52,11 @@ class ControllerCrawlingTwitter extends Controller
                         
                         $cetak[] = [
                             'No' => $i++,
-                            'id' => $key->id,
+                            'id' => $key->id_crawling,
                             'tweet_id' => $key->tweet_id,
-                            'screen_name' => $key->screen_name,
-                            'full_text' => $key->full_text,
-                            'Class' => $key->class,
+                            'username' => $key->username,
+                            'tweet' => $key->tweet,
+                            'tgl_tweet' => $key->tgl_tweet,
                             'Ubah Class' =>''
                         ];
                     }
@@ -88,9 +87,9 @@ class ControllerCrawlingTwitter extends Controller
                     foreach ($twitter as $key) {
                         
                         $cetak[] = [
-                            "full_text" => $this->tokenizing($key->full_text),
-                            ";" => ";",
-                            "Class" => $key->class,
+                            "full_text" => $key->full_text,
+                            // ";" => ";",
+                            // "Class" => $key->class,
                         ];
                     }
                     $sheet->fromModel($cetak);
@@ -117,11 +116,35 @@ class ControllerCrawlingTwitter extends Controller
         return $upload;
     }
 
-    private function tokenizing($data)
+    //useless 
+    // private function tokenizing($data)
+    // {
+    //   $tokenizing = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
+    //   $string = str_replace('  ', ' ', $tokenizing);
+    //   $lower = strtolower($string);
+    //   return $lower;
+    // }
+
+    public function destroy_crawling($id)
     {
-      $tokenizing = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
-      $string = str_replace('  ', ' ', $tokenizing);
-      $lower = strtolower($string);
-      return $lower;
+        $crawling = TwitterStream::findOrFail($id);
+        if($crawling){
+            $crawling->delete();
+            return response()->json(true);
+        } else{
+            return response()->json(error);
+        } 
+    }
+
+    public function update_crawling(Request $request)
+    {
+        $sentimen = TwitterStream::find($request->id);
+        if($sentimen){
+            $sentimen->class = $request->klasifikasi;
+            $sentimen->save();
+            return response()->json($sentimen);
+        } else{
+            return response()->json(error);
+        } 
     }
 }
