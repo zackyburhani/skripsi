@@ -33,6 +33,7 @@ class ControllerCrawlingTwitter extends Controller
             $twitter->tweet = $someObject[$i]->full_text;
             $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
             $twitter->status ="0";
+            $twitter->kategori = "netral";
             $twitter->save();
         }
         return redirect('/crawling');
@@ -57,7 +58,7 @@ class ControllerCrawlingTwitter extends Controller
                             'username' => $key->username,
                             'tweet' => $key->tweet,
                             'tgl_tweet' => $key->tgl_tweet,
-                            'Ubah Class' =>''
+                            'label' =>''
                         ];
                     }
     
@@ -140,7 +141,7 @@ class ControllerCrawlingTwitter extends Controller
     {
         $sentimen = TwitterStream::find($request->id);
         if($sentimen){
-            $sentimen->class = $request->klasifikasi;
+            $sentimen->kategori = $request->klasifikasi;
             $sentimen->save();
             return response()->json($sentimen);
         } else{

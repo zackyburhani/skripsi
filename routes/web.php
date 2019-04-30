@@ -48,7 +48,8 @@ Route::delete('/stopword/{stopword}','ControllerKosaKata@delete_stopword');
 // preprocessing
 Route::get('/preprocessing', 'ControllerPreprocessing@preprocessing');
 Route::post('/preprocessing', 'ControllerPreprocessing@store_preprocessing');
-Route::post('/klasifikasi', 'ControllerPreprocessing@store_klasifikasi');
+Route::post('/data-latih', 'ControllerPreprocessing@data_latih');
+Route::post('/data-uji', 'ControllerPreprocessing@data_uji');
 
 // analisa
 Route::get('/analisa', 'ControllerAnalisa@index');

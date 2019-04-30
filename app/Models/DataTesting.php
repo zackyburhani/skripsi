@@ -7,7 +7,7 @@ class DataTesting extends Model
 {
     protected $table = 'data_testing';
     protected $primaryKey = 'id_id_testing';
-    protected $fillable = ['id_testing','kategori','id_crawling'];
+    protected $fillable = ['id_testing','id_crawling'];
     public $timestamps = false;
 
     public function data_crawling()

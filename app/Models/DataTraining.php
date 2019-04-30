@@ -7,7 +7,7 @@ class DataTraining extends Model
 {
     protected $table = 'data_training';
     protected $primaryKey = 'id_training';
-    protected $fillable = ['id_training','kategori','tweet','id_crawling'];
+    protected $fillable = ['id_training','tweet','id_crawling'];
     public $timestamps = false;
 
     public function data_crawling()

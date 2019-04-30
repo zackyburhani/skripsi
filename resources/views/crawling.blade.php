@@ -54,25 +54,25 @@
                         <tbody>
                             <?php $no=1; ?>
                             @foreach($data as $key)
-                            <tr>
+                            <tr id="del_{{$key->id_crawling}}">
                                 <td align="center">{{$no++."."}}</td>
-                                <td>{{$key->screen_name}}</td>
-                                <?php if($key->class == 'positif') { ?>
-                                    <td style="color:#0074D9"><span id="{{$key->id}}">{{$key->full_text}}</span></td> 
-                                <?php } else if($key->class == 'negatif') { ?>
-                                    <td style="color:#FF4136"><span id="{{$key->id}}">{{$key->full_text}}</span></td>
+                                <td>{{$key->username}}</td>
+                                <?php if($key->kategori == 'positif') { ?>
+                                    <td style="color:#0074D9"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td> 
+                                <?php } else if($key->kategori == 'negatif') { ?>
+                                    <td style="color:#FF4136"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
                                 <?php } else { ?>
-                                    <td style="color:#000000"><span id="{{$key->id}}">{{$key->full_text}}</span></td>
+                                    <td style="color:#000000"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
                                 <?php } ?>
                                 <td align="center">
                                     <select class="dropdown form-control" name="klasifikasi" onchange="class_sentiment(this.value)">
-                                        <option style="color:red" <?php if($key->class=="netral") echo 'selected="selected"'; ?> value="{{$key->id}}|netral">Netral</option>
-                                        <option <?php if($key->class=="positif") echo 'selected="selected"'; ?> value="{{$key->id}}|positif|">Positif</option> 
-                                        <option <?php if($key->class=="negatif") echo 'selected="selected"'; ?> value="{{$key->id}}|negatif|">Negatif</option>                   
+                                        <option style="color:red" <?php if($key->kategori=="netral") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|netral">Netral</option>
+                                        <option <?php if($key->kategori=="positif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|positif|">Positif</option> 
+                                        <option <?php if($key->kategori=="negatif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|negatif|">Negatif</option>                   
                                    </select>
                                 </td>
                                 <td align="center">
-                                <button class="btn btn-danger delete-tweet" value="{{$key->id}}" type="button"><i class="fa fa-trash"></i></button>
+                                <button class="btn btn-danger delete-tweet" value="{{$key->id_crawling}}" type="button"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                             @endforeach
@@ -192,6 +192,8 @@ $(document).on('click','.delete-tweet',function(){
                         text: 'Data Berhasi Dihapus',
                         type: 'success'
                     });
+                    tag = "#del_"+id;
+                    $(tag).remove();
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -236,10 +238,10 @@ function class_sentiment(model)
                     text: 'Data Berhasi Diubah',
                     type: 'success'
                 });
-                tag = "#"+data.id;
-                if(data.class == 'positif'){
+                tag = "#"+data.id_crawling;
+                if(data.kategori == 'positif'){
                     $(tag).css("color", "#0074D9");
-                } else if(data.class == 'negatif'){
+                } else if(data.kategori == 'negatif'){
                     $(tag).css("color", "#FF4136");
                 } else {
                     $(tag).css("color", "#000000");

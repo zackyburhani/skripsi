@@ -14,8 +14,8 @@ class ControllerAnalisa extends Controller
 
     public function index()
     {
-        $this->positif = "Olahraga";
-        $this->negatif = "Politik";
+        $this->positif = "Positif";
+        $this->negatif = "Negatif";
         // $this->train('sepakbola indah menyerang', 'Olahraga');
         // $this->train('presiden menaikkan harga bbm', 'Politik');
         // $this->train('partai politik indonesia berburu suara', 'Politik');
@@ -60,7 +60,7 @@ class ControllerAnalisa extends Controller
         // $this -> train('manchester united juara liga inggris', $this->positif);
         // $this -> train('timnas indonesia gagal juara AFC', $this->positif);
 
-        $category = $this -> classify('psi berburu juara liga indonesia');
+        $category = $this -> classify('chinese chinese chinese tokyo japan');
         echo $category;
         // $title = "Data analisa";
         // $data = TwitterStream::orderBy('id','DESC')->get();
@@ -74,33 +74,33 @@ class ControllerAnalisa extends Controller
         return $category;
     }
 
-    public function train($sentence, $category) 
-    {
-        $spam = $this->positif;
-        $ham = $this->negatif;
+    // public function train($sentence, $category) 
+    // {
+    //     $spam = $this->positif;
+    //     $ham = $this->negatif;
 
-        if ($category == $spam || $category == $ham) {
+    //     if ($category == $spam || $category == $ham) {
 
-            $training = new DataTraining();
-            $training->tweet = $sentence;
-            $training->kategori = $category;
-            $training->save();
-            $keywordsArray = $this->tokenizing($sentence);
+    //         $training = new DataTraining();
+    //         $training->tweet = $sentence;
+    //         $training->kategori = $category;
+    //         $training->save();
+    //         $keywordsArray = $this->tokenizing($sentence);
 
-            foreach ($keywordsArray as $word) {
-                $count = WordFrequency::where([['kata', $word],['kategori',$category]])->count();
-                if ($count == 0) {
-                    $wordFrequency = new WordFrequency();
-                    $wordFrequency->kata = $word;
-                    $wordFrequency->kategori = $category;
-                    $wordFrequency->jumlah = 1;
-                    $wordFrequency->save();
-                } else {
-                    $wordFrequency = WordFrequency::where('kata',$word)->increment('jumlah', 1);
-                }
-            }
-        } 
-    }
+    //         foreach ($keywordsArray as $word) {
+    //             $count = WordFrequency::where([['kata', $word],['kategori',$category]])->count();
+    //             if ($count == 0) {
+    //                 $wordFrequency = new WordFrequency();
+    //                 $wordFrequency->kata = $word;
+    //                 $wordFrequency->kategori = $category;
+    //                 $wordFrequency->jumlah = 1;
+    //                 $wordFrequency->save();
+    //             } else {
+    //                 $wordFrequency = WordFrequency::where('kata',$word)->increment('jumlah', 1);
+    //             }
+    //         }
+    //     } 
+    // }
 
     private function decide($keywordsArray) {
         $spam = $this->positif;
@@ -130,7 +130,7 @@ class ControllerAnalisa extends Controller
                         $wordCount = $wC->total;
                     }
                 }
-            
+
                 $total[$cls][$word] = $wordCount;
                 $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
                 $sum[$cls] = $wordSum->jumlah_term;
@@ -144,7 +144,12 @@ class ControllerAnalisa extends Controller
         $i = 0;
         foreach($class['class'] as $cls)
         {
-            $Count = DataTraining::where('kategori',$cls)->count();
+            $Count = DB::table('data_training')
+                        ->join('data_crawling', 'data_training.id_crawling', '=', 'data_crawling.id_crawling')
+                        ->select('kategori')
+                        ->where('kategori', '=', $cls)
+                        ->count();
+            // $Count = DataTraining::where('kategori',$cls)->count();
             $totalCount = DataTraining::count();
             $prior[$cls] = $Count / $totalCount;
         }

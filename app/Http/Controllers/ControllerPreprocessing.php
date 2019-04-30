@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ControllerStemming;
 use App\Models\TwitterStream;
 use App\Models\Stopword;
+use App\Models\DataTraining;
+use App\Models\WordFrequency;
+use App\Models\DataTesting;
 
 class ControllerPreprocessing extends Controller
 {
@@ -19,7 +22,7 @@ class ControllerPreprocessing extends Controller
     {
         $twitter = TwitterStream::all();
         foreach($twitter as $tweet){
-            $preprocessing = $tweet->full_text;
+            $preprocessing = $tweet->tweet;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
             $tokenizing = $this->tokenizing($cleansing);
@@ -27,23 +30,23 @@ class ControllerPreprocessing extends Controller
             $stemming = $this->stemming($stopword);
             $data[] = [
                 'case_folding' => [
-                    'screen_name' => $tweet->screen_name,
+                    'screen_name' => $tweet->username,
                     'full_text' => $case_folding
                 ],
                 'cleansing' => [
-                    'screen_name' => $tweet->screen_name,
+                    'screen_name' => $tweet->username,
                     'full_text' => $cleansing
                 ],
                 'tokenizing' => [
-                    'screen_name' => $tweet->screen_name,
+                    'screen_name' => $tweet->username,
                     'full_text' => $tokenizing
                 ],
                 'stopword' => [
-                    'screen_name' => $tweet->screen_name,
+                    'screen_name' => $tweet->username,
                     'full_text' => $stopword
                 ],
                 'stemming' => [
-                    'screen_name' => $tweet->screen_name,
+                    'screen_name' => $tweet->username,
                     'full_text' => $stemming
                 ],
             ];
@@ -110,7 +113,7 @@ class ControllerPreprocessing extends Controller
 
             /* 4. Buang Derivation prefix */
             $value = $stemming->Del_Derivation_Prefix($value);
-
+            
             array_push($term,$value);
         }
         return $term;
@@ -135,9 +138,46 @@ class ControllerPreprocessing extends Controller
         }
    }
 
-   public function store_klasifikasi()
+   public function data_latih()
    {
-       
+        $twitter = TwitterStream::all();
+        foreach($twitter as $tweet => $value){
+            $preprocessing = $value->tweet;
+            $case_folding = $this->case_folding($preprocessing);
+            $cleansing = $this->cleansing($case_folding);
+            $tokenizing = $this->tokenizing($cleansing);
+            $stopword = $this->stopWord($tokenizing);
+            $stemming = $this->stemming($stopword);
+
+            $data_latih = new DataTraining();
+            $data_latih->id_crawling = $value->id_crawling;
+            $data_latih->save();
+
+            for($i=0; $i<count($stemming); $i++){
+                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori]])->count();
+                if ($count == 0) {
+                    $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
+                    $wordFrequency = new WordFrequency();
+                    $wordFrequency->kata = $stemming[$i];
+                    $wordFrequency->kategori = $value->kategori;
+                    $wordFrequency->jumlah = 1;
+                    $wordFrequency->id_training = $id_training->id_training;
+                    $wordFrequency->save();
+                } else {
+                    $wordFrequency = WordFrequency::where('kata',$stemming[$i])->increment('jumlah', 1);
+                }
+            }
+        }
+   }
+
+   public function data_uji()
+   {
+        $twitter = TwitterStream::all();
+        foreach($twitter as $tweet => $value){
+            $data_testing = new DataTesting();
+            $data_testing->id_crawling = $value->id_crawling;
+            $data_testing->save();
+        }
    }
 
 }

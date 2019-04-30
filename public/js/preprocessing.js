@@ -12,7 +12,7 @@ $(document).on('click', '.btn-preprocessing', function (e) {
     var url = $('#url_root').val();
     $('.btn-preprocessing').attr('disabled',true);
     $('.btn-preprocessing i.fa-gear').addClass('fa-spin');
-    var button = '<button class="btn btn-success btn-simpan" value="prediksi-nbc"><i class="fa fa-file-text"></i> Proses Klasifikasi</button>';
+    var button = '<button class="btn btn-success btn-latih" value="data-latih"><i class="fa fa-file-text"></i> Simpan Sebagai Data Latih</button> <button class="btn btn-info btn-uji" value="data-uji"><i class="fa fa-file-text"></i> Simpan Sebagai Data Uji</button>';
     var klasifikasi = $('.btn-simpan');
     $.ajax({
         type: 'POST',
@@ -26,7 +26,7 @@ $(document).on('click', '.btn-preprocessing', function (e) {
             stopword_table(data);
             tokenizing_table(data);
             stemming_table(data);
-            $('.btn-preprocessing').attr('disabled',false);
+            $('.btn-preprocessing').attr('disabled',true);
             $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
             
             if (!klasifikasi.length){
@@ -52,7 +52,8 @@ $(document).on('click', '.btn-preprocessing', function (e) {
     });
 });
 
-$(document).on('click', '.btn-simpan', function (e) {
+//simpan data latih
+$(document).on('click', '.btn-latih', function (e) {
     parameter = $(this).val();
     $.ajaxSetup({
         beforeSend: function (xhr, type) {
@@ -66,7 +67,7 @@ $(document).on('click', '.btn-simpan', function (e) {
     var url = $('#url_root').val();
     
     swal({
-        title: "Anda Yakin Ingin Memproses Klasifikasi?",
+        title: "Anda Yakin Ingin Memproses Data Latih ?",
         text: "",
         icon: "warning",
         buttons: true,
@@ -76,13 +77,63 @@ $(document).on('click', '.btn-simpan', function (e) {
         if (willDelete) {
             $.ajax({
                 type: "POST",
-                url: url + '/klasifikasi',
+                url: url + '/data-latih',
                 success: function (data) {
                     new PNotify({
                         title: 'Sukses !',
                         text: 'Data Berhasi Dihapus',
                         type: 'success'
                     });
+                    // window.location.href = "{{URL::to('restaurants/20')}}"
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                    new PNotify({
+                        title: 'Error !',
+                        text: 'Terdapat Kesalahan Sistem',
+                        type: 'error'
+                    });
+                }
+            });
+        } else {
+            swal.close();
+        }
+      });
+});
+
+//simpan data uji
+$(document).on('click', '.btn-uji', function (e) {
+    parameter = $(this).val();
+    $.ajaxSetup({
+        beforeSend: function (xhr, type) {
+            if (!type.crossDomain) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
+                    'content'));
+            }
+        },
+    });
+    e.preventDefault();
+    var url = $('#url_root').val();
+    
+    swal({
+        title: "Anda Yakin Ingin Memproses Data Uji ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "POST",
+                url: url + '/data-uji',
+                success: function (data) {
+                    new PNotify({
+                        title: 'Sukses !',
+                        text: 'Data Berhasi Dihapus',
+                        type: 'success'
+                    });
+                    // window.location.href = "{{URL::to('restaurants/20')}}"
                 },
                 error: function (data) {
                     console.log('Error:', data);
