@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataTraining;
 use App\Models\WordFrequency;
+use App\Models\Klasifikasi;
 use DB;
 
 class ControllerAnalisa extends Controller
@@ -60,19 +61,55 @@ class ControllerAnalisa extends Controller
         // $this -> train('manchester united juara liga inggris', $this->positif);
         // $this -> train('timnas indonesia gagal juara AFC', $this->positif);
 
-        $category = $this -> classify('chinese chinese chinese tokyo japan');
-        echo $category;
-        // $title = "Data analisa";
-        // $data = TwitterStream::orderBy('id','DESC')->get();
-        // return view('analisa', compact(['title']));
+        // $category[] = $this -> classify('chinese chinese chinese tokyo japan');
+        // $category[] = $this -> classify('tokyo japan macao');
+        // echo json_encode($category);
+        $title = "Data analisa";
+        return view('analisa', compact(['title']));
     }
 
-    public function classify($sentence) 
-    {   
-        $keywordsArray = $this->tokenizing($sentence);
-        $category = $this->decide($keywordsArray);
-        return $category;
+    public function confusion_matrix()
+    {
+        $title = "Data Confusion Matrix";
+        return view('confusion_matrix', compact(['title']));
     }
+
+    public function word_cloud()
+    {
+        $title = "Data Word Cloud";
+        return view('word_cloud', compact(['title']));
+    }
+
+    public function data_cloud()
+    {  
+        $data = DB::table("term_frequency")
+                ->select(DB::raw("REPEAT(CONCAT(kata, ' '), jumlah) as string"))
+                ->get();
+
+        foreach($data as $dt){
+            $string[] = $dt->string;
+        }
+
+        $str = implode(" ", $string);
+        $str = trim(preg_replace('/\s+/', ' ', $str));
+        return $str;
+    }
+
+    public function klasifikasi()
+    {
+        $data =  DB::table('klasifikasi')
+                ->select('prediksi as name',DB::raw('COUNT(*) as y'))
+                ->groupBy('prediksi')
+                ->get();
+        return $data;
+    }
+
+    // public function classify($sentence) 
+    // {   
+    //     $keywordsArray = $this->tokenizing($sentence);
+    //     $category = $this->decide($keywordsArray);
+    //     return $category;
+    // }
 
     // public function train($sentence, $category) 
     // {
@@ -102,72 +139,73 @@ class ControllerAnalisa extends Controller
     //     } 
     // }
 
-    private function decide($keywordsArray) {
-        $spam = $this->positif;
-        $ham = $this->negatif;
-        $class['class'] = [$spam,$ham];
+    // public function decide($keywordsArray) 
+    // {
+    //     $spam = $this->positif;
+    //     $ham = $this->negatif;
+    //     $class['class'] = [$spam,$ham];
 
-        $hitung = 1;
-        // $sql = mysqli_query($conn, "SELECT count(*) as total FROM (SELECT word FROM wordFrequency GROUP by word) as x");
-        // $distinctWords = WordFrequency::select(WordFrequency::selectSub('word','x')->groupBy('word'))->count();
-        $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency GROUP by kata) as x");
-        foreach($distinct as $dst){
-            $distinctWords = $dst->total;
-        }
-        $uniqueWords = $distinctWords;
+    //     $hitung = 1;
+    //     // $sql = mysqli_query($conn, "SELECT count(*) as total FROM (SELECT word FROM wordFrequency GROUP by word) as x");
+    //     // $distinctWords = WordFrequency::select(WordFrequency::selectSub('word','x')->groupBy('word'))->count();
+    //     $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency GROUP by kata) as x");
+    //     foreach($distinct as $dst){
+    //         $distinctWords = $dst->total;
+    //     }
+    //     $uniqueWords = $distinctWords;
 
-        foreach ($keywordsArray as $word) {
+    //     foreach ($keywordsArray as $word) {
 
-            foreach($class['class'] as $cls ){
-                // $sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$cls' ");
-                // $wordCount = mysqli_fetch_assoc($sql);
-                // $wordCount = WordFrequency::where([['word',$word], ['category',$cls]])->first();
-                $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls' ");
-                if($wordC == null){
-                    $wordCount = null;
-                } else {
-                    foreach($wordC as $wC){
-                        $wordCount = $wC->total;
-                    }
-                }
+    //         foreach($class['class'] as $cls ){
+    //             // $sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$cls' ");
+    //             // $wordCount = mysqli_fetch_assoc($sql);
+    //             // $wordCount = WordFrequency::where([['word',$word], ['category',$cls]])->first();
+    //             $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls' ");
+    //             if($wordC == null){
+    //                 $wordCount = null;
+    //             } else {
+    //                 foreach($wordC as $wC){
+    //                     $wordCount = $wC->total;
+    //                 }
+    //             }
 
-                $total[$cls][$word] = $wordCount;
-                $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
-                $sum[$cls] = $wordSum->jumlah_term;
+    //             $total[$cls][$word] = $wordCount;
+    //             $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
+    //             $sum[$cls] = $wordSum->jumlah_term;
                 
-                $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
-                $value[$cls][$word][] = $prob; 
-            }
-        }	
+    //             $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
+    //             $value[$cls][$word][] = $prob; 
+    //         }
+    //     }	
 
-        //cari prior
-        $i = 0;
-        foreach($class['class'] as $cls)
-        {
-            $Count = DB::table('data_training')
-                        ->join('data_crawling', 'data_training.id_crawling', '=', 'data_crawling.id_crawling')
-                        ->select('kategori')
-                        ->where('kategori', '=', $cls)
-                        ->count();
-            // $Count = DataTraining::where('kategori',$cls)->count();
-            $totalCount = DataTraining::count();
-            $prior[$cls] = $Count / $totalCount;
-        }
+    //     //cari prior
+    //     $i = 0;
+    //     foreach($class['class'] as $cls)
+    //     {
+    //         $Count = DB::table('data_training')
+    //                     ->join('data_crawling', 'data_training.id_crawling', '=', 'data_crawling.id_crawling')
+    //                     ->select('kategori')
+    //                     ->where('kategori', '=', $cls)
+    //                     ->count();
+    //         // $Count = DataTraining::where('kategori',$cls)->count();
+    //         $totalCount = DataTraining::count();
+    //         $prior[$cls] = $Count / $totalCount;
+    //     }
 
-        foreach($value as $key => $val){
-            foreach($val as $keys => $vals){
-                $hitung = array_product($val[$keys]);
-                $tam[$key][] = $hitung;
-            }
-            $multiply = array_product($tam[$key]);
-            $final[$key] = $multiply*$prior[$key];
-        }
+    //     foreach($value as $key => $val){
+    //         foreach($val as $keys => $vals){
+    //             $hitung = array_product($val[$keys]);
+    //             $tam[$key][] = $hitung;
+    //         }
+    //         $multiply = array_product($tam[$key]);
+    //         $final[$key] = $multiply*$prior[$key];
+    //     }
         
-        echo json_encode($final); die();
-        arsort($final);
-        $category = key($final);
-        return $category;
-    }
+    //     // echo json_encode($final); die();
+    //     arsort($final);
+    //     $category = key($final);
+    //     return $category;
+    // }
 
     public function tokenizing($string)
     {

@@ -1,7 +1,7 @@
 @extends('template.index')
 
 @section('main')
-{{-- <input id="url" type="hidden" value="{{ \Request::url() }}">
+<input id="url" type="hidden" value="{{ \Request::url() }}">
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
@@ -14,47 +14,108 @@
 </section>
 
 <section class="content">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <form id="frmEmoticon" name="frmEmoticon">
-                        <div class="form-group">
-                            <label class="col-sm-1 col-form-label">Analisa</label>
-                            <div class="col-sm-6">
-                                <input type="text" placeholder="Masukkan Simbol Emoticon" name="emoticon"
-                                    class="form-control">
-                            </div>
-                            <div class="col-sm-5" id="addition_button">
-                                <button class="btn btn-primary btn-save" value="add" type="button"><i
-                                        class="fa fa-save"></i> Simpan</button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="{{ url('analisa') }}">Kalifikasi</a></li>
+                            <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
+                            <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="klasifikasi">
+                                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                <div class="box-body">
-                    <hr>
-                    <table id="table-emoticon" class="table table-striped table-bordered nowrap">
-                        <thead>
-                            <tr>
-                                <th width="30px">
-                                    <center>No.</center>
-                                </th>
-                                <th>
-                                    <center>Analisa</center>
-                                </th>
-                                <th width="150px">
-                                    <center>Action</center>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="analisa-tbody">
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section> --}}
+</section>
 {{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.ajaxSetup({
+            beforeSend: function (xhr, type) {
+                if (!type.crossDomain) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr(
+                        'content'));
+                }
+            },
+        });
+        // Radialize the colors
+        Highcharts.setOptions({
+            colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                return {
+                    radialGradient: {
+                        cx: 0.5,
+                        cy: 0.3,
+                        r: 0.7
+                    },
+                    stops: [
+                        [0, color],
+                        [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                    ]
+                };
+            })
+        });
+
+        var url = $('#url_root').val();
+        $.ajax({
+            type: "GET",
+            url: url + '/data-klasifikasi',
+            success: function (datas) {
+                var i;
+
+                // Build the chart
+                Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Analisis Sentimen Perbankan Indonesia'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.y}</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.y}',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme
+                                        .contrastTextColor) || 'black'
+                                },
+                                connectorColor: 'silver'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Total Sentimen',
+                        data: datas
+                    }]
+                });
+
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                new PNotify({
+                    title: 'Error !',
+                    text: 'Terdapat Kesalahan Sistem',
+                    type: 'error'
+                });
+            }
+        });
+    });
+</script>
 @endsection

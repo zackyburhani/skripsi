@@ -56,19 +56,19 @@
                             @foreach($data as $key)
                             <tr id="del_{{$key->id_crawling}}">
                                 <td align="center">{{$no++."."}}</td>
-                                <td>{{$key->username}}</td>
-                                <?php if($key->kategori == 'positif') { ?>
+                                <td>{{$key->username}}{{$key->kategori}}</td>
+                                <?php if($key->kategori == 'Positif') { ?>
                                     <td style="color:#0074D9"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td> 
-                                <?php } else if($key->kategori == 'negatif') { ?>
+                                <?php } else if($key->kategori == 'Negatif') { ?>
                                     <td style="color:#FF4136"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
                                 <?php } else { ?>
                                     <td style="color:#000000"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
                                 <?php } ?>
                                 <td align="center">
                                     <select class="dropdown form-control" name="klasifikasi" onchange="class_sentiment(this.value)">
-                                        <option style="color:red" <?php if($key->kategori=="netral") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|netral">Netral</option>
-                                        <option <?php if($key->kategori=="positif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|positif|">Positif</option> 
-                                        <option <?php if($key->kategori=="negatif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|negatif|">Negatif</option>                   
+                                        <option <?php if($key->kategori=="Netral") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Netral">Netral</option>
+                                        <option <?php if($key->kategori=="Positif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Positif|">Positif</option> 
+                                        <option <?php if($key->kategori=="Negatif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Negatif|">Negatif</option>                   
                                    </select>
                                 </td>
                                 <td align="center">
@@ -239,9 +239,9 @@ function class_sentiment(model)
                     type: 'success'
                 });
                 tag = "#"+data.id_crawling;
-                if(data.kategori == 'positif'){
+                if(data.kategori == 'Positif'){
                     $(tag).css("color", "#0074D9");
-                } else if(data.kategori == 'negatif'){
+                } else if(data.kategori == 'Negatif'){
                     $(tag).css("color", "#FF4136");
                 } else {
                     $(tag).css("color", "#000000");

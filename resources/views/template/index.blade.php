@@ -51,6 +51,20 @@
     <script type="text/javascript" src="{{'files\assets\js\sweetalert.min.js'}}"></script>
     <!-- pnotify -->
     <script type="text/javascript" src="{{'files\assets\js\pnotify.custom.min.js'}}"></script>
+
+    {{-- pie gradient --}}
+    <script src="{{'Highcharts/code/highcharts.js'}}"></script>
+    <script src="{{'Highcharts/code/modules/exporting.js'}}"></script>
+    <script src="{{'Highcharts/code/modules/export-data.js'}}"></script>
+
+    {{-- word cloud --}}
+    {{-- <script src="{{'Highcharts/code/highcharts.js'}}"></script> --}}
+    <script src="{{'Highcharts/code/modules/wordcloud.js'}}"></script>
+
+    {{-- column drill down --}}
+    <script src="{{'Highcharts/code/modules/data.js'}}"></script>
+    <script src="{{'Highcharts/code/modules/drilldown.js'}}"></script>
+
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -128,6 +142,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/training">
+                            <i class="fa fa-list-alt"></i> <span>Data Training</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/analisa">
                             <i class="fa fa-pie-chart"></i> <span>Analisa Data</span>
                         </a>
@@ -144,10 +163,10 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 2.4.0
+                <b>Universitas Budi Luhur | </b> {{date('Y')}}
             </div>
-            <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-            reserved.
+            <strong> &copy; 1512502707 | Zacky Burhani Hotib</strong>
+
         </footer>
         <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

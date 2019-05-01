@@ -13,7 +13,7 @@ class ControllerCrawlingTwitter extends Controller
     public function index()
     {
         $title = "Data Stream";
-        $data = TwitterStream::orderBy('id_crawling','DESC')->get();
+        $data = TwitterStream::where('proses',"0")->orderBy('id_crawling','DESC')->get();
         return view('crawling', compact(['title','data']));
     }
 
@@ -32,8 +32,8 @@ class ControllerCrawlingTwitter extends Controller
             $twitter->username = $someObject[$i]->user->screen_name;
             $twitter->tweet = $someObject[$i]->full_text;
             $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
-            $twitter->status ="0";
-            $twitter->kategori = "netral";
+            $twitter->proses = "0";
+            $twitter->kategori = "Netral";
             $twitter->save();
         }
         return redirect('/crawling');

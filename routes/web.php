@@ -51,8 +51,15 @@ Route::post('/preprocessing', 'ControllerPreprocessing@store_preprocessing');
 Route::post('/data-latih', 'ControllerPreprocessing@data_latih');
 Route::post('/data-uji', 'ControllerPreprocessing@data_uji');
 
+//training
+Route::get('/training', 'ControllerTraining@index');
+
 // analisa
 Route::get('/analisa', 'ControllerAnalisa@index');
+Route::get('/data-klasifikasi', 'ControllerAnalisa@klasifikasi');
+Route::get('/confusion-matrix', 'ControllerAnalisa@confusion_matrix');
+Route::get('/word-cloud', 'ControllerAnalisa@word_cloud');
+Route::get('/data-cloud', 'ControllerAnalisa@data_cloud');
 
 // Stemming
 // Route::get('/stemming', 'ControllerPreprocessing@stemming');

@@ -21,23 +21,34 @@ $(document).on('click', '.btn-preprocessing', function (e) {
         contentType: false,
         processData: false,
         success: function (data) {
-            casefolding_table(data);
-            cleansing_table(data);
-            stopword_table(data);
-            tokenizing_table(data);
-            stemming_table(data);
-            $('.btn-preprocessing').attr('disabled',true);
-            $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
-            
-            if (!klasifikasi.length){
-                $('.panel-heading').append(button);
+            if(data == 0){
+                new PNotify({
+                    title: 'Warning !',
+                    text: 'Data Tidak Ditemukan',
+                    type: 'warning'
+                });
+                $('.btn-preprocessing').attr('disabled',false);
+                $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
+                return false;    
+            } else {
+                casefolding_table(data);
+                cleansing_table(data);
+                stopword_table(data);
+                tokenizing_table(data);
+                stemming_table(data);
+                $('.btn-preprocessing').attr('disabled',true);
+                $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
+                
+                if (!klasifikasi.length){
+                    $('.panel-heading').append(button);
+                }
+                
+                new PNotify({
+                    title: 'Sukses !',
+                    text: data.length+' Data Berhasil Diproses',
+                    type: 'success'
+                });
             }
-            
-            new PNotify({
-                title: 'Sukses !',
-                text: data.length+' Data Berhasil Diproses',
-                type: 'success'
-            });
         },
         error: function (data) {
             console.log('Error:', data);
@@ -128,12 +139,12 @@ $(document).on('click', '.btn-uji', function (e) {
                 type: "POST",
                 url: url + '/data-uji',
                 success: function (data) {
-                    new PNotify({
-                        title: 'Sukses !',
-                        text: 'Data Berhasi Dihapus',
-                        type: 'success'
-                    });
-                    // window.location.href = "{{URL::to('restaurants/20')}}"
+                    // new PNotify({
+                    //     title: 'Sukses !',
+                    //     text: 'Data Berhasi Dihapus',
+                    //     type: 'success'
+                    // });
+                    window.location.href = "/analisa";
                 },
                 error: function (data) {
                     console.log('Error:', data);

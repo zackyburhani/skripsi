@@ -7,7 +7,7 @@ class TwitterStream extends Model
 {
     protected $table = 'data_crawling';
     protected $primaryKey = 'id_crawling';
-    protected $fillable = ['id_crawling','username','tweet_id','tweet','tgl_tweet','status','kategori'];
+    protected $fillable = ['id_crawling','username','tweet_id','tweet','tgl_tweet','status','proses','kategori'];
     public $timestamps = false;
 
     public function data_testing()
