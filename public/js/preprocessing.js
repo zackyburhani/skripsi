@@ -90,12 +90,12 @@ $(document).on('click', '.btn-latih', function (e) {
                 type: "POST",
                 url: url + '/data-latih',
                 success: function (data) {
-                    new PNotify({
-                        title: 'Sukses !',
-                        text: 'Data Berhasi Dihapus',
-                        type: 'success'
-                    });
-                    // window.location.href = "{{URL::to('restaurants/20')}}"
+                    // new PNotify({
+                    //     title: 'Sukses !',
+                    //     text: 'Data Berhasi Dihapus',
+                    //     type: 'success'
+                    // });
+                    window.location.href = "/training";
                 },
                 error: function (data) {
                     console.log('Error:', data);

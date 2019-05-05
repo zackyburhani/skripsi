@@ -7,6 +7,7 @@ use Twitter;
 use App\Models\TwitterStream;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
+use App\Exceptions\Handler;
 
 class ControllerCrawlingTwitter extends Controller
 {
@@ -41,10 +42,11 @@ class ControllerCrawlingTwitter extends Controller
 
     public function export($format)
     {
+        $name = 'data_crawling_'.Carbon::now()->format('d_m_Y');
         if($format == 'xlsx'){
-            return Excel::create('data_crawling', function($excel) {
+            return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
-                    $twitter = TwitterStream::all();
+                    $twitter = TwitterStream::where('proses',"0")->get();
                     if($twitter == ""){
                         return response()->json(null);
                     }
@@ -53,35 +55,33 @@ class ControllerCrawlingTwitter extends Controller
                         
                         $cetak[] = [
                             'No' => $i++,
-                            'id' => $key->id_crawling,
+                            'tgl_tweet' => Carbon::parse($key->tgl_tweet)->format('d-m-Y'),
                             'tweet_id' => $key->tweet_id,
                             'username' => $key->username,
                             'tweet' => $key->tweet,
-                            'tgl_tweet' => $key->tgl_tweet,
                             'label' =>''
                         ];
                     }
     
-                    $sheet->cells('A1:G1', function ($cells) {
+                    $sheet->cells('A1:F1', function ($cells) {
                         $cells->setBackground('#ffcc00');
                         $cells->setAlignment('center');
                     });
                     $sheet->setWidth(array(
                         'A' => 5,
-                        'B' => 7,
-                        'C' => 25,
+                        'B' => 10,
+                        'C' => 20,
                         'D' => 20,
                         'E' => 250,
-                        'F' => 10,
-                        'G' => 10
+                        'F' => 10
                     ));
                     $sheet->fromModel($cetak);
                 });
             })->download($format);
         } else {
-            return Excel::create('data_crawling', function($excel) {
+            return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
-                    $twitter = TwitterStream::all();
+                    $twitter = TwitterStream::where('proses',"0")->get();
                     if($twitter == ""){
                         return response()->json(null);
                     }

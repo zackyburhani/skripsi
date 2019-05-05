@@ -20,7 +20,8 @@
                 <div class="col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="{{ url('analisa') }}">Kalifikasi</a></li>
+                            <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
+                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
                             <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
                             <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
                         </ul>

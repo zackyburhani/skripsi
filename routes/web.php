@@ -21,13 +21,13 @@ Route::post('/upload-crawling', 'ControllerCrawlingTwitter@upload')->name('uploa
 Route::delete('/crawling/{crawling}','ControllerCrawlingTwitter@destroy_crawling');
 Route::put('/crawling/{crawling}','ControllerCrawlingTwitter@update_crawling');
 
-//singkatan
-Route::get('/singkatan', 'ControllerKosaKata@singkatan');
-Route::post('/singkatan','ControllerKosaKata@store_singkatan');
-Route::get('/singkatan_all','ControllerKosaKata@all_singkatan');
-Route::get('/singkatan/{singkatan}','ControllerKosaKata@get_singkatan');
-Route::put('/singkatan/{singkatan}','ControllerKosaKata@update_singkatan');
-Route::delete('/singkatan/{singkatan}','ControllerKosaKata@delete_singkatan');
+//kata_dasar
+Route::get('/kata-dasar', 'ControllerKosaKata@kata_dasar');
+Route::post('/kata-dasar','ControllerKosaKata@store_kata_dasar');
+Route::get('/kata-dasar-all','ControllerKosaKata@all_kata_dasar');
+Route::get('/kata-dasar/{kata_dasar}','ControllerKosaKata@get_kata_dasar');
+Route::put('/kata-dasar/{kata_dasar}','ControllerKosaKata@update_kata_dasar');
+Route::delete('/kata-dasar/{kata_dasar}','ControllerKosaKata@delete_kata_dasar');
 
 //emoticon
 Route::get('/emoticon', 'ControllerKosaKata@emoticon');
@@ -59,8 +59,10 @@ Route::get('/analisa', 'ControllerAnalisa@index');
 Route::get('/data-klasifikasi', 'ControllerAnalisa@klasifikasi');
 Route::get('/confusion-matrix', 'ControllerAnalisa@confusion_matrix');
 Route::get('/word-cloud', 'ControllerAnalisa@word_cloud');
-Route::get('/data-cloud', 'ControllerAnalisa@data_cloud');
+Route::get('/data-cloud/{data}', 'ControllerAnalisa@data_cloud');
+Route::get('/prediksi-sentimen', 'ControllerAnalisa@prediksi');
+Route::get('/data-sentimen/{data-sentimen}', 'ControllerAnalisa@data_prediksi');
 
 // Stemming
-// Route::get('/stemming', 'ControllerPreprocessing@stemming');
-// Route::post('/stemming', 'ControllerPreprocessing@stemming_post');
+// Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');
+// Route::post('/stemming', 'ControllerPreprocessing@stemming');

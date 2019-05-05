@@ -131,8 +131,7 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="/emoticon"><i class="fa fa-circle-o"></i> Emoticon</a></li>
-                            <li><a href="/singkatan"><i class="fa fa-circle-o"></i> Singkatan</a></li>
+                            <li><a href="/kata-dasar"><i class="fa fa-circle-o"></i> Kata Dasar</a></li>
                             <li><a href="/stopword"><i class="fa fa-circle-o"></i> Stopwords</a></li>
                         </ul>
                     </li>

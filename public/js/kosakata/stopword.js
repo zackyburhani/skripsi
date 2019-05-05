@@ -59,6 +59,7 @@ $(document).on('click','.delete-stopword',function(){
                         text: 'Data Berhasi Dihapus',
                         type: 'success'
                     });
+                    $('#frmStopword').trigger("reset");
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -146,7 +147,7 @@ $(document).on('click','.btn-update',function(e) {
                 type: 'success'
             });
             stopword_table();
-            $('#frmstopword').trigger("reset");
+            $('#frmStopword').trigger("reset");
             $('#button-update').remove();
             $('.btn-save').show();
         },

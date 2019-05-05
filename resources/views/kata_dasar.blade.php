@@ -7,12 +7,12 @@
 <section class="content-header">
     <h1>
         <i class="fa fa-align-justify"></i>
-        Kata Singkatan
+        Kata Dasar
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-file-text"></i> Kosa Kata</a></li>
-        <li><a href="/emoticon"><i class="fa fa-align-justify"></i> Kata Singkatan</a></li>
+        <li><a href="/emoticon"><i class="fa fa-align-justify"></i> Kata Dasar</a></li>
     </ol>
 </section>
 
@@ -22,18 +22,18 @@
             <div class="box box-info">
                 <div class="box-header">
                     <br>
-                    <form id="frmSingkatan" name="frmSingkatan">
+                    <form id="frmKtDasar" name="frmKtDasar">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Singkatan</label>
+                            <label class="col-sm-2 col-form-label">Kata Dasar</label>
                             <div class="col-sm-6">
-                                <input type="text" name="singkatan" placeholder="Masukkan Kata Singkatan"
+                                <input type="text" name="katadasar" placeholder="Masukkan Kata Dasar"
                                     class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Makna / Arti</label>
+                            <label class="col-sm-2 col-form-label">Tipe Kata Dasar</label>
                             <div class="col-sm-6">
-                                <input type="text" name="makna" placeholder="Masukkan Makna / Arti Singkatan"
+                                <input type="text" name="tipe_katadasar" placeholder="Masukkan Tipe Kata Dasar"
                                     class="form-control">
                             </div>
                         </div>
@@ -47,24 +47,24 @@
                 </div>
                 <div class="box-body">
                     <hr>
-                    <table id="table-singkatan" class="table table-striped table-bordered nowrap">
+                    <table id="table-kata-dasar" class="table table-striped table-bordered nowrap">
                         <thead>
                             <tr>
                                 <th width="40px">
                                     <center>No.</center>
                                 </th>
                                 <th width="100px">
-                                    <center>Singkatan</center>
+                                    <center>Kata Dasar</center>
                                 </th>
                                 <th>
-                                    <center>Makna</center>
+                                    <center>Tipe Kata Dasar</center>
                                 </th>
                                 <th width="100px">
                                     <center>Action</center>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="singkatan-tbody">
+                        <tbody id="katadasar-tbody">
 
                         </tbody>
                     </table>
@@ -73,5 +73,5 @@
         </div>
     </div>
 </section>
-<script src="{{asset('js/kosakata/singkatan.js')}}"></script>
+<script src="{{asset('js/kosakata/kata_dasar.js')}}"></script>
 @endsection

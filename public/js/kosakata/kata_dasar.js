@@ -1,22 +1,22 @@
 var url = $('#url').val();
 var url_root = $('#url_root').val();
-singkatan_table();
-$('#table-singkatan').DataTable();
+kata_dasar_table();
+$('#table-kata-dasar').DataTable();
 
 //display data edit
-$(document).on('click','.edit-singkatan',function(){
-    var singkatan_id = $(this).val();
+$(document).on('click','.edit-kata-dasar',function(){
+    var katadasar_id = $(this).val();
        
-    $.get(url + '/' + singkatan_id, function (data) {
+    $.get(url + '/' + katadasar_id, function (data) {
         //success data
         if( $('#button-update').length ){
-            $('[name="singkatan"]').val(data.singkatan);
-            $('[name="makna"]').val(data.makna);
-            $('.btn-update').val(data.id);
+            $('[name="katadasar"]').val(data.katadasar);
+            $('[name="tipe_katadasar"]').val(data.tipe_katadasar);
+            $('.btn-update').val(data.id_ktdasar);
         } else {
-            $('[name="singkatan"]').val(data.singkatan);
-            $('[name="makna"]').val(data.makna);
-            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id + '"><i class="fa fa-edit"></i> Ubah</button> '+' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
+            $('[name="katadasar"]').val(data.katadasar);
+            $('[name="tipe_katadasar"]').val(data.tipe_katadasar);
+            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id_ktdasar + '"><i class="fa fa-edit"></i> Ubah</button> '+' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
             $('#addition_button').append(button);
         }
         $('.btn-save').hide();
@@ -25,13 +25,13 @@ $(document).on('click','.edit-singkatan',function(){
 
 //close
 $(document).on('click','.btn-close',function(){
-    $('#frmSingkatan').trigger("reset");
+    $('#frmKtDasar').trigger("reset");
     $('#button-update').remove();
     $('.btn-save').show();
 });
 
 //delete item
-$(document).on('click','.delete-singkatan',function(){
+$(document).on('click','.delete-kata-dasar',function(){
     var id = $(this).val();
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
@@ -55,7 +55,7 @@ $(document).on('click','.delete-singkatan',function(){
                 type: "DELETE",
                 url: url + '/' + id,
                 success: function (data) {
-                    singkatan_table();
+                    kata_dasar_table();
                     new PNotify({
                         title: 'Sukses !',
                         text: 'Data Berhasi Dihapus',
@@ -90,10 +90,10 @@ $(".btn-save").click(function (e) {
     });
     e.preventDefault(); 
     var formData = {
-        singkatan: $('[name="singkatan"]').val(),
-        makna: $('[name="makna"]').val(),
+        katadasar: $('[name="katadasar"]').val(),
+        tipe_katadasar: $('[name="tipe_katadasar"]').val(),
     }
-
+    console.log(formData)
     var type = "POST"; //for creating new resource
     var my_url = url;
     $.ajax({
@@ -107,8 +107,8 @@ $(".btn-save").click(function (e) {
                 text: 'Data Berhasi Dimasukkan',
                 type: 'success'
             });
-            singkatan_table();
-            $('#frmSingkatan').trigger("reset");
+            kata_dasar_table();
+            $('#frmKtDasar').trigger("reset");
         },
         error: function (data) {
             console.log('Error:', data);
@@ -132,9 +132,10 @@ $(document).on('click','.btn-update',function(e) {
     });
     e.preventDefault(); 
     var formData = {
-        singkatan: $('[name="singkatan"]').val(),
-        makna: $('[name="makna"]').val(),
+        katadasar: $('[name="katadasar"]').val(),
+        tipe_katadasar: $('[name="tipe_katadasar"]').val(),
     }
+
     var type = "PUT";
     var id = $(this).val();
     $.ajax({
@@ -148,8 +149,8 @@ $(document).on('click','.btn-update',function(e) {
                 text: 'Data Berhasi Diubah',
                 type: 'success'
             });
-            singkatan_table();
-            $('#frmSingkatan').trigger("reset");
+            kata_dasar_table();
+            $('#frmKtDasar').trigger("reset");
             $('#button-update').remove();
             $('.btn-save').show();
         },
@@ -164,7 +165,7 @@ $(document).on('click','.btn-update',function(e) {
     });
 });
 
-function singkatan_table()
+function kata_dasar_table()
 {
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
@@ -175,7 +176,7 @@ function singkatan_table()
     });
     $.ajax({
         type  : 'get',
-        url   : url_root + "/singkatan_all",
+        url   : url_root + "/kata-dasar-all",
         async : false,
         dataType : 'json',
         success : function(data){
@@ -186,15 +187,15 @@ function singkatan_table()
                 html += 
                 '<tr>'+
                     '<td align="center">'+ no++ +'.'+'</td>'+
-                    '<td align="center">'+data[i].singkatan+'</td>'+
-                    '<td align="center">'+data[i].makna+'</td>'+
+                    '<td align="center">'+data[i].katadasar+'</td>'+
+                    '<td align="center">'+data[i].tipe_katadasar+'</td>'+
                     '<td style="text-align:center;">'+
-                      '<button class="btn btn-warning edit-singkatan" value="' + data[i].id + '">Pilih</button>'+' '+
-                      '<button class="btn btn-danger btn-delete delete-singkatan" value="' + data[i].id + '">Hapus</button></td></tr>'+
+                      '<button class="btn btn-warning edit-kata-dasar" value="' + data[i].id_ktdasar + '">Pilih</button>'+' '+
+                      '<button class="btn btn-danger btn-delete delete-kata-dasar" value="' + data[i].id_ktdasar + '">Hapus</button></td></tr>'+
                     '</td>'+
                 '</tr>';
             }
-            $('#singkatan-tbody').html(html);
+            $('#katadasar-tbody').html(html);
         },
         error: function (data) {
             console.log('Error:', data);

@@ -32,7 +32,7 @@
                         </div> 
                         <div class="col-sm-2">
                             <p> <i class="fa fa-serch"></i></p>
-                            <input type="number" name="count" class="form-control" placeholder="Jumlah">
+                            <input type="number" name="count" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="form-control" placeholder="Jumlah">
                         </div>                
                         <div class="col-sm-2">
                             <p> <i class="fa fa-serch"></i></p>
@@ -56,7 +56,7 @@
                             @foreach($data as $key)
                             <tr id="del_{{$key->id_crawling}}">
                                 <td align="center">{{$no++."."}}</td>
-                                <td>{{$key->username}}{{$key->kategori}}</td>
+                                <td>{{$key->username}}</td>
                                 <?php if($key->kategori == 'Positif') { ?>
                                     <td style="color:#0074D9"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td> 
                                 <?php } else if($key->kategori == 'Negatif') { ?>

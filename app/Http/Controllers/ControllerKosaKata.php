@@ -3,59 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Singkatan;
+use App\Models\Stemming;
 use App\Models\Emoticon;
 use App\Models\Stopword;
 
 class ControllerKosaKata extends Controller
 {
-    public function singkatan()
+    public function kata_dasar()
     {
-        $title = "Singkatan";
-        return view('singkatan', compact(['title']));
+        $title = "Kata Dasar";
+        return view('kata_dasar', compact(['title']));
     }
 
-    public function all_singkatan()
+    public function all_kata_dasar()
     {
-        $singkatan = Singkatan::orderby('id', 'DESC')->get();
-        return response()->json($singkatan);
+        $kata_dasar = Stemming::orderby('id_ktdasar', 'DESC')->limit(10)->get();
+        return response()->json($kata_dasar);
     }
 
-    public function store_singkatan(Request $request)
+    public function store_kata_dasar(Request $request)
     {
-        $singkatan = Singkatan::create($request->input());
-        return response()->json($singkatan);
+        $kata_dasar = Stemming::create($request->input());
+        return response()->json($kata_dasar);
     }
 
-    public function get_singkatan($id)
+    public function get_kata_dasar($id)
     {
-        $singkatan = Singkatan::find($id);
-        if($singkatan){
-            return response()->json($singkatan);
+        $kata_dasar = Stemming::find($id);
+        if($kata_dasar){
+            return response()->json($kata_dasar);
         } else{
             return response()->json(error);
         }
     }
 
-    public function update_singkatan(Request $request,$id)
+    public function update_kata_dasar(Request $request,$id)
     {
-        $singkatan = Singkatan::find($id);
+        $kata_dasar = Stemming::find($id);
 
-        if($singkatan){
-            $singkatan->singkatan = $request->singkatan;
-            $singkatan->makna = $request->makna;
-            $singkatan->save();
-            return response()->json($singkatan);
+        if($kata_dasar){
+            $kata_dasar->katadasar = $request->katadasar;
+            $kata_dasar->tipe_katadasar = $request->tipe_katadasar;
+            $kata_dasar->save();
+            return response()->json($kata_dasar);
         } else{
             return response()->json(error);
         } 
     }
 
-    public function delete_singkatan($id)
+    public function delete_kata_dasar($id)
     {
-        $singkatan = Singkatan::findOrFail($id);
-        if($singkatan){
-            $singkatan->delete();
+        $kata_dasar = Stemming::findOrFail($id);
+        if($kata_dasar){
+            $kata_dasar->delete();
             return response()->json(true);
         } else{
             return response()->json(error);

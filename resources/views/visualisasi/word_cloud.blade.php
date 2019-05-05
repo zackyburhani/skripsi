@@ -20,13 +20,14 @@
                 <div class="col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li><a href="{{ url('analisa') }}" >Kalifikasi</a></li>
+                            <li><a href="{{ url('analisa') }}" >Klasifikasi</a></li>
+                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
                             <li ><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
                             <li class="active"><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="matriks">
-                                <div id="container"></div>
+                                <div id="container_positif"></div>
                             </div>
                         </div>
                     </div>
@@ -36,7 +37,12 @@
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-            <div id="container_"></div>
+            <div id="container_negatif"></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div id="container_netral"></div>
         </div>
     </div>
 </section>
@@ -52,11 +58,10 @@
                 }
             },
         });
-
         var url = $('#url_root').val();
         $.ajax({
             type: "GET",
-            url: url + '/data-cloud',
+            url: url + '/data-cloud/Positif',
             success: function (string) {
                 var text = string;
                 var lines = text.split(/[,\. ]+/g),
@@ -76,15 +81,104 @@
                         return arr;
                     }, []);
 
-                Highcharts.chart('container', {
+                Highcharts.chart('container_positif', {
                     series: [{
                         type: 'wordcloud',
                         data: data,
                         name: 'Occurrences'
                     }],
                     title: {
-                        text: 'Wordcloud of Lorem Ipsum'
-                    }
+                        text: 'Sentimen Positif'
+                    },
+                    colors: ['#6dd5ed'] 
+                });
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                new PNotify({
+                    title: 'Error !',
+                    text: 'Terdapat Kesalahan Sistem',
+                    type: 'error'
+                });
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: url + '/data-cloud/Negatif',
+            success: function (string) {
+                var text = string;
+                var lines = text.split(/[,\. ]+/g),
+                    data = Highcharts.reduce(lines, function (arr, word) {
+                        var obj = Highcharts.find(arr, function (obj) {
+                            return obj.name === word;
+                        });
+                        if (obj) {
+                            obj.weight += 1;
+                        } else {
+                            obj = {
+                                name: word,
+                                weight: 1
+                            };
+                            arr.push(obj);
+                        }
+                        return arr;
+                    }, []);
+
+                Highcharts.chart('container_negatif', {
+                    series: [{
+                        type: 'wordcloud',
+                        data: data,
+                        name: 'Occurrences'
+                    }],
+                    title: {
+                        text: 'Sentimen Negatif'
+                    },
+                    colors: ['#EB3349'] 
+                });
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                new PNotify({
+                    title: 'Error !',
+                    text: 'Terdapat Kesalahan Sistem',
+                    type: 'error'
+                });
+            }
+        });
+
+        $.ajax({
+            type: "GET",
+            url: url + '/data-cloud/Netral',
+            success: function (string) {
+                var text = string;
+                var lines = text.split(/[,\. ]+/g),
+                    data = Highcharts.reduce(lines, function (arr, word) {
+                        var obj = Highcharts.find(arr, function (obj) {
+                            return obj.name === word;
+                        });
+                        if (obj) {
+                            obj.weight += 1;
+                        } else {
+                            obj = {
+                                name: word,
+                                weight: 1
+                            };
+                            arr.push(obj);
+                        }
+                        return arr;
+                    }, []);
+
+                Highcharts.chart('container_netral', {
+                    series: [{
+                        type: 'wordcloud',
+                        data: data,
+                        name: 'Occurrences'
+                    }],
+                    title: {
+                        text: 'Sentimen Netral'
+                    },
+                    colors: ['#2C5364'] 
                 });
             },
             error: function (data) {
