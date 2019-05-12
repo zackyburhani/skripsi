@@ -3,91 +3,100 @@ var url_root = $('#url_root').val();
 stopword_table();
 $('#table-stopword').DataTable();
 //display data edit
-$(document).on('click','.edit-stopword',function(){
+$(document).on('click', '.edit-stopword', function () {
     var stopword_id = $(this).val();
-       
+
     $.get(url + '/' + stopword_id, function (data) {
         //success data
-        if( $('#button-update').length ){
+        if ($('#button-update').length) {
             $('[name="stopword"]').val(data.stopword);
             $('.btn-update').val(data.id);
         } else {
             $('[name="stopword"]').val(data.stopword);
-            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id + '"><i class="fa fa-edit"></i> Ubah</button> '+' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
+            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id + '"><i class="fa fa-edit"></i> Ubah</button> ' + ' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
             $('#addition_button').append(button);
         }
         $('.btn-save').hide();
-    }) 
+    })
 });
 
 //close
-$(document).on('click','.btn-close',function(){
+$(document).on('click', '.btn-close', function () {
     $('#frmStopword').trigger("reset");
     $('#button-update').remove();
     $('.btn-save').show();
 });
 
 //delete item
-$(document).on('click','.delete-stopword',function(){
+$(document).on('click', '.delete-stopword', function () {
     var id = $(this).val();
     $.ajaxSetup({
-        beforeSend: function(xhr, type) {
+        beforeSend: function (xhr, type) {
             if (!type.crossDomain) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             }
         },
     });
 
-
     swal({
-        title: "Anda Yakin Ingin Menghapus Data?",
-        text: "",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-            $.ajax({
-                type: "DELETE",
-                url: url + '/' + id,
-                success: function (data) {
-                    $('#frmStopword').trigger("reset");
-                    stopword_table();
-                    new PNotify({
-                        title: 'Sukses !',
-                        text: 'Data Berhasi Dihapus',
-                        type: 'success'
-                    });
-                    $('#frmStopword').trigger("reset");
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                    new PNotify({
-                        title: 'Error !',
-                        text: 'Terdapat Kesalahan Sistem',
-                        type: 'error'
-                    });
-                }
-            });
-        } else {
-            swal.close();
-        }
-      });
+            title: "Anda Yakin Ingin Menghapus Data?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url + '/' + id,
+                    success: function (data) {
+                        $('#frmStopword').trigger("reset");
+                        stopword_table();
+                        new PNotify({
+                            title: 'Sukses !',
+                            text: 'Data Berhasi Dihapus',
+                            type: 'success'
+                        });
+                        $('#frmStopword').trigger("reset");
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                        new PNotify({
+                            title: 'Error !',
+                            text: 'Terdapat Kesalahan Sistem',
+                            type: 'error'
+                        });
+                    }
+                });
+            } else {
+                swal.close();
+            }
+        });
 
-    
+
 });
 
 //create new item
 $(".btn-save").click(function (e) {
+
+    if($('[name="stopword"]').val() == ""){
+        new PNotify({
+            title: 'Gagal !',
+            text: 'Form Tidak Boleh Kosong',
+            type: 'warning'
+        });
+        return false;
+    }
+
     $.ajaxSetup({
-        beforeSend: function(xhr, type) {
+        beforeSend: function (xhr, type) {
             if (!type.crossDomain) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             }
         },
     });
-    e.preventDefault(); 
+    e.preventDefault();
     var formData = {
         stopword: $('[name="stopword"]').val(),
     }
@@ -121,15 +130,25 @@ $(".btn-save").click(function (e) {
 });
 
 //update new item
-$(document).on('click','.btn-update',function(e) {
+$(document).on('click', '.btn-update', function (e) {
+
+    if($('[name="stopword"]').val() == ""){
+        new PNotify({
+            title: 'Gagal !',
+            text: 'Form Tidak Boleh Kosong',
+            type: 'warning'
+        });
+        return false;
+    }
+
     $.ajaxSetup({
-        beforeSend: function(xhr, type) {
+        beforeSend: function (xhr, type) {
             if (!type.crossDomain) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             }
         },
     });
-    e.preventDefault(); 
+    e.preventDefault();
     var formData = {
         stopword: $('[name="stopword"]').val(),
     }
@@ -162,34 +181,33 @@ $(document).on('click','.btn-update',function(e) {
     });
 });
 
-function stopword_table()
-{
+function stopword_table() {
     $.ajaxSetup({
-        beforeSend: function(xhr, type) {
+        beforeSend: function (xhr, type) {
             if (!type.crossDomain) {
                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
             }
         },
     });
     $.ajax({
-        type  : 'get',
-        url   : url_root + "/stopword_all",
-        async : false,
-        dataType : 'json',
-        success : function(data){
+        type: 'get',
+        url: url_root + "/stopword_all",
+        async: false,
+        dataType: 'json',
+        success: function (data) {
             var html = '';
             var i;
             no = 1;
-            for(i=0; i<data.length; i++){
-                html += 
-                '<tr>'+
-                    '<td align="center">'+ no++ +'.'+'</td>'+
-                    '<td align="center">'+data[i].stopword+'</td>'+
-                    '<td style="text-align:center;">'+
-                      '<button class="btn btn-warning edit-stopword" value="' + data[i].id + '">Pilih</button>'+' '+
-                      '<button class="btn btn-danger btn-delete delete-stopword" value="' + data[i].id + '">Hapus</button></td></tr>'+
-                    '</td>'+
-                '</tr>';
+            for (i = 0; i < data.length; i++) {
+                html +=
+                    '<tr>' +
+                    '<td align="center">' + no++ + '.' + '</td>' +
+                    '<td align="center">' + data[i].stopword + '</td>' +
+                    '<td style="text-align:center;">' +
+                    '<button class="btn btn-warning edit-stopword" value="' + data[i].id + '">Pilih</button>' + ' ' +
+                    '<button class="btn btn-danger btn-delete delete-stopword" value="' + data[i].id + '">Hapus</button></td></tr>' +
+                    '</td>' +
+                    '</tr>';
             }
             $('#stopword-tbody').html(html);
         },

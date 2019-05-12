@@ -98,7 +98,8 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            <label
+                                style="color: white; font-size: 16px; margin-top: 15px; margin-right: 15px;"><?php echo App\Models\TwitterStream::getTanggal(); ?></label>
                         </li>
                     </ul>
                 </div>

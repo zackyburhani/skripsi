@@ -12,7 +12,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-file-text"></i> Kosa Kata</a></li>
-        <li><a href="/emoticon"><i class="fa fa-align-justify"></i> Kata Dasar</a></li>
+        <li><a href="/kata-dasar"><i class="fa fa-align-justify"></i> Kata Dasar</a></li>
     </ol>
 </section>
 

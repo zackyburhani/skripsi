@@ -81,6 +81,16 @@ $(document).on('click','.delete-kata-dasar',function(){
 
 //create new item
 $(".btn-save").click(function (e) {
+
+    if($('[name="katadasar"]').val() == "" || $('[name="tipe_katadasar"]').val() == ""){
+        new PNotify({
+            title: 'Gagal !',
+            text: 'Form Tidak Boleh Kosong',
+            type: 'warning'
+        });
+        return false;
+    }
+
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
             if (!type.crossDomain) {
@@ -93,7 +103,6 @@ $(".btn-save").click(function (e) {
         katadasar: $('[name="katadasar"]').val(),
         tipe_katadasar: $('[name="tipe_katadasar"]').val(),
     }
-    console.log(formData)
     var type = "POST"; //for creating new resource
     var my_url = url;
     $.ajax({
@@ -123,6 +132,16 @@ $(".btn-save").click(function (e) {
 
 //update new item
 $(document).on('click','.btn-update',function(e) {
+
+    if($('[name="katadasar"]').val() == "" || $('[name="tipe_katadasar"]').val() == ""){
+        new PNotify({
+            title: 'Gagal !',
+            text: 'Form Tidak Boleh Kosong',
+            type: 'warning'
+        });
+        return false;
+    }
+
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
             if (!type.crossDomain) {

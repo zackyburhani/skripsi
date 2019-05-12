@@ -14,30 +14,36 @@ class ControllerCrawlingTwitter extends Controller
     public function index()
     {
         $title = "Data Stream";
-        $data = TwitterStream::where('proses',"0")->orderBy('id_crawling','DESC')->get();
+        // $data = TwitterStream::where('proses',"0")->orderBy('id_crawling','DESC')->get();
+        $data = TwitterStream::orderBy('id_crawling','DESC')->get();
         return view('crawling', compact(['title','data']));
     }
 
     public function crawling_data(Request $request)
     {
-        $keywords = $request->input('keywords');
-        $count = $request->input('count');
-        $tweets = Twitter::getSearch(['count' => $count, 'q' => $keywords,'tweet_mode' => 'extended', 'format' => 'json']);
-        $someObject = json_decode($tweets);
-        $data = $someObject->statuses;
-        $konvert = json_encode($data); 
-        $someObject = json_decode($konvert);
-        for($i=0; $i<count($someObject) ; $i++) {
-            $twitter = new TwitterStream;
-            $twitter->tweet_id = $someObject[$i]->id;
-            $twitter->username = $someObject[$i]->user->screen_name;
-            $twitter->tweet = $someObject[$i]->full_text;
-            $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
-            $twitter->proses = "0";
-            $twitter->kategori = "Netral";
-            $twitter->save();
+        try {
+            $keywords = $request->input('keywords');
+            $count = $request->input('count');
+            $tweets = Twitter::getSearch(['count' => $count, 'q' => $keywords,'tweet_mode' => 'extended', 'format' => 'json']);
+            $someObject = json_decode($tweets);
+            $data = $someObject->statuses;
+            $konvert = json_encode($data); 
+            $someObject = json_decode($konvert);
+            for($i=0; $i<count($someObject) ; $i++) {
+                $twitter = new TwitterStream;
+                $twitter->tweet_id = $someObject[$i]->id;
+                $twitter->username = $someObject[$i]->user->screen_name;
+                $twitter->tweet = $someObject[$i]->full_text;
+                $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
+                $twitter->proses = "0";
+                $twitter->kategori = "Netral";
+                $twitter->save();
+            }
+            return redirect('/crawling')->with('sukses', 'Data Berhasil Diproses !');;
         }
-        return redirect('/crawling');
+        catch (\Exception $e) {
+            return redirect('/crawling')->with('status', 'Tidak Dapat Memproses Data !');
+        }
     }
 
     public function export($format)
@@ -46,7 +52,8 @@ class ControllerCrawlingTwitter extends Controller
         if($format == 'xlsx'){
             return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
-                    $twitter = TwitterStream::where('proses',"0")->get();
+                    // $twitter = TwitterStream::where('proses',"0")->get();
+                    $twitter = TwitterStream::all();
                     if($twitter == ""){
                         return response()->json(null);
                     }
@@ -59,7 +66,7 @@ class ControllerCrawlingTwitter extends Controller
                             'tweet_id' => $key->tweet_id,
                             'username' => $key->username,
                             'tweet' => $key->tweet,
-                            'label' =>''
+                            'label' =>$key->kategori
                         ];
                     }
     
@@ -81,16 +88,17 @@ class ControllerCrawlingTwitter extends Controller
         } else {
             return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
-                    $twitter = TwitterStream::where('proses',"0")->get();
+                    // $twitter = TwitterStream::where('proses',"0")->get();
+                    $twitter = TwitterStream::all();
                     if($twitter == ""){
                         return response()->json(null);
                     }
                     foreach ($twitter as $key) {
                         
                         $cetak[] = [
-                            "full_text" => $key->full_text,
-                            // ";" => ";",
-                            // "Class" => $key->class,
+                            "tweet" => $key->tweet,
+                            ";" => ";",
+                            "label" => $key->kategori,
                         ];
                     }
                     $sheet->fromModel($cetak);
@@ -107,14 +115,25 @@ class ControllerCrawlingTwitter extends Controller
         if(empty($data)){
             return response()->json(error);
         }
-
         foreach($data as $excel){
-            if($excel->ubah_class != ""){
-                $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
-            }
+            // if($excel->ubah_class != ""){
+            //     $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
+            // }
+            $twitter = new TwitterStream();
+            $twitter->username = $excel->username;
+            $twitter->tweet_id = $excel->tweet_id;
+            $twitter->tgl_tweet = Carbon::parse($excel->tgl_tweet)->format('Y-m-d');
+            $twitter->status = null;
+            $twitter->proses = "0";
+            $twitter->kategori = $excel->label;
+            $twitter->tweet = $excel->tweet;
+            $upload = $twitter->save();
         }
-
-        return $upload;
+        if($upload){
+            return response()->json(true);
+        } else {
+            return response()->json(error);
+        }
     }
 
     //useless 
@@ -147,5 +166,12 @@ class ControllerCrawlingTwitter extends Controller
         } else{
             return response()->json(error);
         } 
+    }
+
+    public function refresh_crawling()
+    {
+        $crawling = TwitterStream::query()->delete();
+        return redirect('/crawling');
+        
     }
 }

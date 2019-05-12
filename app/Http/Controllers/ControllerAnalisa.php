@@ -70,55 +70,68 @@ class ControllerAnalisa extends Controller
         // $category[] = $this -> classify('tokyo japan macao');
         // echo json_encode($category);
         $title = "Data analisa";
-        return view('visualisasi.analisa', compact(['title']));
+        $testing = DataTesting::count();
+        return view('visualisasi.analisa', compact(['title','testing']));
     }
 
     public function confusion_matrix()
     {
-        $title = "Data Confusion Matrix";
-        // $confusionMatrix = new ControllerConfusionMatrix();
 
-        // $actualLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TEPAT'];
-        // $predictedLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TERLAMBAT'];
+        try {
 
-        $klasifikasi = Klasifikasi::all();
+            $title = "Data Confusion Matrix";
+            $testing_data = DataTesting::count();
+            // $confusionMatrix = new ControllerConfusionMatrix();
 
-        foreach($klasifikasi as $kelas){
-            $predictedLabels[] = $kelas->prediksi;
-            $testing = DataTesting::where('id_testing',$kelas->id_testing)->first();
-            $twitter = TwitterStream::where('id_crawling',$testing->id_crawling)->first();
-            $actualLabels[] = $twitter->kategori;
+            // $actualLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TEPAT'];
+            // $predictedLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TERLAMBAT'];
+
+            $klasifikasi = Klasifikasi::all();
+
+            foreach($klasifikasi as $kelas){
+                $predictedLabels[] = $kelas->prediksi;
+                $testing = DataTesting::where('id_testing',$kelas->id_testing)->first();
+                $twitter = TwitterStream::where('id_crawling',$testing->id_crawling)->first();
+                $actualLabels[] = $twitter->kategori;
+            }
+
+            $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels);
+            // echo $confusionMatrix = Accuracy::score($actualLabels, $predictedLabels);
+            // return $confusionMatrix;
+
+            $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
+            $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
+            $recall = $getPrecision->getRecall();
+            $precision = $getPrecision->getPrecision();
+
+            $th = [$this->negatif,$this->netral,$this->positif];
+            $tr = [$this->negatif,$this->positif,$this->netral];
+            $matrix = array();
+
+            foreach($th as $index_th => $value){
+                $matrix[$value] = $confusionMatrix[$index_th];
+            }
+
+            return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','tr','matrix','recall','precision','accuracy']));
+    
         }
-
-        $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels);
-        // echo $confusionMatrix = Accuracy::score($actualLabels, $predictedLabels);
-        // return $confusionMatrix;
-
-        $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
-        $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
-        $recall = $getPrecision->getRecall();
-        $precision = $getPrecision->getPrecision();
-
-        $th = [$this->negatif,$this->netral,$this->positif];
-        $tr = [$this->negatif,$this->positif,$this->netral];
-        $matrix = array();
-
-        foreach($th as $index_th => $value){
-            $matrix[$value] = $confusionMatrix[$index_th];
+        catch (\Exception $e) {
+            return view('visualisasi.confusion_matrix',compact(['title','testing_data']));
         }
-
-        return view('visualisasi.confusion_matrix', compact(['title','confusionMatrix','th','tr','matrix','recall','precision','accuracy']));
     }
 
     public function word_cloud()
     {
         $title = "Data Word Cloud";
-        return view('visualisasi.word_cloud', compact(['title']));
+        $testing_data = DataTesting::count();
+        return view('visualisasi.word_cloud', compact(['title','testing_data']));
     }
 
     public function prediksi()
     {
+        $collection = array();
         $title = "Data Prediksi Sentimen";
+        $testing_data = DataTesting::count();
         $klasifikasi = DataTesting::with(['data_crawling','klasifikasi'])->get();
         foreach($klasifikasi as $class){
             $prediksi = Klasifikasi::where('id_testing',$class->id_testing)->first();
@@ -132,12 +145,11 @@ class ControllerAnalisa extends Controller
             ];
         }
         
-        return view('visualisasi.prediksi', compact(['title','collection','hasil']));
+        return view('visualisasi.prediksi', compact(['title','collection','testing_data','hasil']));
     }
 
     public function data_prediksi($id)
     {   
-        echo $id; die();
         $hasil = Hasil::where('id_testing',$id)->get();
         return $hasil;
     }
@@ -172,7 +184,18 @@ class ControllerAnalisa extends Controller
                 ->select('prediksi as name',DB::raw('COUNT(*) as y'))
                 ->groupBy('prediksi')
                 ->get();
-        return $data;
+        
+        $sum = Klasifikasi::count();
+        
+        $tampung = array();
+        foreach($data as $val){
+            $tampung[] = [
+                'name' => $val->name,
+                'persentase' => $val->y,
+                'y' => round($val->y/$sum*100,2)
+            ];
+        }
+        return $tampung;
     }
 
     // public function classify($sentence) 

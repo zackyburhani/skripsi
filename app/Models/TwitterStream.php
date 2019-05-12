@@ -2,6 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+\Carbon\Carbon::setLocale('id');
 
 class TwitterStream extends Model
 {
@@ -20,4 +22,9 @@ class TwitterStream extends Model
         return $this->hasOne('App\Models\DataTraining','id_crawling','id_crawling');
     }
     
+    public static function getTanggal() 
+    {   
+        $hasil = Carbon::now()->format('l, d F Y');
+        return $hasil;
+    }
 }

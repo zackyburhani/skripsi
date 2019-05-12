@@ -20,6 +20,7 @@ Route::get('/export-crawling/{export}', 'ControllerCrawlingTwitter@export')->nam
 Route::post('/upload-crawling', 'ControllerCrawlingTwitter@upload')->name('upload-crawling');
 Route::delete('/crawling/{crawling}','ControllerCrawlingTwitter@destroy_crawling');
 Route::put('/crawling/{crawling}','ControllerCrawlingTwitter@update_crawling');
+Route::get('/refresh-crawling','ControllerCrawlingTwitter@refresh_crawling');
 
 //kata_dasar
 Route::get('/kata-dasar', 'ControllerKosaKata@kata_dasar');
@@ -53,6 +54,7 @@ Route::post('/data-uji', 'ControllerPreprocessing@data_uji');
 
 //training
 Route::get('/training', 'ControllerTraining@index');
+Route::get('/hapus-training/{training}', 'ControllerTraining@hapus_training');
 
 // analisa
 Route::get('/analisa', 'ControllerAnalisa@index');

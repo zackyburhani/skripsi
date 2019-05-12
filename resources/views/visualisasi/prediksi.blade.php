@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-users"></i> Prediksi Sentimen
+        <i class="fa fa-pie-chart"></i> Analisa Data
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -13,6 +13,15 @@
     </ol>
 </section>
 
+@if($testing_data == 0)
+<section class="content">
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
+        </div>
+    </div>           
+</section>
+@else
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -70,6 +79,7 @@
         </div>
     </div>
 </section>
+@endif
 
 <!-- Modal -->
 @foreach($collection as $key)

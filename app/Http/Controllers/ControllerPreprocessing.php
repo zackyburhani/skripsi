@@ -25,6 +25,7 @@ class ControllerPreprocessing extends Controller
     public function store_preprocessing()
     {
         $twitter = TwitterStream::where('proses',"0")->get();
+        $data_training = DataTraining::count();
         if(count($twitter) == 0){
             return response()->json(0);
         }
@@ -56,6 +57,7 @@ class ControllerPreprocessing extends Controller
                     'screen_name' => $tweet->username,
                     'full_text' => $stemming
                 ],
+                'training' => $data_training,
             ];
         }
         // return $data;

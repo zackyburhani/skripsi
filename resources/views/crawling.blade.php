@@ -5,15 +5,25 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        Data Stream
+        Data Crawling
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/crawling"><i class="fa fa-twitter"></i> Crawling Data Twitter</a></li>
+        <li><a href="/crawling"><i class="fa fa-twitter"></i>Twitter Crawling</a></li>
     </ol>
 </section>
 
 <section class="content">
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('sukses'))
+        <div class="alert alert-success">
+            {{ session('sukses') }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -21,6 +31,7 @@
                     <button class="btn btn-success btn-export" value="xlsx"><i class="fa fa-file-excel-o"></i> Export XLSX</button>
                     <button class="btn btn-success btn-export" value="csv"><i class="fa fa-file-o"></i> Export CSV</button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Import XLSX</button>
+                    <button class="btn pull-right btn-danger btn-refresh" value="xlsx"><i class="fa fa-recycle"></i> Bersihkan Data</button>
                 </div>
                 <div class="panel-body">
                 <form method="post" action="{{ route('crawling.crawling_data') }}">
@@ -124,6 +135,24 @@ $(document).on('click','.btn-export',function(e) {
     parameter = $(this).val();
     window.location.href = url + '/export-crawling/' + parameter;
 });
+
+$(document).on('click','.btn-refresh',function(e) {
+    var url = $('#url_root').val();
+    swal({
+        title: "Anda Yakin Ingin Membersihkan Data ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url + '/refresh-crawling';
+        } else {
+            swal.close();
+        }
+      });
+});
     
 $('#frmUpload').submit( function(e) {
     $.ajaxSetup({
@@ -134,6 +163,7 @@ $('#frmUpload').submit( function(e) {
         },
     });
     e.preventDefault();
+    var url_param = $('#url').val();
     var url = $('#url_root').val();
     var data = new FormData(this); 
     $.ajax({
@@ -144,13 +174,15 @@ $('#frmUpload').submit( function(e) {
         contentType: false,
         processData: false,
         success: function(data){
+            console.log(data);
             $('#frmUpload').trigger("reset");
             $('#myModal').modal('hide');
-            new PNotify({
-                title: 'Sukses !',
-                text: 'Data Berhasil Diubah',
-                type: 'success'
-            });
+            // new PNotify({
+            //     title: 'Sukses !',
+            //     text: 'Data Berhasil Diupload',
+            //     type: 'success'
+            // });
+            window.location.href = url_param;
         },
         error: function (data) {
             console.log('Error:', data);
@@ -175,7 +207,7 @@ $(document).on('click','.delete-tweet',function(){
     });
     var url = $('#url').val();
     swal({
-        title: "Anda Yakin Ingin Menghapus Data?",
+        title: "Anda Yakin Ingin Menghapus Data ?",
         text: "",
         icon: "warning",
         buttons: true,
@@ -259,5 +291,9 @@ function class_sentiment(model)
         });
 }
 
+window.setTimeout(function() {
+    $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+    $(".alert-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+}, 3000); 
 </script>
 @endsection

@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-users"></i> Analisa Data
+        <i class="fa fa-pie-chart"></i> Analisa Data
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -13,6 +13,15 @@
     </ol>
 </section>
 
+@if($testing_data == 0)
+<section class="content">
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
+        </div>
+    </div>           
+</section>
+@else
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -46,6 +55,7 @@
         </div>
     </div>
 </section>
+@endif
 {{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
 
 <script type="text/javascript">
@@ -64,7 +74,7 @@
             url: url + '/data-cloud/Positif',
             success: function (string) {
                 var text = string;
-                var lines = text.split(/[,\. ]+/g),
+                var lines = text.split(/[,\. ]+/g);
                     data = Highcharts.reduce(lines, function (arr, word) {
                         var obj = Highcharts.find(arr, function (obj) {
                             return obj.name === word;
@@ -108,7 +118,7 @@
             url: url + '/data-cloud/Negatif',
             success: function (string) {
                 var text = string;
-                var lines = text.split(/[,\. ]+/g),
+                var lines = text.split(/[,\. ]+/g);
                     data = Highcharts.reduce(lines, function (arr, word) {
                         var obj = Highcharts.find(arr, function (obj) {
                             return obj.name === word;
@@ -152,7 +162,7 @@
             url: url + '/data-cloud/Netral',
             success: function (string) {
                 var text = string;
-                var lines = text.split(/[,\. ]+/g),
+                var lines = text.split(/[,\. ]+/g);
                     data = Highcharts.reduce(lines, function (arr, word) {
                         var obj = Highcharts.find(arr, function (obj) {
                             return obj.name === word;

@@ -17,7 +17,7 @@ class ControllerKosaKata extends Controller
 
     public function all_kata_dasar()
     {
-        $kata_dasar = Stemming::orderby('id_ktdasar', 'DESC')->limit(10)->get();
+        $kata_dasar = Stemming::orderby('id_ktdasar', 'DESC')->get();
         return response()->json($kata_dasar);
     }
 

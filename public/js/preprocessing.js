@@ -12,7 +12,8 @@ $(document).on('click', '.btn-preprocessing', function (e) {
     var url = $('#url_root').val();
     $('.btn-preprocessing').attr('disabled',true);
     $('.btn-preprocessing i.fa-gear').addClass('fa-spin');
-    var button = '<button class="btn btn-success btn-latih" value="data-latih"><i class="fa fa-file-text"></i> Simpan Sebagai Data Latih</button> <button class="btn btn-info btn-uji" value="data-uji"><i class="fa fa-file-text"></i> Simpan Sebagai Data Uji</button>';
+    var button1 = '<button class="btn btn-success btn-latih" value="data-latih"><i class="fa fa-file-text"></i> Simpan Sebagai Data Latih</button>';
+    var button2 = ' <button class="btn btn-info btn-uji" value="data-uji"><i class="fa fa-file-text"></i> Simpan Sebagai Data Uji</button>';
     var klasifikasi = $('.btn-simpan');
     $.ajax({
         type: 'POST',
@@ -38,9 +39,14 @@ $(document).on('click', '.btn-preprocessing', function (e) {
                 stemming_table(data);
                 $('.btn-preprocessing').attr('disabled',true);
                 $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
-                
+
                 if (!klasifikasi.length){
-                    $('.panel-heading').append(button);
+                    if(data[0].training == 0){
+                        $('.panel-heading').append(button1);
+                    } else {
+                        $('.panel-heading').append(button1);
+                        $('.panel-heading').append(button2);
+                    }
                 }
                 
                 new PNotify({
@@ -65,6 +71,8 @@ $(document).on('click', '.btn-preprocessing', function (e) {
 
 //simpan data latih
 $(document).on('click', '.btn-latih', function (e) {
+    $('.btn-latih').attr('disabled',true);
+    $('.btn-latih i.fa-file-text').removeClass('fa-file-text').addClass('fa-spinner').addClass('fa-spin');
     parameter = $(this).val();
     $.ajaxSetup({
         beforeSend: function (xhr, type) {
@@ -95,6 +103,8 @@ $(document).on('click', '.btn-latih', function (e) {
                     //     text: 'Data Berhasi Dihapus',
                     //     type: 'success'
                     // });
+                    $('.btn-latih').attr('disabled',false);
+                    $('.btn-latih i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
                     window.location.href = "/training";
                 },
                 error: function (data) {
@@ -104,9 +114,13 @@ $(document).on('click', '.btn-latih', function (e) {
                         text: 'Terdapat Kesalahan Sistem',
                         type: 'error'
                     });
+                    $('.btn-latih').attr('disabled',false);
+                    $('.btn-latih i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
                 }
             });
         } else {
+            $('.btn-latih').attr('disabled',false);
+            $('.btn-latih i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
             swal.close();
         }
       });
@@ -114,6 +128,8 @@ $(document).on('click', '.btn-latih', function (e) {
 
 //simpan data uji
 $(document).on('click', '.btn-uji', function (e) {
+    $('.btn-uji').attr('disabled',true);
+    $('.btn-uji i.fa-file-text').removeClass('fa-file-text').addClass('fa-spinner').addClass('fa-spin');
     parameter = $(this).val();
     $.ajaxSetup({
         beforeSend: function (xhr, type) {
@@ -144,6 +160,8 @@ $(document).on('click', '.btn-uji', function (e) {
                     //     text: 'Data Berhasi Dihapus',
                     //     type: 'success'
                     // });
+                    $('.btn-uji').attr('disabled',false);
+                    $('.btn-uji i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
                     window.location.href = "/analisa";
                 },
                 error: function (data) {
@@ -153,9 +171,13 @@ $(document).on('click', '.btn-uji', function (e) {
                         text: 'Terdapat Kesalahan Sistem',
                         type: 'error'
                     });
+                    $('.btn-uji').attr('disabled',false);
+                    $('.btn-uji i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
                 }
             });
         } else {
+            $('.btn-uji').attr('disabled',false);
+            $('.btn-uji i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
             swal.close();
         }
       });
@@ -211,7 +233,6 @@ function stopword_table(data) {
     var html = '';
     var no = 1;
     var rows = '';
-    console.log(data)
     $.each( data, function( key1, value1 ) {
         rows = value1.stopword.full_text;
         $.each( rows, function( key2, value2 ) {

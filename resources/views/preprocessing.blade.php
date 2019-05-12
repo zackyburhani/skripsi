@@ -10,7 +10,7 @@
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-gears"></i> Preprocessing</a></li>
+        <li><a href="/preprocessing"><i class="fa fa-gears"></i> Preprocessing</a></li>
     </ol>
 </section>
 
@@ -25,7 +25,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="nav-tabs-custom">
+                            <div class="nav-tabs-custom" id="data_preprocessing_validasi">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#casefolding" data-toggle="tab">Case Folding</a></li>
                                     <li><a href="#cleansing" data-toggle="tab">Cleansing</a></li>

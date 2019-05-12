@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-users"></i> Analisa Data
+        <i class="fa fa-pie-chart"></i> Analisa Data
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -13,29 +13,39 @@
     </ol>
 </section>
 
+@if($testing == 0)
 <section class="content">
-    <div class="container-fluid">
-        <div class="row">
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
+        </div>
+    </div>           
+</section>
+@else
+<section class="content">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="nav-tabs-custom">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
-                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
-                            <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
-                            <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="klasifikasi">
-                                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="nav-tabs-custom">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
+                                <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
+                                <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
+                                <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="klasifikasi">
+                                    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+@endif
 {{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
 
 <script type="text/javascript">
@@ -71,7 +81,6 @@
             url: url + '/data-klasifikasi',
             success: function (datas) {
                 var i;
-
                 // Build the chart
                 Highcharts.chart('container', {
                     chart: {
@@ -84,7 +93,7 @@
                         text: 'Analisis Sentimen Perbankan Indonesia'
                     },
                     tooltip: {
-                        pointFormat: '{series.name}: <b>{point.y}</b>'
+                        pointFormat: '{series.name}: <b>{point.persentase}</b>'
                     },
                     plotOptions: {
                         pie: {
@@ -92,7 +101,7 @@
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                format: '<b>{point.name}</b>: {point.y}',
+                                format: '<b>{point.name}</b>: {point.y} %',
                                 style: {
                                     color: (Highcharts.theme && Highcharts.theme
                                         .contrastTextColor) || 'black'
@@ -112,7 +121,7 @@
                 console.log('Error:', data);
                 new PNotify({
                     title: 'Error !',
-                    text: 'Terdapat Kesalahan Sistem',
+                    text: 'Tidak Ada Yang Diproses',
                     type: 'error'
                 });
             }

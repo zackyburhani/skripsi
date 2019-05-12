@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DataTraining;
 use App\Models\WordFrequency;
+use App\Models\TwitterStream;
 
 class ControllerTraining extends Controller
 {
@@ -17,5 +18,11 @@ class ControllerTraining extends Controller
         $total = WordFrequency::count();
         // return $data;
         return view('data_training', compact(['title','data_positif','data_negatif','data_netral','total']));
+    }
+
+    public function hapus_training($kategori)
+    {
+        $data_training = TwitterStream::where('kategori',$kategori)->delete();
+        return redirect('/training');
     }
 }
