@@ -6,7 +6,7 @@
 
 <section class="content-header">
     <h1>
-        Preprocessing
+        <i class="fa fa-gears"></i> Preprocessing
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">

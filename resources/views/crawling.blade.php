@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        Data Crawling
+        <i class="fa fa-twitter"></i> Data Crawling
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">

@@ -5,11 +5,11 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        Data Training / ({{$total}})
+        <i class="fa fa-list-alt"></i> Data Training
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/crawling"><i class="fa fa-twitter"></i> Data Training</a></li>
+        <li><a href="/crawling"><i class="fa fa-list-alt"></i> Data Training</a></li>
     </ol>
 </section>
 

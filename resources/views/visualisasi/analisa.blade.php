@@ -9,7 +9,7 @@
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/analisa"><i class="fa fa-users"></i> Analisa Data</a></li>
+        <li><a href="/analisa"><i class="fa fa-pie-chart"></i> Analisa Data</a></li>
     </ol>
 </section>
 
