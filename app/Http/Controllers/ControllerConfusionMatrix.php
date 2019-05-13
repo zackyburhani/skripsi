@@ -196,7 +196,7 @@ class ControllerConfusionMatrix extends Controller
             return 0.0;
         }
 
-        return $truePositive / $divider;
+        return round(($truePositive / $divider)*100,2);
     }
 
     /**
@@ -209,7 +209,7 @@ class ControllerConfusionMatrix extends Controller
             return 0.0;
         }
 
-        return $truePositive / $divider;
+        return round(($truePositive / $divider)*100,2);
     }
 
     private function computeF1Score(float $precision, float $recall): float
@@ -289,6 +289,26 @@ class ControllerConfusionMatrix extends Controller
         $score = 0;
         foreach ($actualLabels as $index => $label) {
             if ($label == $predictedLabels[$index]) {
+                ++$score;
+            }
+        }
+
+        if ($normalize) {
+            $score /= count($actualLabels);
+        }
+
+        return $score;
+    }
+
+    public static function error_rate(array $actualLabels, array $predictedLabels, bool $normalize = true)
+    {
+        if (count($actualLabels) != count($predictedLabels)) {
+            throw new InvalidArgumentException('Size of given arrays does not match');
+        }
+
+        $score = 0;
+        foreach ($actualLabels as $index => $label) {
+            if ($label != $predictedLabels[$index]) {
                 ++$score;
             }
         }

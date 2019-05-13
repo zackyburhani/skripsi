@@ -124,8 +124,6 @@ class ControllerAnalisa extends Controller
     {
 
         try {
-
-            $title = "Data Confusion Matrix";
             $testing_data = DataTesting::count();
             $klasifikasi = Klasifikasi::all();
 
@@ -138,15 +136,17 @@ class ControllerAnalisa extends Controller
 
             $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
             $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
+            $error_rate = ControllerConfusionMatrix::error_rate($actualLabels, $predictedLabels);
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
 
             $data[] = [
                 'accuracy' => round($accuracy*100,2),
                 'precision' => $precision,
-                'total_precision' => round((array_sum($precision)/count($precision))*100,2),
                 'recall' => $recall,
-                'total_recall' => round((array_sum($recall)/count($recall))*100,2),
+                'error_rate' => round($error_rate*100,2),
+                'total_precision' => round(array_sum($precision)/count($precision),2),
+                'total_recall' => round(array_sum($recall)/count($recall),2),
             ]; 
 
             return response()->json($data);

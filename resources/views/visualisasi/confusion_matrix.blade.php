@@ -78,13 +78,13 @@
                                 @foreach($value_m as $index_value => $value_v)
                                 <td align="center">{{$value_v}}</td>
                                 @endforeach
-                                <td align="center">{{round($recall[$index_matrix]*100,2)}}%</td>
+                                <td align="center">{{round($recall[$index_matrix],2)}}%</td>
                             </tr>
                             @endforeach
                             <tr>
                                 <td align="center"><b>CLASS PRECISION</b></td>
                                 @foreach($precision as $index_p => $value_p)
-                                <td align="center">{{round($value_p*100,2)}}%</td>
+                                <td align="center">{{round($value_p,2)}}%</td>
                                 @endforeach
                                 <td style="background-color:#F2F1EF"></td>
                             </tr>
@@ -115,7 +115,8 @@
             type: "GET",
             url: url + '/column-drilldown',
             success: function (data) {
-                console.log(data);
+                let precision = Object.entries(data[0].precision)
+                let recall = Object.entries(data[0].recall)
                 // Create the chart
                 Highcharts.chart('container', {
                     chart: {
@@ -172,6 +173,10 @@
                                     "name": "Recall",
                                     "y": data[0].total_recall,
                                     "drilldown": "Recall"
+                                },
+                                {
+                                    "name": "Error Rate",
+                                    "y": data[0].error_rate,
                                 }
                             ]
                         }
@@ -181,38 +186,12 @@
                             {
                                 "name": "Precision",
                                 "id": "Precision",
-                                "data": [
-                                    [
-                                        "Negatif",
-                                        data[0].precision.Negatif*100
-                                    ],
-                                    [
-                                        "Netral",
-                                        data[0].precision.Netral*100
-                                    ],
-                                    [
-                                        "Positif",
-                                        data[0].precision.Positif*100
-                                    ]
-                                ]
+                                "data": precision,
                             },
                             {
                                 "name": "Recall",
                                 "id": "Recall",
-                                "data": [
-                                    [
-                                        "Negatif",
-                                        data[0].recall.Negatif*100
-                                    ],
-                                    [
-                                        "Netral",
-                                        data[0].recall.Netral*100
-                                    ],
-                                    [
-                                        "Positif",
-                                        data[0].recall.Positif*100
-                                    ]
-                                ]
+                                "data": recall,
                             }
                         ]
                     }
