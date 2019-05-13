@@ -111,12 +111,49 @@ class ControllerAnalisa extends Controller
             foreach($th as $index_th => $value){
                 $matrix[$value] = $confusionMatrix[$index_th];
             }
-
+            
             return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','tr','matrix','recall','precision','accuracy']));
     
         }
         catch (\Exception $e) {
             return view('visualisasi.confusion_matrix',compact(['title','testing_data']));
+        }
+    }
+
+    public function column_drilldown()
+    {
+
+        try {
+
+            $title = "Data Confusion Matrix";
+            $testing_data = DataTesting::count();
+            $klasifikasi = Klasifikasi::all();
+
+            foreach($klasifikasi as $kelas){
+                $predictedLabels[] = $kelas->prediksi;
+                $testing = DataTesting::where('id_testing',$kelas->id_testing)->first();
+                $twitter = TwitterStream::where('id_crawling',$testing->id_crawling)->first();
+                $actualLabels[] = $twitter->kategori;
+            }
+
+            $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
+            $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
+            $recall = $getPrecision->getRecall();
+            $precision = $getPrecision->getPrecision();
+
+            $data[] = [
+                'accuracy' => round($accuracy*100,2),
+                'precision' => $precision,
+                'total_precision' => round((array_sum($precision)/count($precision))*100,2),
+                'recall' => $recall,
+                'total_recall' => round((array_sum($recall)/count($recall))*100,2),
+            ]; 
+
+            return response()->json($data);
+    
+        }
+        catch (\Exception $e) {
+            return response()->json(error);
         }
     }
 

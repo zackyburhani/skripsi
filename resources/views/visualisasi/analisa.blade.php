@@ -23,28 +23,28 @@
 </section>
 @else
 <section class="content">
-        <div class="container-fluid">
+     <div class="container-fluid">
+        <div class="row">
             <div class="row">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="nav-tabs-custom">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
-                                <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
-                                <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
-                                <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="klasifikasi">
-                                    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
-                                </div>
+                <div class="col-md-12">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
+                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
+                            <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
+                            <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="klasifikasi">
+                                <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 @endif
 {{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
 

@@ -122,6 +122,32 @@
                             @endforeach
                         </tbody>
                     </table>
+                    
+                    <div style="height: 250px; overflow: scroll;">
+                        <table style="table-layout:fixed" id="table-prediksi"
+                            class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th width="7%">
+                                        <center>No.<center>
+                                    </th>
+                                    <th>
+                                        <center>Hasil <i>Preprocessing</i>
+                                        <center>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $no=1; ?>
+                                <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing']); ?>
+                                @foreach($data as $row)
+                                <tr>
+                                    <td align="center">{{$no++ ."."}}</td>
+                                    <td align="center">{{$row['kata']}}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                     <hr>
                     <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
                     <table>

@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'ControllerDashboard@index');
+Route::get('/search-page', 'ControllerDashboard@searchPage');
 
 //crawling twitter
 Route::get('/crawling', 'ControllerCrawlingTwitter@index')->name('crawling.index');
@@ -64,6 +65,7 @@ Route::get('/word-cloud', 'ControllerAnalisa@word_cloud');
 Route::get('/data-cloud/{data}', 'ControllerAnalisa@data_cloud');
 Route::get('/prediksi-sentimen', 'ControllerAnalisa@prediksi');
 Route::get('/data-sentimen/{data-sentimen}', 'ControllerAnalisa@data_prediksi');
+Route::get('/column-drilldown', 'ControllerAnalisa@column_drilldown');
 
 // Stemming
 // Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');

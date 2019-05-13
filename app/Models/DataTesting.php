@@ -29,4 +29,10 @@ class DataTesting extends Model
     {
         return $this->hasMany('App\Models\WordFrequency','id_training','id_training');
     }
+
+    public static function getFreqTest($id_testing) 
+    {
+        $term_freq = WordFrequency::whereNotnull('id_testing')->where('id_testing',$id_testing)->get();
+        return $term_freq;
+    }
 }

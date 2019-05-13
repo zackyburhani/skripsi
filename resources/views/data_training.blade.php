@@ -90,7 +90,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="title">Daftar Netral ({{count($data_netral)}}) <button value="Netral" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Netral</a></h4>
+                    <h4 class="title">Daftar Netral ({{count($data_netral)}}) <button value="Netral" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Netral</button></h4>
                     <hr>
                     @if(COUNT($data_netral) != 0)
                     <div style="height: 300px; overflow: scroll;">
@@ -117,6 +117,29 @@
                     @else
                         <p><b><center>Data Tidak Ditemukan</center></b></p>
                     @endif
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                     <table>
+                        <tbody>
+                            <tr> 
+                                <td width="160px"><h4>Total Kata Unik</h4></td>
+                                <td width="10px"><h4>:</h4></td>
+                                <td width="100px"><h4>{{$uniqueWords}}</h4></td>
+                            </tr>
+                            <tr>
+                                <td><h4>Total Data Training</h4></td>
+                                <td><h4>:</h4></td>
+                                <td><h4>{{$total}}</h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

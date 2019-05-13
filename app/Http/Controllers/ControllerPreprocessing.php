@@ -174,7 +174,7 @@ class ControllerPreprocessing extends Controller
 
             //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
-                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori]])->count();
+                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori],['id_testing',null]])->count();
                 if ($count == 0) {
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
@@ -227,7 +227,7 @@ class ControllerPreprocessing extends Controller
             
             //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
-                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori]])->count();
+                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori],['id_training',null]])->count();
                 if ($count == 0) {
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
@@ -264,7 +264,8 @@ class ControllerPreprocessing extends Controller
         $hitung = 1;
         // $sql = mysqli_query($conn, "SELECT count(*) as total FROM (SELECT word FROM wordFrequency GROUP by word) as x");
         // $distinctWords = WordFrequency::select(WordFrequency::selectSub('word','x')->groupBy('word'))->count();
-        $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency GROUP by kata) as x");
+        // $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency GROUP by kata) as x");
+        $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency WHERE term_frequency.id_training is not null GROUP by kata) as x");
         foreach($distinct as $dst){
             $distinctWords = $dst->total;
         }
@@ -276,7 +277,8 @@ class ControllerPreprocessing extends Controller
                 // $sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$cls' ");
                 // $wordCount = mysqli_fetch_assoc($sql);
                 // $wordCount = WordFrequency::where([['word',$word], ['category',$cls]])->first();
-                $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls' ");
+                // $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls'");
+                $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls' AND term_frequency.id_training is not null");
                 if($wordC == null){
                     $wordCount = null;
                 } else {
@@ -286,7 +288,8 @@ class ControllerPreprocessing extends Controller
                 }
 
                 $total[$cls][$word] = $wordCount;
-                $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
+                // $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
+                $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->whereNotNull('id_training')->first();
                 $sum[$cls] = $wordSum->jumlah_term;
                 
                 $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);

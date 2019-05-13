@@ -46,6 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // 404 page with status code 200
+        // if ($e instanceof ModelNotFoundException) {
+        //     return response()->view('template.404', [], 200);
+        // }
+
         return parent::render($request, $exception);
     }
 }

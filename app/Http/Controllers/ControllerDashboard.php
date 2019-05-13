@@ -17,4 +17,9 @@ class ControllerDashboard extends Controller
         $stemming = Stemming::count();
         return view('dashboard', compact('title','stemming','stopword','data_crawling'));
     }
+
+    public function searchPage(Request $request)
+    {
+        return redirect($request->search);
+    }
 }

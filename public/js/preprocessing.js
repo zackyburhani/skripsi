@@ -129,6 +129,7 @@ $(document).on('click', '.btn-latih', function (e) {
 //simpan data uji
 $(document).on('click', '.btn-uji', function (e) {
     $('.btn-uji').attr('disabled',true);
+    $('.btn-latih').attr('disabled',true);
     $('.btn-uji i.fa-file-text').removeClass('fa-file-text').addClass('fa-spinner').addClass('fa-spin');
     parameter = $(this).val();
     $.ajaxSetup({
@@ -161,6 +162,7 @@ $(document).on('click', '.btn-uji', function (e) {
                     //     type: 'success'
                     // });
                     $('.btn-uji').attr('disabled',false);
+                    $('.btn-latih').attr('disabled',false);
                     $('.btn-uji i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
                     window.location.href = "/analisa";
                 },

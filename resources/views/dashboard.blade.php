@@ -53,6 +53,34 @@
         <!-- ./col -->
     </div>
     <!-- /.row -->
+
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                <p><b>Analisis Sentimen Perbankan Indonesia </b></p>
+            </h3>
+            <div class="box-tools pull-right">
+                <button data-original-title="Collapse" class="btn btn-box-tool" data-widget="collapse"
+                    data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i
+                        class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div style="display: block;" class="box-body">
+            <b1>
+                <p><b>Tentang Aplikasi :</b></p>
+                <p>2. Aplikasi Dapat Melakukan <i>Crawling Data Tweet</i> Secara <i>Real-time</i> </p>
+                <p>2. Aplikasi Dapat Mengklasifikasikan Sentimen Kedalam Tiga Kelas : Positif, Negatif & Netral</p>
+                <p>3. Klasifikasi Menggunakan Algoritme <i>Naïve Bayes Classifier</i> </p>
+                <p>4. Preprocessing Terdiri Dari 5 tahap : <i>Case Folding</i>, <i>Cleansing</i>, <i>Tokenizing</i>, <i>Stopword</i> Dan <i>Stemming</i></p>
+                <p>5. Menggunakan Algoritme Nazief & Adriani Pada Proses Stemming</p>
+                <p>5. Visualisasi Data Menggunakan <i>Pie Chart</i>,<i>Column Chart</i> Dan <i>Word Cloud</i></p>
+                <p>5. Pengujian Akurasi Menggunakan Metode <i>Confusion Matrix</i></p>
+            </b1>
+        </div><!-- /.box-body -->
+    </div>
+
+
 </section>
 <!-- right col -->
 @endsection
