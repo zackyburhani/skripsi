@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2019 at 10:38 AM
+-- Generation Time: May 14, 2019 at 09:29 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -39,426 +39,6 @@ CREATE TABLE `data_crawling` (
   `kategori` varchar(10) COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
---
--- Dumping data for table `data_crawling`
---
-
-INSERT INTO `data_crawling` (`id_crawling`, `username`, `tweet_id`, `tweet`, `tgl_tweet`, `status`, `proses`, `kategori`) VALUES
-(1, '@doc1', '123', 'layar iphone sangat bagus', '2019-04-01', '0', '1', 'Positif'),
-(2, '@doc2', '123', 'batre iphone tahan lama', '2019-04-01', '0', '1', 'Positif'),
-(3, '@doc3', '123', 'susah dapet sinyal', '2019-04-01', '0', '1', 'Negatif'),
-(4, '@doc4', '123', 'batre boros', '2019-04-01', '0', '1', 'Negatif'),
-(5, '@doc5', '123', 'layar gampang retak', '2019-05-01', '0', '1', 'Negatif'),
-(6, '@doc6', '123', 'desain sangat bagus', '2019-05-01', '0', '1', 'Positif'),
-(7, '@doc7', '123', 'tombol tidak berfungsi', '2019-05-01', '0', '1', 'Negatif'),
-(8, '@doc8', '123', 'iphone mahal', '2019-05-01', '0', '1', 'Negatif'),
-(9, '@doc9', '123', 'aksesoris iphone murah', '2019-05-01', '1', '1', 'Positif'),
-(10, '@doc10', '123', 'kurang kuat', '2019-05-01', '1', '1', 'Negatif'),
-(11, '@doc11', '123', 'gampang panas', '2019-05-01', '1', '1', 'Negatif'),
-(12, '@doc12', '123', 'desain elegan', '2019-05-01', '1', '1', 'Positif'),
-(13, '@doc13', '123', 'model keren', '2019-05-01', '1', '1', 'Positif'),
-(18, 'DeaPutrianda', '1123503614461243392', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez @yogyasubang @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures @YongkiShoes @itsGreenlight @BIP_Bdg @istanaplaza @BTCFashionMall @CHANEL @Dior @PierreHerme @LouboutinWorld @TiffanyAndCo @franknco_id Aku mo liat rumah 😂 sekalian pengen tas ama sepatu &amp; kuliner.. kali mo kasih jewelry sekalian.. 🍦', '2019-05-01', NULL, '0', 'Netral'),
-(19, 'DeaPutrianda', '1123503235963056128', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez @yogyasubang @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures @YongkiShoes @itsGreenlight @BIP_Bdg @istanaplaza @BTCFashionMall @CHANEL @Dior @PierreHerme @LouboutinWorld @TiffanyAndCo @franknco_id Buat aku aja kalo ga ada kuota bonus 😂 kalung yg besar aja deh buat mama aku.. aku mah tar aja abis foto nya.. 🍦 banyak perak di si sendi..', '2019-05-01', NULL, '0', 'Netral'),
-(20, 'DeaPutrianda', '1123502892156116992', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez @yogyasubang @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures @YongkiShoes @itsGreenlight @BIP_Bdg @istanaplaza @BTCFashionMall @CHANEL @Dior @PierreHerme @LouboutinWorld @TiffanyAndCo @franknco_id emas putih aja 😂', '2019-05-01', NULL, '0', 'Netral'),
-(21, 'DeaPutrianda', '1123502755174174720', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez @yogyasubang @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures @YongkiShoes @itsGreenlight @BIP_Bdg @istanaplaza @BTCFashionMall @CHANEL @Dior @PierreHerme @LouboutinWorld Cc: @TiffanyAndCo @franknco_id 😂 terserah mo yg satu set atau satuan aja.. buat aku ama kalung, anting,  cincin, gelang buat mama aku yah..', '2019-05-01', NULL, '0', 'Netral'),
-(22, 'DeaPutrianda', '1123502403733471232', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez @yogyasubang @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures @YongkiShoes @itsGreenlight junction aja deh.. @BIP_Bdg ama @istanaplaza 😂 ke @BTCFashionMall puputeran juga.. @CHANEL @Dior @PierreHerme @LouboutinWorld 😂😅😂', '2019-05-01', NULL, '0', 'Netral'),
-(23, 'DeaPutrianda', '1123501863486156802', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile @info_yogyagroup @adidasWomen @Nike @Elizabeth_Ez di @yogyasubang ada semua 😂 @SUISButcher @savoyhomannbdg @Soesmerdeka @KartikaSari_ID @wbpictures 🍭 @YongkiShoes 😂 @itsGreenlight', '2019-05-01', NULL, '0', 'Netral'),
-(24, 'DeaPutrianda', '1123501043931738113', '@bankmandiri @MandiriSyariah @BongChandra @rumahcom @expo2020dubai @SamsungMobile liat budi indah, green dago &amp; pondok hijau deh.. belanjaan ama makan jangan lupa.. @info_yogyagroup 😂 @adidasWomen @Nike @Elizabeth_Ez', '2019-05-01', NULL, '0', 'Netral'),
-(25, 'NURHAKIM21', '1123498637558857729', '@bankmandiri E-money #mandiriemoney #mandiricard', '2019-05-01', NULL, '0', 'Netral'),
-(26, 'metamikha', '1123496010074824705', '@bankmandiri Kartu mandiri e-money #tebakanmandiri https://t.co/58xpN83oUY', '2019-05-01', NULL, '0', 'Netral'),
-(27, 'metamikha', '1123495938893312001', '@bankmandiri Mandiri e-money #tebakanmandiri https://t.co/U9oYK1udZS', '2019-05-01', NULL, '0', 'Netral'),
-(28, 'metamikha', '1123493280124063744', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(29, 'metamikha', '1123493256061378560', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(30, 'metamikha', '1123492918709219328', 'RT @bankmandiri: Sahabat, aktivasi #tebakanmandiri masih berlanjut. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab dgn reply…', '2019-05-01', NULL, '0', 'Netral'),
-(31, 'rudytpi', '1123492056603734017', '@bankmandiri #mandiriemoney \n#tebakanmandiri \n\nhttps://t.co/cNw8QpzuZF', '2019-05-01', NULL, '0', 'Netral'),
-(32, 'rudytpi', '1123492007085846528', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(33, 'DeaPutrianda', '1123490833028788224', 'gini halaman belakangnya? @bankmandiri @MandiriSyariah 😂 @BongChandra @rumahcom @expo2020dubai ☕ @SamsungMobile    https://t.co/vQSicrH155', '2019-05-01', NULL, '0', 'Netral'),
-(34, 'bowodk', '1123489963142778880', 'Bubarkan BPJS? Wah padahal menolong sekali lho. 2 kali operasi istri senilai 30 jutaan akhirnya dicover BPJS. Sekarang tinggal gimana caranya gak telat bayar premi aja. Pake auto debet di online banking dari @bankmandiri jadi solusi', '2019-05-01', NULL, '0', 'Netral'),
-(35, 'lulu16889', '1123488653156728832', '@bankmandiri Baik Pak Rady. Terima kasih atas informasinya.', '2019-05-01', NULL, '0', 'Netral'),
-(36, 'Ayudaysz', '1123484367211454464', 'RT @bankmandiri: Sahabat yang ingin berlibur, yuk manfaatkan promo untuk pemegang #mandiridebit yang bertransaksi di outlet Dwidaya Tour. A…', '2019-05-01', NULL, '0', 'Netral'),
-(37, 'Ayudaysz', '1123484337918312449', '@bankmandiri #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(38, 'Ayudaysz', '1123484283170164736', 'RT @bankmandiri: Sahabat, aktivasi #tebakanmandiri masih berlanjut. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab dgn reply…', '2019-05-01', NULL, '0', 'Netral'),
-(39, 'Ayudaysz', '1123484268435509248', '@bankmandiri Kartu Mandiri e-Money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(40, 'Ayudaysz', '1123484175405912064', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(41, 'Ayudaysz', '1123484161262718976', 'RT @bankmandiri: Sahabat, nikmati promo spesial https://t.co/1NbelarPlq  untuk nasabah #mandiridebit atau #mandiricard hingga 2 Mei 2019. D…', '2019-05-01', NULL, '0', 'Netral'),
-(42, 'Ayudaysz', '1123484146599366659', 'RT @bankmandiri: Sahabat, biasanya pemutaran film di bioskop akan dimulai 15 menit setelah pintu studio dibuka. Gunakan waktu sebaik mungki…', '2019-05-01', NULL, '0', 'Netral'),
-(43, 'Ayudaysz', '1123484128584900608', '@bankmandiri #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(44, 'Ayudaysz', '1123484101267398656', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(45, 'Ayudaysz', '1123484072238567424', '@bankmandiri Kartu Mandiri e-Money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(46, 'Ayudaysz', '1123483994799181824', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(47, 'Ayudaysz', '1123483980844666880', 'RT @bankmandiri: Sahabat, yuk jadi penonton bioskop yang bijak dengan cara menjaga kebersihan studio bioskop. Kumpulkan sampah bekas makana…', '2019-05-01', NULL, '0', 'Netral'),
-(48, 'Ayudaysz', '1123483963807490049', 'RT @bankmandiri: Sahabat yang masih duduk di bangku sekolah, yuk menabung di #mandiritabungan SimPel dan rasakan manfaatnya. Selain itu, ik…', '2019-05-01', NULL, '0', 'Netral'),
-(49, 'winna_cemong', '1123474342803853315', '@mandiricare @danawallet @bankmandiri 21 April 2019 dengan nomor C-190421-99103-0086701.\n\nGini lah admin Seolah olah  melayani,semua proses yang anda suruh itu sudah saya lakukan,tapi emag admin nya aja yg gak ada kualitas untuk melayani\nSaya di suruh cek mutasi ke bank dan fungsinya MANDIRI ONLINE itu apa? https://t.co/VhMAR0hMLX', '2019-05-01', NULL, '0', 'Netral'),
-(50, 'mandiricare', '1123473969955463168', '@WongIndonesiaOK @bankmandiri SMS notifikasi, mohon dipastikan ketersediaan pulsa. Tks~Aini (end)', '2019-05-01', NULL, '0', 'Netral'),
-(51, 'mandiricare', '1123473917245644804', '@WongIndonesiaOK @bankmandiri Halo Bpk/Ibu, utk penerimaan notifikasi SMS banking terkait dana keluar dan dana masuk maka Bpk dpt melakukan pendaftaran SMS banking di mandiri ATM atau ke kantor cabang Bank Mandiri terdekat dgn membawa KTP asli, buku tabungan dan mandiri kartu debit ya. Utk penerimaan (1)', '2019-05-01', NULL, '0', 'Netral'),
-(52, 'NurLim83', '1123473721849712640', '@bankmandiri #mandiri money#tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(53, 'meili76moruk', '1123471627172364288', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(54, 'meili76moruk', '1123471580238155776', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(55, 'meili76moruk', '1123471570909974530', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(56, 'mandiricare', '1123471527352197120', '@winna_cemong @danawallet @bankmandiri Utk perihal tsb sdh kami informasikan melalui mention sebelumnya ya Ibu Winna. Tks~Aini', '2019-05-01', NULL, '0', 'Netral'),
-(57, 'mandiricare', '1123471323265679361', '@winna_cemong @danawallet @bankmandiri Halo Ibu Winna, mohon maaf atas ketidaknyamanan yg Ibu alami, utk perihal tsb Ibu Winna dpt konfirmasi ke email dgn mengirimkan pesan permintaan bukti transaksi terkait laporan kegagalan transaksi top up Dana dgn melampirkan nomor pelaporan C-XXXXXX-XXXXX-XXXXXXX. Tks~Aini', '2019-05-01', NULL, '0', 'Netral'),
-(58, 'winna_cemong', '1123471168986583041', '@mandiricare @danawallet @bankmandiri Dan buat @danawallet\nKlw emg uang nya udah masuk ke biller anda kenapa anda masih mempersusah nasabah anda \ntinggal bilang uang nya masuk/gak kelar semua,klw sistim anda cam ini selamat anda hanya akan di pakai pas ada proma aja', '2019-05-01', NULL, '0', 'Netral'),
-(59, 'WongIndonesiaOK', '1123471121918066688', 'apa @bankmandiri tdk menyediakan fitur pemberitahuan lewat SMS/Email untuk perubahan saldo baik penambahan maupun pengurangan saldo? @mandiricare', '2019-05-01', NULL, '0', 'Netral'),
-(60, 'winna_cemong', '1123470792237432832', '@mandiricare @danawallet @bankmandiri Udah jelas di sini GAGAL harusnya uang saya di kembalikan klw emag di teruskan saya mw kasih bukti apa ke pihak biller,anda bilang tgl 22 udah masuk ke biller DANA saya cek di mutasi rek saya melalui mandiri online gak ada trasaksi tersebut di tgl 22 https://t.co/Fz3JxlHgLl', '2019-05-01', NULL, '0', 'Netral'),
-(61, 'slippers_awake', '1123470246763999233', '@bankmandiri E-money', '2019-05-01', NULL, '0', 'Netral'),
-(62, 'mandiricare', '1123470043881381889', '@ferybasuki @bankmandiri @HaloBCA Selamat siang Bpk Fery, mohon maaf atas ketidaknyamanan yang Bpk alami. Untuk perihal tsb, pihak merchant dapat menghubungi layanan merchant helpdesk di nomor telepon 1500160 atau dapat melalui nomor 087701214000. Tks~Indi', '2019-05-01', NULL, '0', 'Netral'),
-(63, 'winna_cemong', '1123469666188517376', '@mandiricare @danawallet @bankmandiri Pesan apa yg mw saya kirimkan kembali,kemaren udah saya kirimkan udah jawab nya lama,balasanya cuman suruh cek mutasi rek,emang mandiri online ini gak ada fungsi cek mutasi rek.rasa nya semua admin sama gak ada yg berkualitas melayani nasabah', '2019-05-01', NULL, '0', 'Netral'),
-(64, 'lulu16889', '1123468418135601157', '@bankmandiri Mohon bantuannya bisa minta brosur KPR Bank Mandiri? Terima kasih', '2019-05-01', NULL, '0', 'Netral'),
-(65, 'mandiricare', '1123466901567541248', '@winna_cemong @danawallet @bankmandiri Selamat siang Ibu Winna, mohon maaf atas ketidaknyamanan yang Ibu alami. Untuk perihal tsb Ibu dapat mengirimkan pesan melalui email mandiricare@bankmandiri.co.id ya. Tks~Indi', '2019-05-01', NULL, '0', 'Netral'),
-(66, 'HidaSyarief25', '1123465645922881536', 'Dear @traveloka &amp; @mandiricare @bankmandiri saya melakukan transaksi pembayaran pulsa di @traveloka menggunakan kartu kredit mandiri transaksi gagal &amp; pulsa tidak masuk tapi trx sudah masuk dan ada sms berhasil. Mohon bantuannya! Thanks', '2019-05-01', NULL, '0', 'Netral'),
-(67, 'SomadCliquers', '1123463561546752001', '@bankmandiri Mandiri e-money #tebakanmandiri #mandiricard #mandiriemoney', '2019-05-01', NULL, '0', 'Netral'),
-(68, 'SomadCliquers', '1123463255698157568', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(69, 'winna_cemong', '1123462576564785153', '@mandiricare @danawallet @bankmandiri Ini kalian sama aja berdua gak ada yg mw bertanggung jawab.\nSemoga orang pada tw aja lah gi mna sistim nya mandiri dan buat @danawallet semoga orang cuman topup hanya buat dapat promo dari anda aja,nyesal saya topup sampai 10jt klw hasilnya ribet kayak gini', '2019-05-01', NULL, '0', 'Netral'),
-(70, 'winna_cemong', '1123462384864112645', '@mandiricare @danawallet @bankmandiri Saya sudah konfirmasi,tapi sampai sekarang gak ada solusi,admin mandiri bilang tgl 22 mw saya kasi mutasi tgl 22 mna ada sedangkan di mutasi di kredit tgl 21.', '2019-05-01', NULL, '0', 'Netral'),
-(71, 'ivana_iph', '1123462028851597312', '@bankmandiri tolong CS nya diberi pelatihan dan SOP agar melayani dengan ramah, 2 hari lalu saya diperlakukan sperti orang bodoh di depan banyak orang. Cabang mandiri veteran dengan cs vitria. Baru kali ini sy dibeginikan sebagai nasabah.', '2019-05-01', NULL, '0', 'Netral'),
-(72, 'EraPS15', '1123460263003525120', '@bankmandiri @bankmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(73, 'EraPS15', '1123459936455933954', '@Alfaro98237171 @bankmandiri #mandiriemoney #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(74, 'OMQIE', '1123459765672316928', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(75, 'AshmawatiRosita', '1123459390206631936', '@bankmandiri #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(76, 'AshmawatiRosita', '1123459327115833345', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(77, 'AshmawatiRosita', '1123459303866798080', '@bankmandiri Mandiri E money\n#tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(78, 'mandiricare', '1123454147779616769', '@winna_cemong @danawallet @bankmandiri Halo Ibu Winna, utk perihal tsb Ibu dpt konfirmasi ke pihak biller dgn melampirkan mutasi rekening ya. Tks~Aini', '2019-05-01', NULL, '0', 'Netral'),
-(79, 'Noy_Rayden', '1123454037721079808', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(80, 'Noy_Rayden', '1123453998030307329', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(81, 'Noy_Rayden', '1123453993169117185', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(82, 'xtrada_2004', '1123453757826764802', '@bankmandiri kartu #mandiriemoney yang bisa digunakan untuk membayar parkir \n#tebakanmandiri @bankmandiri\nhttps://t.co/HAR5Bh65zX', '2019-05-01', NULL, '0', 'Netral'),
-(83, 'xtrada_2004', '1123453724637192192', '@bankmandiri kartu #mandiriemoney yang bisa digunakan untuk membayar parkir \n#tebakanmandiri @bankmandiri\nhttps://t.co/HAR5Bh65zX', '2019-05-01', NULL, '0', 'Netral'),
-(84, 'lockeralfonso', '1123453615811833856', 'RT @bankmandiri: Sahabat, yuk jadi penonton bioskop yang bijak dengan cara menjaga kebersihan studio bioskop. Kumpulkan sampah bekas makana…', '2019-05-01', NULL, '0', 'Netral'),
-(85, 'xtrada_2004', '1123453615354589184', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(86, 'lockeralfonso', '1123453551047585793', 'RT @bankmandiri: Sahabat yang masih duduk di bangku sekolah, yuk menabung di #mandiritabungan SimPel dan rasakan manfaatnya. Selain itu, ik…', '2019-05-01', NULL, '0', 'Netral'),
-(87, 'lockeralfonso', '1123453519707635713', '#mandiripromo\n@bankmandiri https://t.co/tChxjqjj02', '2019-05-01', NULL, '0', 'Netral'),
-(88, 'lockeralfonso', '1123453000209580035', '@bankmandiri mandiri e-money\n#tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(89, 'lockeralfonso', '1123452905615503360', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(90, 'lockeralfonso', '1123452880978173952', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(91, 'charless_sibero', '1123452576349945856', '@bankmandiri menabung di bank taspen apakah danany akan terhitung di dalam fund management mandiri juga?', '2019-05-01', NULL, '0', 'Netral'),
-(92, 'natalia453640', '1123452061033562112', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(93, 'natalia453640', '1123452022232113153', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(94, 'natalia453640', '1123452013323464705', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(95, 'mandiricare', '1123451429862166528', '@Ugi_Corp @ovo_id @bankmandiri Baik Bpk Ugi :) Tks~Aini', '2019-05-01', NULL, '0', 'Netral'),
-(96, 'diaharumzigi_', '1123451379119468549', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(97, 'diaharumzigi_', '1123451348127834118', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(98, 'abdulaziso', '1123451246298505217', '.@bankmandiri udah ada yg cek ATM @PejatenVillage, oh ya Nomor ID Mesin S1AW12WD dan S1AD12QA sepintas katanya jaringan https://t.co/SMKNXnu6Tp', '2019-05-01', NULL, '0', 'Netral'),
-(99, 'winna_cemong', '1123450988495548416', '@danawallet Tolong @bankmandiri Di jelaskan kepada admin @danawallet \n\"Halo Ibu Winna, untuk perihal tsb dana telah dikembalikan ke pihak biller (Dana) pd tgl 22 april 2019 ya. Mohon konfirmasi kpd pihak biller (Dana). Tks ~ Adam\" @mandiricare\nSampai sekarang topup saya blm juga masuk2', '2019-05-01', NULL, '0', 'Netral'),
-(100, 'Ugi_Corp', '1123448788411138048', '@mandiricare @ovo_id @bankmandiri Udah tks', '2019-05-01', NULL, '0', 'Netral'),
-(101, 'mandiricare', '1123448489764184064', '@Ugi_Corp @ovo_id @bankmandiri Mohon informasikan nama lengkap dan alamat email Bpk Ugi melalui DM agar dapat kami lakukan pengecekan lebihlanjut. Tks~Indi', '2019-05-01', NULL, '0', 'Netral'),
-(102, 'Ugi_Corp', '1123447308580999168', '@mandiricare @ovo_id @bankmandiri Udah min dari kemaren kok blm ada balesan, pls cepetlah', '2019-05-01', NULL, '0', 'Netral'),
-(103, 'Joana072', '1123446394168184844', 'RT @bankmandiri: Sahabat, jangan ketinggalan ikutan aktivasi #tebakanmandiri. Dapatkan saldo #mandiriemoney Rp50.000 utk 10 pemenang. Jawab…', '2019-05-01', NULL, '0', 'Netral'),
-(104, 'Joana072', '1123446383070126080', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(105, 'Joana072', '1123446347154194433', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(106, 'Rf_man_25', '1123446271191199746', '@bankmandiri min alamat bank mandiri di kabupaten takalar Sulsel dimana ya?', '2019-05-01', NULL, '0', 'Netral'),
-(107, 'JK_3193', '1123444293304238086', '@bankmandiri saya top up ovo melalui atm mandiri, transaksi dikatakan gagal tapi saldo terpotong dan saldo ovo gak bertambah, dengan nominal yang lumayan banyak, baiknya gimana ya', '2019-05-01', NULL, '0', 'Netral'),
-(108, 'un1c0rn1902', '1123442119572639749', 'Cc: @mandiricare @bankmandiri  #banking #cashless #emoney #jkt #jakarta #indonesia https://t.co/jZ4fNRVEGg', '2019-05-01', NULL, '0', 'Netral'),
-(109, 'erli_diah', '1123440538445930499', '@bankmandiri Mandiri e-money #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(110, 'erli_diah', '1123440468451319809', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(111, 'SiahaanRyanti', '1123439723521900546', '@bankmandiri Bawa pulang sampah bekas makanan dan minuman kita.', '2019-05-01', NULL, '0', 'Netral'),
-(112, 'Ming01He', '1123438566418337793', '@bankmandiri 👉  #mandiriemoney  (mandiri e-money) \n#tebakanmandiri \n\nhttps://t.co/hrtxgPfO0F', '2019-05-01', NULL, '0', 'Netral'),
-(113, 'Ming01He', '1123438270778609665', 'RT @bankmandiri: Di antara kartu #mandiricard Skyz dan #mandiriemoney, kartu apa yang bisa digunakan untuk membayar parkir?\n\n#tebakanmandir…', '2019-05-01', NULL, '0', 'Netral'),
-(114, 'asmPTRA', '1123437539384266758', '@smartfrencare tadi saya mau isi pulsa lewat atm @bankmandiri tapi kok gak bisa ya?', '2019-05-01', NULL, '0', 'Netral'),
-(115, 'RiaMaherani', '1123437342008782851', 'RT @bankmandiri: @RiaMaherani Terima kasih atas partisipasi yang diberikan Ibu Ria. Tks~Kyla', '2019-05-01', NULL, '0', 'Netral'),
-(116, 'abdulaziso', '1123436136888713218', '.@bankmandiri udah aku infokan TL sebelumnya di @PejatenVillage (Pejaten-Jakarta Selatan), aku juga udah capture foto-nya, may be bisa di-zoom jika ingin lbh jelas. \n\nHarusnya @bankmandiri lgsg bisa trace ID Mesin di databasenya dg info di atas https://t.co/FHId76MR13', '2019-05-01', NULL, '0', 'Netral'),
-(117, 'RiaMaherani', '1123432695772647425', '@bankmandiri #tebakanmandiri', '2019-05-01', NULL, '0', 'Netral'),
-(118, 'NjcWenwen', '1123454609887039488', '@BankBCA Amerika itu aneh.Sudah jutaan kali di tahun 2013 .Aku beri info islam mengerikan dan mereka membenci darah lain dengan semua tindakan diskriminasi yang sangat menyakitkan manusia lain. Kelemahan pribumi islam menghadapi uang. Mereka tunduk agar terus memperolehnya\n@jokowi', '2019-05-01', NULL, '0', 'Netral'),
-(119, 'NjcWenwen', '1123446212777140224', '@BankBCA Since beginning racial islam to the point admitted they hate the typical of blood like netherland and japan and different cultures also against my belief from old generations\n@ANTVOfficial_', '2019-05-01', NULL, '0', 'Netral'),
-(120, 'NjcWenwen', '1123432080099172352', '@BankBCA https://t.co/ldEQtCIiWF', '2019-05-01', NULL, '0', 'Netral'),
-(121, 'NjcWenwen', '1123430330889846785', '@BankBCA Amit - amit dipaksa kawin ( memang lo ada hak apa? ) Pemaksaan kawin dengan darah musuh besar gua. Juga mereka membenci keluargaku dan keyakinanku\n@ANTVOfficial_', '2019-05-01', NULL, '0', 'Netral'),
-(122, 'phefia', '1123427103721107456', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-05-01', NULL, '0', 'Netral'),
-(123, 'NjcWenwen', '1123411456777605120', '@LeoDiCaprio @justinbieber @dicapriofdn All racial Islam also local Asians companies united for Human Traffickers. They never let Human Rights \n@BankBCA', '2019-05-01', NULL, '0', 'Netral'),
-(124, 'NjcWenwen', '1123408478679080960', '@BankBCA Jangan Tolol.Memangnya lo paksa manusia lain diperbudak pribumi islam.Bisnis lo bakal lancar di Eropa -  Asia? Yang ditunggu orang luar bukan pribumi islam juga bukan perdagangan manusia\n@jokowi', '2019-05-01', NULL, '0', 'Netral'),
-(125, 'NjcWenwen', '1123405359064932357', '@BankBCA Semua pribumi islam sangat memuakkan. Dari tahun ke tahun,pekerjaannya perang darah &amp; agama. Urusan gua mau apa pun. Bukan perampok yang didukung Amerika \n@aburizalbakrie', '2019-05-01', NULL, '0', 'Netral'),
-(126, 'Josephinejoane', '1123266791390580738', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(127, 'BankVirtual', '1123245288766885889', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(128, 'setyapraas', '1123242287134199808', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(129, 'Peni_Asih', '1123240349659488260', 'Sdh 3x ke @BankBCA \nJln jogja solo \nMau ketemu pimoinan \nDijawab oleh cleaning service \nSdh keluar \nOke lah..\nSaya cuma mau komplain \nKantor Anda lelet @HaloBCA', '2019-04-30', NULL, '0', 'Netral'),
-(130, 'Simsimy3', '1123235047748673537', '@BankBCA Hai kak mohon balas dm ya kakk terima kasih 🙏🏻🙏🏻🙏🏻', '2019-04-30', NULL, '0', 'Netral'),
-(131, 'lizandrianii', '1123233609765216259', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(132, 'eleveninjanuary', '1123215314718605312', 'Sangat diuntungkan dengan tarik tunai tanpa kartu dari @BankBCA ❤️❤️❤️❤️❤️', '2019-04-30', NULL, '0', 'Netral'),
-(133, 'niocef', '1123201971131797504', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(134, 'JuniorAkoh', '1123184178969735169', 'RT @BankBCA: Kartu kredit BCA Anda hilang? Jangan panik, segera blokir melalui BCA mobile! Cek caranya di video ini ya. https://t.co/RwshE4…', '2019-04-30', NULL, '0', 'Netral'),
-(135, 'wehaye19', '1123176372745064448', 'RT @BankBCA: Ini dia 3 laman resmi Internet Banking BCA! Pastikan Anda memasukkan alamat dengan benar agar terhindar dari kerugian. Oya, An…', '2019-04-30', NULL, '0', 'Netral'),
-(136, 'pedediana', '1123171833694412801', '@BankBCA Jadi? Gimana min?', '2019-04-30', NULL, '0', 'Netral'),
-(137, 'pedediana', '1123166892103831552', '@BankBCA Iyaa, sudah ada min', '2019-04-30', NULL, '0', 'Netral'),
-(138, 'pedediana', '1123165605815709696', '@BankBCA Iyaa, sudah min', '2019-04-30', NULL, '0', 'Netral'),
-(139, 'pedediana', '1123162146353733632', '@BankBCA Mau buka tahapan xpresi apakah masih bisa hari ini/besok?', '2019-04-30', NULL, '0', 'Netral'),
-(140, 'ianhutabarat', '1123158305810014208', '@AdityaMaulana04 @BankBCA 😍', '2019-04-30', NULL, '0', 'Netral'),
-(141, 'pedediana', '1123157221699776513', '@BankBCA min, booth BCA yang di tangerang city mall apakah masih buka?', '2019-04-30', NULL, '0', 'Netral'),
-(142, 'limacellular', '1123152724982239232', '@BankBCA apakah upgrade dari jenis tabungan Tahapan Xpresi ke Tahapan Gold bisa dilakukan ?', '2019-04-30', NULL, '0', 'Netral'),
-(143, 'rafidazizi', '1123144905138696192', '@BankBCA Kan saya berusaha login kembali min, nah itu kalo nggak koneksi internet tidak terhubung, ya gagal min. Padahal pada saat itu koneksi internet saya stabil ‘banget’. \nTerus sempet ada pemberitauan disuruh ke CS Bank. \nMohon maaf gambarnya tidak ada karena kemarin.', '2019-04-30', NULL, '0', 'Netral'),
-(144, 'NjcWenwen', '1123139725710073856', '@moonriver365 They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars &amp; local people workers or local family \n,politic organisation battle \nrecommend by @BankBCA &amp; @Google or @OfficialRCTI ,@ANTVOfficial_ ,@jokowi', '2019-04-30', NULL, '0', 'Netral'),
-(145, 'NjcWenwen', '1123138734390558720', '@AbeShinzo They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars &amp; local people workers or local family \n,politic organisation battle \nrecommend by @BankBCA &amp; @Google or @OfficialRCTI ,@ANTVOfficial_ ,@jokowi', '2019-04-30', NULL, '0', 'Netral'),
-(146, 'rafidazizi', '1123135533494878208', '@BankBCA Mau tanya min ko mobile banking saya gabiaa ya', '2019-04-30', NULL, '0', 'Netral'),
-(147, 'NjcWenwen', '1123130034707820544', '@eucopresident They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars &amp; local people workers or local family \n,politic organisation battle \nrecommend by @BankBCA &amp; @Google or @OfficialRCTI ,@ANTVOfficial_ ,@jokowi', '2019-04-30', NULL, '0', 'Netral'),
-(148, 'febrinapn', '1123128389638819840', '@BankBCA @HaloBCA numpang nanya min, atm setor tunai di balikpapan dimana aja ya ?', '2019-04-30', NULL, '0', 'Netral'),
-(149, 'NjcWenwen', '1123127056991023104', '@realDonaldTrump They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars &amp; local people workers or local family \nrecommend by @BankBCA &amp; @Google', '2019-04-30', NULL, '0', 'Netral'),
-(150, 'NjcWenwen', '1123122598211047424', '@Keita_Lead They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars &amp; local people workers \nrecommend by @BankBCA &amp; @Google', '2019-04-30', NULL, '0', 'Netral'),
-(151, 'NjcWenwen', '1123118479048040449', '@westlifemusic They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars \nrecommend by @BankBCA', '2019-04-30', NULL, '0', 'Netral'),
-(152, 'NjcWenwen', '1123115844374892544', '@LeoDiCaprio @justinbieber @dicapriofdn They want you CHANGE to be accusers of islam,racial tragedy,local advertisement,food stall sellers,politician wars \nrecommend by @BankBCA', '2019-04-30', NULL, '0', 'Netral'),
-(153, 'aalsya', '1123097038684450816', 'Mau transfer via BCA mobile dari pagi susah banget, lagi eror kah?  @HaloBCA @BankBCA', '2019-04-30', NULL, '0', 'Netral'),
-(154, 'aanziboy', '1123082963397165057', '@BankBCA sudah, langsung setelah sadar kecopetan, siang langsung ke BCA ga pake ribet kartu atm BCA baru langsung terbit 👍🏼', '2019-04-30', NULL, '0', 'Netral'),
-(155, 'bankmandiri', '1123044912457371648', '@therealameld @BankBCA Sesuai informasi kami sebelumnya ya Ibu Amel, perihal tsb kami persilahkan Ibu utk melakukan konfirmasi ke pihak pengirim dana dikarenkan mandiri adalah sebagai pihak penerima dana yg berisifat pasif. Tks~Visi', '2019-04-30', NULL, '0', 'Netral'),
-(156, 'therealameld', '1123044133638033410', '@bankmandiri @BankBCA haha gua sering trf bca ke mandiri kasus kaya gni, masa yg disalahin bank gw? kan gw yg kluar duit?? scr ga langsung emg konfirm dong ya bank lo bermasalah!?', '2019-04-30', NULL, '0', 'Netral'),
-(157, 'bankmandiri', '1123043815290327041', '@therealameld @BankBCA Halo Ibu Amel, perihal tsb kami persilahkan Ibu utk melakukan konfirmasi ke pihak pengirim dana dikarenkan mandiri adalah sebagai pihak penerima dana yg berisifat pasif. Tks~Visi', '2019-04-30', NULL, '0', 'Netral'),
-(158, 'indrajati47', '1123042305122766853', '@BankBCA selamat pagi min,\nMohon di bantu.\nSaya nggak bisa login klik bca,\nMungkin kena block karena beberapa kali salah masukin kode token.\nTerimakasih', '2019-04-30', NULL, '0', 'Netral'),
-(159, 'tony_rmm', '1123040994310541313', '@BankBCA Kenapa?', '2019-04-30', NULL, '0', 'Netral'),
-(160, 'tony_rmm', '1123029769161830400', '@BankBCA Knp  belum bisa?', '2019-04-30', NULL, '0', 'Netral'),
-(161, 'mswidiii', '1123022908895268864', '@BankBCA min mau tanya. Cek dm ya :)', '2019-04-30', NULL, '0', 'Netral'),
-(162, 'AdityaMaulana04', '1123014566999314432', '@BankBCA Sekitar 2 bulan yg lalu min', '2019-04-30', NULL, '0', 'Netral'),
-(163, 'cromtiyan', '1122910739117641729', '@BankBCA min mau tanya. transaksi lewat bca mobile itu ada biaya pulsa-nya nggak sih? atau hanya modal koneksi internet saja? terima kasih.', '2019-04-29', NULL, '0', 'Netral'),
-(164, 'pradana_84', '1122873005653127168', 'RT @BankBCA: Kartu kredit BCA Anda hilang? Jangan panik, segera blokir melalui BCA mobile! Cek caranya di video ini ya. https://t.co/RwshE4…', '2019-04-29', NULL, '0', 'Netral'),
-(165, 'Jojon78891040', '1122870644817874946', '@BankBCA Jawa timur kpn?!\nbiar gk ribet antri.', '2019-04-29', NULL, '0', 'Netral'),
-(166, 'BungurHerman', '1122868867192123392', '@BankBCA Yg harus disiapkan apa mengenai persyaratan?', '2019-04-29', NULL, '0', 'Netral'),
-(167, 'KafeInvestor', '1122863656021061633', 'RT @BankBCA: Kartu kredit BCA Anda hilang? Jangan panik, segera blokir melalui BCA mobile! Cek caranya di video ini ya. https://t.co/RwshE4…', '2019-04-29', NULL, '0', 'Netral'),
-(168, 'hayatisri87', '1122861118861402112', '@BankBCA Tahapan xpresi.\n\n1 lagi min, mau tanya\nKalau sudah melakukan setoran awal, apakah dana bisa langsung pakai atau harus nunggu 1 hari sepwrti buat tabungan yg langsung ke cabang?,', '2019-04-29', NULL, '0', 'Netral'),
-(169, 'BagusRomdonS', '1122833674024521728', '@BankBCA karena di gopay saya tidak di terima.  Dan notifikasi pun tidak ada jangan sampe di suruh lempar2 gini min', '2019-04-29', NULL, '0', 'Netral'),
-(170, 'AdityaMaulana04', '1122829439484612614', '@BankBCA Kartu kredit saya ga jadi jadi min', '2019-04-29', NULL, '0', 'Netral'),
-(171, 'SONIAWISASTRA', '1122826820045271040', '@BankBCA ini Mobile Banking error???? Minta aktivasi lagi masa, gagal mulu', '2019-04-29', NULL, '0', 'Netral'),
-(172, 'HaloBCA', '1122818059067019264', '@gammacerane @BankBCA @GoodLifeBCA Mhn maaf atas ketidaknyamannya Bpk/Ibu Pelanggan.  :) Tks ^Tata', '2019-04-29', NULL, '0', 'Netral'),
-(173, 'mantugaul', '1122810688672452608', 'sudah masuk cabenya, thanks @BankBCA https://t.co/QOBVEFDEcq', '2019-04-29', NULL, '0', 'Netral'),
-(174, 'HaloBCA', '1122797847370354688', '@etanto79 @bank_indonesia @bank_indonesia @ojkindonesia @BankBCA Mohon maaf atas ketidaknyamanannya Bpk Edy. Jika ada hal lain yang ingin ditanyakan, Bapak dapat mention HaloBCA kembali atau hubungi  Halo BCA 1500888.  Tks :) ^komar', '2019-04-29', NULL, '0', 'Netral'),
-(175, 'z3nfu81', '1122786217571934209', '@BankBCA Ga ada solusi?', '2019-04-29', NULL, '0', 'Netral'),
-(176, 'z3nfu81', '1122783343681007616', '@BankBCA Sudah namun tetep saja sudah seminggu ini belum juga masuk', '2019-04-29', NULL, '0', 'Netral'),
-(177, 'BagusRomdonS', '1122782813697167360', '@bankbca selamat siang tadi pagi saya melakukan transaksi transfer dari m-banking bca untuk ke gopay dengan dua kali transaksi keduanya keterangan \"PENDING\" https://t.co/7Vll97YPvp', '2019-04-29', NULL, '0', 'Netral'),
-(178, 'z3nfu81', '1122782308245786624', '@BankBCA saya sudah seminggu di transfer dari singapura tapi dana belum juga sampai, sedangkan dari rekening singapurnaya sudah berkurang dananya', '2019-04-29', NULL, '0', 'Netral'),
-(179, 'dwntiAri25', '1122778026964439040', 'RT @BankBCA: Kartu kredit BCA Anda hilang? Jangan panik, segera blokir melalui BCA mobile! Cek caranya di video ini ya. https://t.co/RwshE4…', '2019-04-29', NULL, '0', 'Netral'),
-(180, 'zFIKARR', '1122757434081021952', '@BankBCA Bagaimana cara mendaftar onellik?', '2019-04-29', NULL, '0', 'Netral'),
-(181, 'gammacerane', '1122749554745434112', '@BankBCA Via klikbca, pembayaran tagihan first media, terdebet 630 ribu tapi status transaksi GAGAL.', '2019-04-29', NULL, '0', 'Netral'),
-(182, 'aleaghiya', '1122748455581995008', '@BankBCA Selamat Siang apa Bank BCA membuka kesempata untuk bekerjasama sebagai sponsorship acara kegiatan? Bila iya, bagaimana caranya? Terimakasih banyak', '2019-04-29', NULL, '0', 'Netral'),
-(183, 'ridhoahmadr', '1122747958024216577', '@ms_azalea @BankBCA Bungkus bekel ke rumah 😳', '2019-04-29', NULL, '0', 'Netral'),
-(184, 'Desyecol_', '1122746897788051456', '@BankBCA Thank you! 😊', '2019-04-29', NULL, '0', 'Netral'),
-(185, 'ifan_sihotang', '1122743071261593600', 'Isi saldo Gopay @gojekindonesia dari MBanking @BankBCA tiba2 saldo BCA Kepotong Saldo Gopay ngga nambah. Pls bantu min..', '2019-04-29', NULL, '0', 'Netral'),
-(186, 'emi_gunasti', '1122741327270039552', '@BankBCA Terima kasih @BankBCA atas bantuan nya  saldo saya sdh kembali ke rekening saya lagi', '2019-04-29', NULL, '0', 'Netral'),
-(187, 'ifan_sihotang', '1122740293088923649', '@gojekindonesia Beli gopay dari Mbanking @BankBCA saldo kepotong, saldo Gopay blm muncul ? Pls bantu dong.', '2019-04-29', NULL, '0', 'Netral'),
-(188, 'Desyecol_', '1122737568796164096', 'Kadang suka kesel sama diriku sendiri yagini, keluar rumah lupa bawa dompet + gak pegang cash samsek. Ya oke, aku bisa tarik tunai cardless transaction.\n\nDan lebih paitnya lagi m-banking hari ini lagi eror, oh gosh 😓\n\n@BankBCA sampe kapan ini maintenancenya ya min?', '2019-04-29', NULL, '0', 'Netral'),
-(189, 'meyliintanutami', '1122737090985246720', '@BankBCA @ndrnutz Pantesan 🙈', '2019-04-29', NULL, '0', 'Netral'),
-(190, 'oky409c', '1122730380304338944', '@BankBCA KCU tuban antrinya lemot bgt.. teller banyak yg closed..', '2019-04-29', NULL, '0', 'Netral'),
-(191, 'gammacerane', '1122729801020661760', '@BankBCA @HaloBCA @GoodLifeBCA 1 jam twitter gak dibales. nelp cs 1500888 jam 1 jam diangkat2. #unhappycustomer!!!', '2019-04-29', NULL, '0', 'Netral'),
-(192, 'deviarst_', '1122729798059433984', '@BankBCA min saya mau mendaftarkan nomor tujuan transfer baru lewat mbanking tapi gak bisa. Padahal pulsa masih ada, nomor tujuan juga sudah benar', '2019-04-29', NULL, '0', 'Netral'),
-(193, 'mrssunshine1111', '1122729250056855552', '@BankBCA Kalau blm ada npwp apa gapapa?', '2019-04-29', NULL, '0', 'Netral'),
-(194, 'ParamithaGalih', '1122725652916891648', '@BankBCA mobile banking kenapa hari ini menyebalkan yah?? Sy dr td mau trf ga bisa2, mau daftar no rek pun ga bs 😤😤😤😤', '2019-04-29', NULL, '0', 'Netral'),
-(195, 'mrssunshine1111', '1122721543505661952', '@BankBCA Saya sudah punya rekening, bikinnya lewat mobile bca. Tapi saya blm dapat kartu dan mau buat kartu. Apakah saya bisa langsung ke kcp terdekat atau gimana?', '2019-04-29', NULL, '0', 'Netral'),
-(196, 'etanto79', '1122719784292892672', '@bank_indonesia Terima kasih atas jawabannya. Tapi sayang pihak penerbit kartu terkesan melakukan ping pong kepada nasabah. Baru setelah @bank_indonesia dan @ojkindonesia ditag, mereka baru ada jawaban dan tindakan. Mungkin pihak bank penerbit juga harus diberikan arahan. @BankBCA @HaloBCA', '2019-04-29', NULL, '0', 'Netral'),
-(197, 'Alfaa_a', '1122707162449342464', '@BankBCA Ok makasih info sama sarannya min', '2019-04-29', NULL, '0', 'Netral'),
-(198, 'emi_gunasti', '1122706821381120000', '@ovo_id @BankBCA @ovo_id  kenapa tidak cepat tanggap dengan permasalahan saya  padahal urgent    jadi worry kedepan mau pakai @ovo_id', '2019-04-29', NULL, '0', 'Netral'),
-(199, 'Alfaa_a', '1122700826835709952', '@BankBCA min internet banking lagi ada masalah kah? Saya tf sama beli pulsa. di mutasi rek saya liat saldo saya kepotong tapi pulsanya engga dateng sama uang tfnya engga kekirim', '2019-04-29', NULL, '0', 'Netral'),
-(200, 'seruyan99', '1122699415699898368', '@BankBCA @HaloBCA @XpresiBCA @shopee @ShopeeCare\n\nNo virtual account \n1210806800170045\nSudah terdebit tapi saldo shopeepay tidak bertambah, mohon di confirm atau approve penbayarannya', '2019-04-29', NULL, '0', 'Netral'),
-(201, 'lutfiaryn', '1122698683714113537', '@BankBCA min barusab sy transfer ke ovo, keterangannya gagal tp saldo tabungan saya berkurang dan saldo ovo nya tdk bertambah ya?', '2019-04-29', NULL, '0', 'Netral'),
-(202, 'emi_gunasti', '1122698320286076928', '@ovo_id  saya barusan top up via atm @BankBCA  100.000 tapi kenapa  saldo tidak bertambah bantu cek saldo saya sdh terpotong https://t.co/svQhOvr2UB', '2019-04-29', NULL, '0', 'Netral'),
-(203, 'mrssunshine1111', '1122690491101794305', '@BankBCA Min, saya sudah punya tabungan expressi dan mau bikin kartu atm, tinggal datang ke kantor cabang terdekat kah?', '2019-04-29', NULL, '0', 'Netral'),
-(204, 'HaloBCA', '1122688235707064320', '@DnaRmadhna @BankBCA akan dikenakan biaya SMS (sekitar Rp 250 sd Rp 385). Mhn dipastikan simcard m-BCA Bpk tersedia pulsa ya dan mhn menggunakan koneksi internet dari simcard m-BCA nya mhn tdk menggunakan wifi atau paket data dari simcard lainnya. Tks :) (2/2) ^Mora', '2019-04-29', NULL, '0', 'Netral'),
-(205, 'HaloBCA', '1122688234050347008', '@DnaRmadhna @BankBCA Kami turut prihatin atas kendala yg Bpk Rama alami, saat ini kami belum ada informasi kendala dgn m-BCA. Namun kendala yg dialami sdh kami teruskan ke pihak terkait kami. Dapat kami sampaikan daftar transfer pada m-BCA di BCA Mobile nasabah (1/2) ^Mora', '2019-04-29', NULL, '0', 'Netral'),
-(206, 'rizalakbar', '1122687340772675589', '@HaloBCA @BankBCA halo BCA.. pagi ini saya mau transfer ke virtual account selalu gagal, baik melalui M-Banking maupun melalui KlikBCA. mohon info perkiraan perbaikannya selesai kapan ya? https://t.co/LCvmUVQDeZ', '2019-04-29', NULL, '0', 'Netral'),
-(207, 'NjcWenwen', '1122685985932791808', '@BankBCA Masalahnya.Korban dilibatkan perang politik pasti di tendang di sana sini. Tapi yang memperalat bakal kehilangan teman di setiap tempat lain \ncc @aburizalbakrie', '2019-04-29', NULL, '0', 'Netral'),
-(208, 'ndrnutz', '1122682918998949888', 'Internet Bankin BCA, M-Banking BCA, pokoknya semua yang online-online lagi pada eror ya? @BankBCA', '2019-04-29', NULL, '0', 'Netral'),
-(209, 'DharmaTilaar', '1122681910143012866', 'RT @BankBCA: Kartu kredit BCA Anda hilang? Jangan panik, segera blokir melalui BCA mobile! Cek caranya di video ini ya. https://t.co/RwshE4…', '2019-04-29', NULL, '0', 'Netral'),
-(210, 'NjcWenwen', '1122679346643083266', '@BankBCA Ajaran monster dari Afrika yang menginginkan jadi penguasa sosial media katanya pasti berhasil menguasai peraturan setiap negara kalau ada manusia yang digunakan tapi menurutnya mending dia yang digunakan ( Menunggu Kematian Seseorang) \n@agnezmo', '2019-04-29', NULL, '0', 'Netral'),
-(211, 'daden_gaz', '1122674730559893504', '@BankBCA apakah internet banking sedang gangguan', '2019-04-29', NULL, '0', 'Netral'),
-(212, 'NjcWenwen', '1122673643689930754', '@BankBCA Alamat menjadi Pecundang Besar dan Kehilangan teman karena ulah teroris \n@jokowi', '2019-04-29', NULL, '0', 'Netral'),
-(213, 'ade89n', '1122673485665296384', '@BankBCA sudah dicoba dengan mobile data, masih tidak bisa', '2019-04-29', NULL, '0', 'Netral'),
-(214, 'DnaRmadhna', '1122672270554492928', '@BankBCA Koneksi stabil ga gangguan. Yang gangguan aplikasi nya. Ini jawaban dari HaloBCA https://t.co/tDf0iMXnbH', '2019-04-29', NULL, '0', 'Netral'),
-(215, 'ade89n', '1122670187973464064', '@BankBCA ini dari kemarin kayak gini https://t.co/fUNfPM9i7v', '2019-04-29', NULL, '0', 'Netral'),
-(216, 'NjcWenwen', '1122669530818334720', '@BankBCA I want to marriage or not .My business . I want to make friends with whoever .My business .What the hell terrorist system', '2019-04-29', NULL, '0', 'Netral'),
-(217, 'DnaRmadhna', '1122668535635824640', '@BankBCA Udah saya restart HP nya masih belum bisa. Ada penjelasan lain? https://t.co/ZRUwfFy173', '2019-04-29', NULL, '0', 'Netral'),
-(218, 'khoirunnisabekt', '1123497426227159040', 'Bete banget dong ngambil duit di atm depan kantor keluarnya uang rusak kek begini. Hey @BANKBRI_ID tolong yg kayak gini diperbaiki dong.\nSaya aja gak tega buat pakenya huft 😤 https://t.co/kV0OUDE4mD', '2019-05-01', NULL, '0', 'Netral'),
-(219, 'babibubabe', '1123468463572434945', '@BANKBRI_ID , pembayaran trx bpjs di bukalapak via briva. Trx gagal, namun rekening terdebet. Gimana solusinya? Mohon infonya. Trims', '2019-05-01', NULL, '0', 'Netral'),
-(220, 'skyee75', '1123443187354406912', '@BANKBRI_ID kartu atm bank BRI apakah hatus diaktivasi dulu sebelum dipakai buat narik di atm malaysia?', '2019-05-01', NULL, '0', 'Netral'),
-(221, 'ChepGembel1933', '1123435112413237248', '@BANKBRI_ID Selamat siank, mau nanya apa cabang majalaya menerima pencairan bpjstk', '2019-05-01', NULL, '0', 'Netral'),
-(222, 'alindardiantoro', '1123430255061028866', 'RT @situs_pulsa: @nuthqueen @kontakBRI Boro boro direspon @kontakBRI. Call center sibuk, kirim pesan melalui internet banking ga ada respon…', '2019-05-01', NULL, '0', 'Netral'),
-(223, 'irsyadwahida', '1123426384632733696', '@BANKBRI_ID Min, dr td pagi brimo gk bs dipakai ya.. ada kendala apa ya? Awal login bs, tp gk bs transaksi. Trs keluar habis itu login gk bs. Dr pagi jam 4 sampe sekarang saya blm bs makai, teman2 saya jg bnyk yg ndak bs ini. Mohon informasinya', '2019-05-01', NULL, '0', 'Netral'),
-(224, 'nuthqueen', '1123414606305607681', '@harisdark06 @situs_pulsa @kontakBRI @BANKBRI_ID Ini malah dr @kontakBRI prosesnya 20 hari kerja, sangat lama &amp; merugikan sekali.', '2019-05-01', NULL, '0', 'Netral'),
-(225, 'amin_santoso796', '1123412792592048128', '@BANKBRI_ID mau konfirmasi min saya topup payfazz 5jt pakai briva saldo kepotong tp kok blm masuk ya... Amin santoso', '2019-05-01', NULL, '0', 'Netral'),
-(226, 'yuli_boomers76', '1123395164448350208', 'Hallo @BANKBRI_ID saya kemarin beli pulsa listrik lewat app Brimo tp kenapa tidak ada pesan masuk buat token nya ?', '2019-05-01', NULL, '0', 'Netral'),
-(227, 'nindyaa95', '1123393997462839299', '@taspenkita Terimakasih informasi dan konfirmasinya min @taspenkita 🙏\n\nUntuk seluruh cabang @BANKBRI_ID @kontakBRI semoga kedepannya tidak memberi informasi yg tidak sesuai SOP kepada nasabah. Thx.\nhttps://t.co/TECoCYBrgr', '2019-05-01', NULL, '0', 'Netral'),
-(228, 'harisdark06', '1123391265507168256', '@situs_pulsa @nuthqueen @kontakBRI @BANKBRI_ID Bener banget bro, ane akhirnya lapor ke cabang di kota ane, disuruh tunggu 1 minggu, baru bosa di proses, ini yg salah sistem bri nya kita yg malah jadi ribet', '2019-05-01', NULL, '0', 'Netral'),
-(229, 'McManamanK', '1123372937317236736', '@BANKBRI_ID selamat pagi, apakah hari ini bank bri buka? @kontakBRI', '2019-04-30', NULL, '0', 'Netral'),
-(230, 'nindyaa95', '1123357709405810688', '..(2) jadi krn kemarin saya sudah pakai 1x maka kesempatan utk buka blokir lewat mitra hanya tersisa 2x. Apa benar ada kebijakan demikian @taspenkita?\nKrn otentikasi hp sangat susah &amp; jika ada pembatasan layanan dari mitra, misalnya spt @BANKBRI_ID , maka akan semakin merepotkan.', '2019-04-30', NULL, '0', 'Netral'),
-(231, 'nindyaa95', '1123356702818979840', '@taspenkita Min mau tanya, sejak bulan lalu sampai skrg saya coba otentikasi taspen tapi gagal terus. Lalu awal bulan april saya ke Bank BRI @BANKBRI_ID utk ambil manual. Tp sama CS BRI diberi tahu krn sudah ada otentikasi via hp maka hanya bisa ambil manual sebanyak 3x saja..(1)', '2019-04-30', NULL, '0', 'Netral'),
-(232, 'situs_pulsa', '1123350432896602112', '@nuthqueen @kontakBRI Boro boro direspon @kontakBRI. Call center sibuk, kirim pesan melalui internet banking ga ada respon.\nMasa sistem @BANKBRI_ID  yang error malah nasabah yang harus dirugikan.', '2019-04-30', NULL, '0', 'Netral'),
-(233, 'janjisnja', '1123305701927821312', 'RT @fahmibadruzaman: Call center @BANKBRI_ID Goblog goblog goblog goblog segoblog nya, dari td di tlp semua sedang melayani pelanggan trus,…', '2019-04-30', NULL, '0', 'Netral'),
-(234, 'mgfdyn', '1123291843884503040', 'mbanking bri lagi kenapa sih dari kemaren kemaren nih ga bisa diproses @BANKBRI_ID', '2019-04-30', NULL, '0', 'Netral'),
-(235, 'Rickyfandyn', '1123280602017308672', '@BANKBRI_ID min tanya kenapa saya tidak bisa apply di website rekrutmen bri? Padahal datanya udah lengkap. Cuma kurang npwp tapi saya belum punya npwp. Solusi gmana?', '2019-04-30', NULL, '0', 'Netral'),
-(236, 'janjisnja', '1123259040518234118', 'Hari ini bener bener diuji sama @BANKBRI_ID awalnya beli token listrik ga kelur dong struknya diatm cek saldo udah berkurang, nelfon pln katanya belom ada transaksi. Nunggu dl sekitar 1 jam lebih nelfon PLN lagi baru bisa keluar tokennya', '2019-04-30', NULL, '0', 'Netral'),
-(237, 'Asuwkabeh1', '1123257757916733441', '@BANKBRI_ID min customer service kok pada sibuk semuaaaaaaa ????', '2019-04-30', NULL, '0', 'Netral'),
-(238, 'arumi_cell', '1123250712245198850', '@barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja Sy tdi pagi juga udh lapor, tpi belum masuk.', '2019-04-30', NULL, '0', 'Netral'),
-(239, 'joel_alta', '1123244559918481408', 'Ini jawaban terbaru dari @BANKBRI_ID ; Bagaimana ini @Telkomsel @linkaja  ? https://t.co/qIOyIf8yvQ', '2019-04-30', NULL, '0', 'Netral');
-INSERT INTO `data_crawling` (`id_crawling`, `username`, `tweet_id`, `tweet`, `tgl_tweet`, `status`, `proses`, `kategori`) VALUES
-(240, 'AditaDheeta', '1123243429981347841', '@kontakBRI @BANKBRI_ID mohon bantuanya, sy sudah 2x transfer dg notif gagal tapi saldo berkurang dan tidak sampai ke rekening tujuan. Mau cek rekening koran gagal trs. Mau kirim pesan ke layanan nasabah gagal trs. Gimana si ini Bank BRI!!!', '2019-04-30', NULL, '0', 'Netral'),
-(241, 'barbiedellaaa', '1123242412350926849', 'AKHIRNYA YG DI URUS BERHARI-HARI ADA HASILNYAAA😊 trimakasih sudah memproses scptnya @BANKBRI_ID @kontakBRI @linkaja https://t.co/8o0ISYVdgR', '2019-04-30', NULL, '0', 'Netral'),
-(242, 'barbiedellaaa', '1123242188018556931', '@arumi_cell @BANKBRI_ID @Telkomsel @linkaja Coba di urus aja ke Bank. Saya sudah masuk ke akun LinkAja saldonya hehe. Pihak bank nelfon ke pusat langsung,awalnya emang disuruh nunggu 20hari kerja. Tapi mlm ini udab masuk kok ke LinkAja sesuai dgn nominal yg saya topup hehe...', '2019-04-30', NULL, '0', 'Netral'),
-(243, 'rachmatyanuarst', '1123240248786411520', '@BANKBRI_ID slamat malam bri. Aku td mau transfer k rek bca trus dpt mesej d screenshot ini. Saldo ku terpotong sesuai nominal transfer tp bukan k rek bca tujuan. Singkatnya gagal transfer tp terpotong saldo. Tolong d respon. 🙏 https://t.co/y3yl8L6yTm', '2019-04-30', NULL, '0', 'Netral'),
-(244, 'Rijal83796989', '1123239508546183168', '@BANKBRI_ID saya mau tanya bagaimana kalau uang tidak keluar dari ATM tapi sudah terdebet direkening', '2019-04-30', NULL, '0', 'Netral'),
-(245, 'ErMudasatria14', '1123236439997669376', '@BANKBRI_ID Min saya transfer ke rek bri syariah tapi status transaksk dlm proses, sudah berkurang di saldo rek bri konven saya. Cuma di bri syariah nya belum masuk min. Tolong min solusinya', '2019-04-30', NULL, '0', 'Netral'),
-(246, 'ErMudasatria14', '1123236163194576896', '@BANKBRI_ID Min saya transfer ke rek bri syariah tapi status transaksk dlm proses, sudah berkurang di saldo rek bri konven saya. Cuma di bri syariah nya belum masuk min. Tolong min solusinya', '2019-04-30', NULL, '0', 'Netral'),
-(247, 'ErMudasatria14', '1123235662155509761', '@kumparan @BANKBRI_ID Min saya transfer ke brimo tp status nya transaksi dlm proses', '2019-04-30', NULL, '0', 'Netral'),
-(248, 'ErMudasatria14', '1123235440041967616', '@kumparan @BANKBRI_ID Min kenapa yah transaksi dalam proses di akun brimo saya', '2019-04-30', NULL, '0', 'Netral'),
-(249, 'anis_ginuistaro', '1123235401328500739', 'Admin @BANKBRI_ID , sore ini saya tarik tunai di atm bri Duren Tiga. Saya masukkan nominal uang yg akan saya debit. Stlh menunggu lama, di layar muncul \"maaf, permintaan anda gagal.\" Lalu saya coba lagi. Stlh saya cek, saldonya berkurang tp uangnya tidak keluar. Mohon bantuannya.', '2019-04-30', NULL, '0', 'Netral'),
-(250, 'alindardiantoro', '1123223317198991365', 'RT @SETYABERWIBAWA: Hi @BANKBRI_ID, tolong donk di investigasi banyak nasabah di solo mengeluh tarik tunai uang tidak keluar tapi saldo ber…', '2019-04-30', NULL, '0', 'Netral'),
-(251, 'fahmibadruzaman', '1123217699641802752', 'Call center @BANKBRI_ID Goblog goblog goblog goblog segoblog nya, dari td di tlp semua sedang melayani pelanggan trus, goblok @kontakBRI', '2019-04-30', NULL, '0', 'Netral'),
-(252, 'halowseyeng', '1123216745160830978', '@thaliawlndr @BANKBRI_ID kangen pengen ngambil duit lg', '2019-04-30', NULL, '0', 'Netral'),
-(253, 'fahmibadruzaman', '1123216622800388102', '@kontakBRI parah udah nyoba bbrp kali tlp ke call center 14017 &amp; 1500017 tp sibuk trus, ngomong sama customer service blm, pulsa udah abis, pelayanan yg luar biasa 👏👏👏 @BANKBRI_ID @OJK_Indonesia @bank_indonesia', '2019-04-30', NULL, '0', 'Netral'),
-(254, 'christojohanis', '1123210414760681472', '@BANKBRI_ID mohon informasi dan bantuannya , \nkarena saya mengalami masalah saat penarikan dana . \nyang dimana uang tidak keluar dan saldo terpotong', '2019-04-30', NULL, '0', 'Netral'),
-(255, 'IMSAHRIL57', '1123203733263794177', 'Mas/mba saya mau nanya sayakan tadi sekitaran jam 16.00 saya melakukan penarikan uang,  tapi di atmnya ituh uangnya engga keluar,  tapi saldonya udah kepotong??  Gmna mau balikkin duitnya?  @BANKBRI_ID Terimakasih', '2019-04-30', NULL, '0', 'Netral'),
-(256, 'YoungOnTop', '1123195298958864385', 'Bank BRI mempersembahkan Connext Conference Purwokerto 2019 #MenyatukanINDONESIA\n\nSabtu, 4 Mei 2019\n\nAcara ini didukung: @bankbri_id @AllianzID @tehbotolsosroID @sariayu_mt @optikseis \n\n#ConnextPurwokerto #YOTxBRI #BRICC2019 #YOTxAllianz #YOTxTehbotolSosro  #YOTxSariayu', '2019-04-30', NULL, '0', 'Netral'),
-(257, 'RozaqUlum', '1123194942115868672', '@BANKBRI_ID kok atm saya gak bisa di tf ya?\nApakah atm saya di blokir?\nPadahal di ATM banking masih bisa digunakan\nDi mesin atm juga masih terbaca seperti biasanya', '2019-04-30', NULL, '0', 'Netral'),
-(258, 'elias_smart', '1123194223589593089', '@Hymmas @BANKBRI_ID Heeh, hari ini saya dibikin kesel sama ibBRI... Saking keselnya pengen maki2 BRI... Klo gak gara3 gaji, saya tutup rejening BRI', '2019-04-30', NULL, '0', 'Netral'),
-(259, 'elias_smart', '1123193661787795456', '@BANKBRI_ID Masih laku ya BRI, padahal sepengalaman saya bank paling jelek pelayanannya, seandainya tidak gara2 gaji harus lewat bri, saya gak bakalan buka akun bri... ATM sering rusak, internet banking lemot, padahal punya satelit sendiri...', '2019-04-30', NULL, '0', 'Netral'),
-(260, 'elias_smart', '1123191427981168643', '@BANKBRI_ID kenapa internet banking bri lemot banget? Padahal pake satelit sendiri.', '2019-04-30', NULL, '0', 'Netral'),
-(261, 'HestyHesty29', '1123184342946082817', '@BANKBRI_ID hari ini saya kehilangan kartu atm, dan ini udah malem kira kira gimana yaa 😭😭😭😭', '2019-04-30', NULL, '0', 'Netral'),
-(262, 'JandaBohay', '1123182544118173700', '@BANKBRI_ID min, pinjaman tambahan modal 50-100juta apakah harus dengan agunan sertifikat rumah? Atau bisakah cuma dgn KTP, KK, IUP??', '2019-04-30', NULL, '0', 'Netral'),
-(263, 'SafitriJa', '1123176920495972354', 'Kalo bikin buku tabungan berapa ya min? @BANKBRI_ID', '2019-04-30', NULL, '0', 'Netral'),
-(264, 'eka_nasrianty', '1123161315277557760', 'RT @joel_alta: Saya buat laporan ke pihak BRI. Kemarin 29/04 via DM Twitter mereka menginfokan bahwa topup saya masuk ke @linkaja ; Pihak @…', '2019-04-30', NULL, '0', 'Netral'),
-(265, 'arumi_cell', '1123145071140884480', '@barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja Makin gagal paham saya.  Yang bermasalah pihak Bank apa pihak linkaja ya ???', '2019-04-30', NULL, '0', 'Netral'),
-(266, 'askyull', '1123137563756089346', 'RT @NafysSeword: Tolong ditindaklanjuti penipu ini. Terima Kasih @DivHumas_Polri @aduanBRTI @laporsipenipu @BANKBRI_ID @3CareIndonesia http…', '2019-04-30', NULL, '0', 'Netral'),
-(267, 'PerdinaRivers', '1123135767063085057', 'Saya ditipu sama pemilik rekening @BANKBRI_ID , gimana cara blok no rekeningnya?', '2019-04-30', NULL, '0', 'Netral'),
-(268, 'ndoypermana', '1123131086337298438', '@BANKBRI_ID Selamat siang pa/bu, kemarin saya transfer ke bank BCA pake internet banking, saldo saya terdebet tapi ke rekening BCA nya tidak masuk, tapi mutasi rekeningnya ada saldo keluar.\nMohon bantuannya', '2019-04-30', NULL, '0', 'Netral'),
-(269, 'joel_alta', '1123122937224024064', 'Saya buat laporan ke pihak BRI. Kemarin 29/04 via DM Twitter mereka menginfokan bahwa topup saya masuk ke @linkaja ; Pihak @BANKBRI_ID menyuruh saya komplain lagi ke Fintek Karya Nusantara.', '2019-04-30', NULL, '0', 'Netral'),
-(270, 'joel_alta', '1123122074321444864', 'Saya komplain ke pihak @linkaja melalui @Telkomsel ; disuruh tunggu. Sudah ditunggu hampir seminggu baru dapat kabar pihak @Telkomsel tidak menerima dana 1jt tersebut. Disuruh komplain ke @BANKBRI_ID', '2019-04-30', NULL, '0', 'Netral'),
-(271, 'joel_alta', '1123121456806711296', 'Tanggal 16/04 saya Topup @linkaja dengan BRIVA senilai 1jt. Saldo @BANKBRI_ID saya terpotong, dan saldo @linkaja tidak bertambah.', '2019-04-30', NULL, '0', 'Netral'),
-(272, 'joel_alta', '1123120945936207872', 'Untuk penyelesaian kendala traksaksi @tokopedia berada di nomor satu gercepnya. Uang pelanggan begitu dihargai. Tidak sampai 24jam prosesnya sudah selesai. Berbeda dengan @linkaja dari @Telkomsel dan @BANKBRI_ID ; Keluhan saya dari tanggal 16/04/19 hingga hari ini blm selesai.', '2019-04-30', NULL, '0', 'Netral'),
-(273, 'SuyantoMohammat', '1123117675574489088', '@bankmandiri @IndihomeFiber update info :\nterimakasih atas bantuannya , ternyata permasalahnnya ada di rekening tujuan (BRI) yang pasif dan hampir hangus, tadi baru saya ketahui setelah ke  @BANKBRI_ID untuk setor tunai ... \nnanti setelah rekening tujuan selesai, akan saya coba lagi ...', '2019-04-30', NULL, '0', 'Netral'),
-(274, 'DediKusuma', '1123112405632872449', '@BANKBRI_ID @kontakBRI  Tiket 01419767 kenapa belum selesai juga ya ? Nanya via email malah no respon ?. PLEASE, TANGGAL TUA NIH', '2019-04-30', NULL, '0', 'Netral'),
-(275, 'V_HaikalAji', '1123109986006003712', 'Perlu tambah teller nih di kancab @BANKBRI_ID Sumedang. Mulai kedinginan krn nunggu lama. 😴', '2019-04-30', NULL, '0', 'Netral'),
-(276, 'NafysSeword', '1123109456089190402', 'Tolong ditindaklanjuti penipu ini. Terima Kasih @DivHumas_Polri @aduanBRTI @laporsipenipu @BANKBRI_ID @3CareIndonesia https://t.co/ixljLM6Tju', '2019-04-30', NULL, '0', 'Netral'),
-(277, 'chrisitucendol', '1123104951113097216', 'Ya ampunn sejak kapan aku punya  @BANKBRI_ID  kok tiba tiba dapat sms ginian, katanyaa setelah registrasi sesuai NIK tidak akan ada lagi sms spam kok masih ada sms semacam ini @kemkominfo hehe https://t.co/KE1Qex7Ztw', '2019-04-30', NULL, '0', 'Netral'),
-(278, 'pandori_Jr', '1123104010297171968', '@BANKBRI_ID @kontakBRI Thanks buat infonya. Tpi kenapa sy hanya bisa tarik tunai Rp. 5 juta per hari dng premium card, padahal ATM machine di Thailand punya logo MasterCard juga. Apakah ada saran lain yang bisa saya lakukan untuk bisa tarik tunai Rp. 10 juta per hari sesuai limit. Thanks', '2019-04-30', NULL, '0', 'Netral'),
-(279, 'baplank88', '1123067828620353538', '@BANKBRI_ID @kontakBRI min,,saya transaksi pembayaran BRIVA,,notifikasi gagal tp saldo berkurang..gmn solusinya?', '2019-04-30', NULL, '0', 'Netral'),
-(280, 'susansalsabil12', '1123067403162669057', 'RT @Garuda_Promo: Ciptakan perjalanan impian sekarang dengan harga spesial di #GOTF2018! Dapatkan berbagai penawaran menarik dari Garuda In…', '2019-04-30', NULL, '0', 'Netral'),
-(281, 'susansalsabil12', '1123067251844833281', 'RT @Garuda_Promo: Yuk, rayakan HUT ke-123 @BANKBRI_ID bareng Garuda Indonesia! Gunakan Kartu Kredit BRI,Debit Online BRI atau e-Pay BRI dan…', '2019-04-30', NULL, '0', 'Netral'),
-(282, 'susansalsabil12', '1123066895907807232', 'RT @Garuda_Promo: Hanya sampai hari ini! Ciptakan momen spesial bersama orang-orang tercinta dengan diskon Rp120.000 dari @BANKBRI_ID. Guna…', '2019-04-30', NULL, '0', 'Netral'),
-(283, 'agung_susanto', '1123065145486217216', 'payah nich @BANKBRI_ID mentang2 gk ada biaya admin cetak ssp semena2.tipis2 sekali cetakannya bikin sakit mana.bikin emosi aja.tuch @DitjenPajakRI tegur dunk. #sahabatpajak', '2019-04-30', NULL, '0', 'Netral'),
-(284, 'candraadewa', '1123056427600191488', 'Kalau mau complain soal uang atm yg tidak keluar tp saldo terpotong kemana ya ? Saya sudah telfon call center sudah 2 hari sibuk tidak dapat terhubung, mohon info @kontakBRI @BANKBRI_ID', '2019-04-30', NULL, '0', 'Netral'),
-(285, 'adham_hrp', '1123045905454600192', '@arumi_cell @barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja edannn.. topup pakai debitcard jg ga msuk, gagal tapi saldo bank kepotong..', '2019-04-30', NULL, '0', 'Netral'),
-(286, 'arumi_cell', '1123043343737315329', '@barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja Sabar aja,  @linkaja juga sekarang udah g berguna.  Promonya HOAX', '2019-04-30', NULL, '0', 'Netral'),
-(287, 'AlbyRuhi', '1123043146168844288', '@BANKBRI_ID \nKaryawan BRI nakal\nJam 9 belum buka\nAlamat batulengir Sokobanah Sampang', '2019-04-30', NULL, '0', 'Netral'),
-(288, 'bonux_lumpou', '1123042821177372672', 'Penarikan misterius di rekening @BANKBRI_ID @kontakBRI yang transaksinya tidak saya lakukan. https://t.co/927ZzcAiPL', '2019-04-30', NULL, '0', 'Netral'),
-(289, 'barbiedellaaa', '1123042622681915392', '@arumi_cell @BANKBRI_ID @Telkomsel @linkaja nah iya bener...masih nominal kecil ini emg ga sbrp. Tp kan merasa dirugikan juga kebuang2 waktu buat ngurus kek ginian doang. Yg salah pun entah dari Pihak Bank ntah dari pihak LinkAja juga ga ngerti kita. Bingung saya tu wkwk🤧', '2019-04-30', NULL, '0', 'Netral'),
-(290, 'arumi_cell', '1123041564194852869', '@barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja Iya. . .  Sma,  nominal juga g bnyak sih tapi klu nominal kecil aja seribet ini,  gimna kalau nominal besar.', '2019-04-30', NULL, '0', 'Netral'),
-(291, 'barbiedellaaa', '1123039792378159107', '@arumi_cell @BANKBRI_ID @Telkomsel @linkaja iya coba aja di urus dlu,saya juga masih proses ngurus di bank nya..semoga ada jalan keluar dari Bank nya,soalnya aneh aja kan nominal nya emg ga banyak,tp kemana lari nya soalnya kan sudah kepotong😔', '2019-04-30', NULL, '0', 'Netral'),
-(292, 'arumi_cell', '1123002877260099584', '@barbiedellaaa @BANKBRI_ID @Telkomsel @linkaja Hari ini rencana mau ke Bank.  Tapi dengar dengar untuk pengembaliannya biasa makan waktu 20 hari sampai satu bulan.', '2019-04-29', NULL, '0', 'Netral'),
-(293, 'nuningrisky', '1122869226870468608', 'Dear @kontakBRI @BANKBRI_ID kartu CC saya udah kadarluarsa di bulan 03/19. Saya udh bilang ke contact center di bulan 02 dan jawabnya akan di kirim otomatis. G datang\" sampe mau habis bulan 04. Gimana dong ini? No lap akan saya  DM', '2019-04-29', NULL, '0', 'Netral'),
-(294, 'Tenshi_Yeol', '1122844292630712320', '@akuiopolur @BANKBRI_ID Iya...ATM link BRI sih, gak tau orang BRI bukan yg masukin uangnya', '2019-04-29', NULL, '0', 'Netral'),
-(295, 'Tenshi_Yeol', '1122843882130030592', '@dwiAR92 @akuiopolur @BANKBRI_ID Masa 2 doank yg gropes,, yg lain gak 😂😂😂', '2019-04-29', NULL, '0', 'Netral'),
-(296, 'dwiAR92', '1122839742217801730', '@Tenshi_Yeol @akuiopolur @BANKBRI_ID Mungkin didalem mesin atm ada tikus nya kali😂😂', '2019-04-29', NULL, '0', 'Netral'),
-(297, 'ekose85', '1122838980641222656', 'ambil uang dengan atm @BNI di mesin atm @BANKBRI_ID uang tidak keluar saldo berkurang, diwilayah cianjur. @kontakBRI @info_jabar', '2019-04-29', NULL, '0', 'Netral'),
-(298, 'ekose85', '1122837441394569216', 'ambil uang dengan kartu atm @BNI di atm @BANKBRI_ID uang tidak keluar, saldo berkurang, terjadi di wilayah cianjur. @info_jabar', '2019-04-29', NULL, '0', 'Netral'),
-(299, 'IlfiSyabeh', '1122834193543622656', '@YoungOnTop @BANKBRI_ID @AllianzID @tehbotolsosroID @Sariayu_MT @optikseis @fadilabdila', '2019-04-29', NULL, '0', 'Netral'),
-(300, 'IlfiSyabeh', '1122834055924305920', 'RT @YoungOnTop: Bank BRI mempersembahkan Connext Conference Purwokerto 2019 #MenyatukanINDONESIA\n\nSabtu, 4 Mei 2019\n\nAcara ini didukung: @b…', '2019-04-29', NULL, '0', 'Netral'),
-(301, 'YoungOnTop', '1122832904852209669', 'Bank BRI mempersembahkan Connext Conference Purwokerto 2019 #MenyatukanINDONESIA\n\nSabtu, 4 Mei 2019\n\nAcara ini didukung: @bankbri_id @AllianzID @tehbotolsosroID @sariayu_mt @optikseis \n\n#ConnextPurwokerto #YOTxBRI #BRICC2019 #YOTxAllianz #YOTxTehbotolSosro  #YOTxSariayu', '2019-04-29', NULL, '0', 'Netral'),
-(302, 'faisal290613', '1122825301396865024', '@BANKBRI_ID cek dm saya min..', '2019-04-29', NULL, '0', 'Netral'),
-(303, 'akuiopolur', '1122824986085822472', '@Tenshi_Yeol @BANKBRI_ID Eh serius mas? wah parah sih ini', '2019-04-29', NULL, '0', 'Netral'),
-(304, 'miefzakariya', '1122823839744839680', '@BANKBRI_ID @kontakBRI sya transfer pake internet banking, notif gagal 2x. Tetapi pas di cek saldo terdebet 2x. Mohon diperhatiakan dan solusinya, sya udh 2x kejadian seperti ini.', '2019-04-29', NULL, '0', 'Netral'),
-(305, 'Tenshi_Yeol', '1122820895045636096', '@akuiopolur @BANKBRI_ID Mending kayak gitu,, saya kayak gini https://t.co/6sXx89bgsb', '2019-04-29', NULL, '0', 'Netral'),
-(306, 'Ory42919496', '1122814363197296645', '@BANKBRI_ID Jaringan mulu nih @BANKBRI_ID  biasanya saya trf pke mbanking, berhubung lgi error sya lari ke mesin atm,eh pas trf berhasil print out gak ada,sms notifikasi gak muncul,trs buat bukti itu duit udh ke kirim/blmya dimanaaaa? Ktr bri ydh pada nutup soalnya 😑😑😑', '2019-04-29', NULL, '0', 'Netral'),
-(307, 'akuiopolur', '1122809244569358336', 'Pertinyiinyi adalah kenapa uang kobong kayak gini bisa masuk Atm @BANKBRI_ID https://t.co/u3EcmTsCMG', '2019-04-29', NULL, '0', 'Netral'),
-(308, 'charismaagirl', '1122797756660080640', '@BANKBRI_ID BRI SMS BANKING LAGI GANGGUAN YA? kok nggak bisa terus mau bayar BRIVA', '2019-04-29', NULL, '0', 'Netral'),
-(309, 'nayelsa', '1122790943319449600', '@ikathyaa @BANKBRI_ID Halo kak punya saya juga lagi gangguan nih, kayanya emang dari bri nya ya', '2019-04-29', NULL, '0', 'Netral'),
-(310, 'ikathyaa', '1122789044058857473', '@BANKBRI_ID hallo min, mobile banking BRI lagi eror kah?', '2019-04-29', NULL, '0', 'Netral'),
-(311, 'marisaanata', '1122787578204147713', '@muh_firstyandy @BANKBRI_ID Twit e wes suweee', '2019-04-29', NULL, '0', 'Netral'),
-(312, 'muh_firstyandy', '1122787156034871297', '@marisaanata @BANKBRI_ID', '2019-04-29', NULL, '0', 'Netral'),
-(313, 'barbiedellaaa', '1122786994638036992', '@arumi_cell @BANKBRI_ID @Telkomsel @linkaja masih saya urus ke bank BRI dan Grapari. Tapi pihak Grapari minta bukti Rekening Koran,sdgkan di BRI tidak tertulis transaksi nya kemana. Jd saya masih urus besok ke Bank Lagi..kamu gimana penyelesaiannya?', '2019-04-29', NULL, '0', 'Netral'),
-(314, 'joel_alta', '1122781356415524864', '@arumi_cell @BANKBRI_ID @Telkomsel @linkaja Saya juga mengalami. Dari tanggal 4/4 kejadiannya. Sampai ini hari tgl 29/4 belum ada kejelasan.', '2019-04-29', NULL, '0', 'Netral'),
-(315, 'FaridNurma', '1122775830893961221', '@BANKBRI_ID Bagaimana cara menjadikan kartu debit yang sudah berlogo mastercard dapat digunakan belanja online?', '2019-04-29', NULL, '0', 'Netral'),
-(316, 'Dochykenjy27', '1122771205923065856', '@BANKBRI_ID halo kak selamat siang..\nSaya mau tanya kira kira uang saya ini ditukarkan ke Bank BRI bisa tidak yaa?\ndan kalau bisa uangnya bisa diambil secara cash tidak yaa?\nTerima Kasih https://t.co/0ExOjCKvER', '2019-04-29', NULL, '0', 'Netral'),
-(317, 'Nova02268446', '1122764310084612096', '@BANKBRI_ID Cek dm plis...', '2019-04-29', NULL, '0', 'Netral'),
-(318, 'wiwinfitrianti', '1123505471237701632', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(319, 'lialiciouz', '1123503404666376192', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(320, 'edibody', '1123503195567747073', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(321, 'GukaBeatrix', '1123502712815902720', 'RT @BNI: Jika kamu tidak percaya pada diri dan kemampuanmu sendiri, bagaimana bisa kamu melakukan suatu hal untuk mendapatkan kesuksesan? #…', '2019-05-01', NULL, '0', 'Netral'),
-(322, 'rikaistiqomah05', '1123502515482316800', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(323, 'bucinnyazhyun', '1123502465645629441', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(324, 'bucinnyazhyun', '1123502443084406784', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(325, 'bucinnyazhyun', '1123502380845191168', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(326, 'bucinnyazhyun', '1123502348305817600', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(327, 'okiechan17', '1123502293989507072', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(328, 'syahroqi', '1123502256500822017', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(329, 'syahroqi', '1123502199227568129', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(330, 'yukasamada', '1123501878413627392', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(331, 'viantsofyan', '1123501391224262659', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(332, 'viantsofyan', '1123501380772040704', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(333, 'Fitri_MTS28', '1123501059740131330', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(334, 'Fitri_MTS28', '1123501054333612037', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(335, 'Khuzama24', '1123500948435771392', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(336, 'Khuzama24', '1123500943075463169', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(337, 'kakabim22', '1123500904198463488', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(338, 'kakabim22', '1123500874842554368', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(339, 'kakabim22', '1123500853531299841', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(340, 'kakabim22', '1123500829871300612', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(341, 'kakabim22', '1123500798363590656', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(342, 'viriedity', '1123500790063124480', '@BNI Halo, bagaimana cara update balance Tapcash dari pending topup? Saya ke ATM BNI tadi tapi tidak ada pilihannya. Terima kasih.', '2019-05-01', NULL, '0', 'Netral'),
-(343, 'kakabim22', '1123500788662263808', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(344, 'ekofokuss', '1123500715228319745', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(345, 'ekofokuss', '1123500693329866752', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(346, 'ekofokuss', '1123500668625408000', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(347, 'Fuhristan', '1123500651529375745', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(348, 'Fuhristan', '1123500646349410304', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(349, 'ekofokuss', '1123500639240081408', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(350, 'ekofokuss', '1123500628813045761', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(351, 'ekofokuss', '1123500618427953152', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(352, 'hadi_hebat', '1123500542997590016', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(353, 'hadi_hebat', '1123500520042160128', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(354, 'hadi_hebat', '1123500492452032512', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(355, 'hadi_hebat', '1123500468779413506', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(356, 'hadi_hebat', '1123500435724165121', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(357, 'hadi_hebat', '1123500423950651392', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(358, 'rianelangg', '1123500357609345025', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(359, 'rianelangg', '1123500331965358082', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(360, 'rianelangg', '1123500311895654401', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(361, 'rianelangg', '1123500287434448897', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(362, 'rianelangg', '1123500276399390725', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(363, 'rianelangg', '1123500252449857536', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(364, 'BatikMa00214672', '1123500167892574208', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(365, 'antobisaa', '1123500137110597632', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(366, 'antobisaa', '1123500112741711872', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(367, 'antobisaa', '1123500086367899648', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(368, 'antobisaa', '1123500064268214273', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(369, 'antobisaa', '1123500034643750912', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(370, 'antobisaa', '1123500017010892801', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(371, 'aminnmuis', '1123499847946985472', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(372, 'Zaysaka', '1123499731081056256', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(373, 'NihayatiRotin', '1123499582309036032', '@BNI Garuda Wisnu Kencana di Bukit Ungasan, Jimbaran-Bali #BNIFunGames', '2019-05-01', NULL, '0', 'Netral'),
-(374, 'NihayatiRotin', '1123499537232850944', 'RT @BNI: Tweeps pasti tahu dan pernah melihat patung berikut kan? Yang ngaku tahu, coba jawab apa nama dari patung ini dan dimana letaknya?…', '2019-05-01', NULL, '0', 'Netral'),
-(375, 'PulsaWarung', '1123499529251110912', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(376, 'Zaysaka', '1123499428294168576', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(377, 'HanzVM', '1123499260513640449', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(378, 'MarianiWaty', '1123499203143954433', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(379, 'NihayatiRotin', '1123499133413707780', 'RT @BNI: Belanja online lebih seru di BNI Happy Deals https://t.co/Oj32iuA857! Ada ekstra diskon Rp 100.000 tiap Senin &amp; Rabu untuk penggun…', '2019-05-01', NULL, '0', 'Netral'),
-(380, 'NihayatiRotin', '1123499095711084544', 'RT @BNI: Jangan lewatkan promo khusus 1 hari! Dapatkan paket Mayday berupa Beras 2,5kg &amp; Minyak Goreng Bimoli Klasik 2l di LOTTE Mart &amp; LOT…', '2019-05-01', NULL, '0', 'Netral'),
-(381, 'NihayatiRotin', '1123499075800723456', 'RT @BNI: Ingin melengkapi koleksi tas hingga skincare? Manfaatkan Women\'s Festival di Lazada dan dapatkan diskon hingga Rp 100.000 dengan m…', '2019-05-01', NULL, '0', 'Netral'),
-(382, 'NihayatiRotin', '1123499050009939968', 'RT @BNI: Isi pulsa, dapat kuota? Bisa! dengan transaksi Top Up Tri denom minimum Rp 100.000 melalui BNI e-Banking, kamu bisa mendapatkan bo…', '2019-05-01', NULL, '0', 'Netral'),
-(383, 'NihayatiRotin', '1123499006879944705', 'RT @BNI: Discount 20% LADIES wednesDAY at Shaburi &amp; Kintan with BNI Credit Card Gold, Titanium, Platinum, World &amp; Infinite until July 24th,…', '2019-05-01', NULL, '0', 'Netral'),
-(384, 'NihayatiRotin', '1123498977721118720', 'RT @BNI: Tweeps tahu enggak, industri mana sih di Indonesia yang menyerap tenaga kerja terbanyak? Menurut Kementrian Perindustrian, industr…', '2019-05-01', NULL, '0', 'Netral'),
-(385, 'NihayatiRotin', '1123498946439942144', 'RT @BNI: Waspada tindakan penipuan yang mengatasnamakan BNI di Twitter! Akun resmi BNI untuk penyampaian pertanyaan dan keluhan nasabah ada…', '2019-05-01', NULL, '0', 'Netral'),
-(386, 'NihayatiRotin', '1123498923492954112', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(387, 'NihayatiRotin', '1123498855339778049', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(388, 'NihayatiRotin', '1123498803821039623', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(389, 'NihayatiRotin', '1123498747755778048', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(390, 'nakamodto', '1123497781656604672', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(391, 'KoKom_JKT58', '1123497638697943040', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(392, 'charlezmdl', '1123497460838457344', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(393, 'Na_Aleeya', '1123496985607061504', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(394, 'yohanaenset', '1123496946591621121', '@BNI Garuda Wisnu Kencana - Bali\n#BNIFunGames', '2019-05-01', NULL, '0', 'Netral'),
-(395, 'amirulmum_', '1123496659420192768', '@BNI mau tanya, cara tarik tunai pakai kartu atm bni di malaysia caranya gimana ya? Makasi', '2019-05-01', NULL, '0', 'Netral'),
-(396, 'inieru', '1123496164005781504', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(397, 'rini1777', '1123496047995568128', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(398, 'Novi32824956', '1123495915342286849', '@BNI atm saya tertelan di mesin atm lain itu ngurusnya gimana ya', '2019-05-01', NULL, '0', 'Netral'),
-(399, 'Ara__13', '1123495879258697728', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(400, 'rizalf525', '1123495686194917376', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(401, 'mahandinichan', '1123495641127182336', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(402, 'AntoNatanda', '1123495154063556608', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(403, 'RGTito3', '1123494964846112768', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(404, 'Dolag81', '1123493474731315200', 'RT @BNI: Mereka yang percaya akan mimpi mereka, akan berusaha melakukan apapun demi dapat membuat mimpi jadi kenyataan. #BNIQuotes https://…', '2019-05-01', NULL, '0', 'Netral'),
-(405, 'dwipratiwibayu', '1123492917950275586', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(406, 'arikamukti', '1123492711598678016', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(407, 'junaedie', '1123492711577767936', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(408, 'arikamukti', '1123492668712148993', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(409, 'mudahpecahh', '1123492523647746050', '@BNISyariah @BNI selamat siang,kemarin saya baru saja membuka rekening di BNI Syariah. tapi setelah saya cek,saldo saya berkurang 20k. Saya masih belum memahami, apakah 20k tsb merupakan potongan dana endapan atau apa ya? mohon penjelasannya🙏', '2019-05-01', NULL, '0', 'Netral'),
-(410, 'KresnaLulu', '1123491852735401984', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(411, 'budi_sulistiyo', '1123491629866856449', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(412, 'Alfaro98237171', '1123491603128180737', '@BNI @IndrNovita #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(413, 'Alfaro98237171', '1123491568768491520', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(414, 'Tyajoentak', '1123491528494669824', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral'),
-(415, 'yuyun11164211', '1123491440913461257', '@BNI #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(416, 'Nurul_avivah97', '1123491359422332928', 'RT @BNI: Dapatkan voucher pulsa @ Rp 50.000,- untuk dua orang yang beruntung setiap harinya hanya dengan retweet #BNIQuotes', '2019-05-01', NULL, '0', 'Netral'),
-(417, 'Nurul_avivah97', '1123491350752534528', 'RT @BNI: Tenaga kerja merupakan salah satu elemen penting dari pembangunan bangsa. Tanpa tenaga kerja, kegiatan perekonomian tidak akan ber…', '2019-05-01', NULL, '0', 'Netral');
-
 -- --------------------------------------------------------
 
 --
@@ -470,17 +50,6 @@ CREATE TABLE `data_testing` (
   `id_crawling` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `data_testing`
---
-
-INSERT INTO `data_testing` (`id_testing`, `id_crawling`) VALUES
-(20, 9),
-(21, 10),
-(22, 11),
-(23, 12),
-(24, 13);
-
 -- --------------------------------------------------------
 
 --
@@ -489,23 +58,21 @@ INSERT INTO `data_testing` (`id_testing`, `id_crawling`) VALUES
 
 CREATE TABLE `data_training` (
   `id_training` int(10) NOT NULL,
-  `id_crawling` int(10) DEFAULT NULL,
-  `tweet` text
+  `id_crawling` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `data_training`
+-- Table structure for table `hasil`
 --
 
-INSERT INTO `data_training` (`id_training`, `id_crawling`, `tweet`) VALUES
-(36, 1, NULL),
-(37, 2, NULL),
-(38, 3, NULL),
-(39, 4, NULL),
-(40, 5, NULL),
-(41, 6, NULL),
-(42, 7, NULL),
-(43, 8, NULL);
+CREATE TABLE `hasil` (
+  `id_hasil` int(10) NOT NULL,
+  `nilai` varchar(50) DEFAULT NULL,
+  `kelas` varchar(10) DEFAULT NULL,
+  `id_testing` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -516,19 +83,9 @@ INSERT INTO `data_training` (`id_training`, `id_crawling`, `tweet`) VALUES
 CREATE TABLE `klasifikasi` (
   `id_klasifikasi` int(10) NOT NULL,
   `id_testing` int(10) DEFAULT NULL,
+  `id_hasil` int(10) DEFAULT NULL,
   `prediksi` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `klasifikasi`
---
-
-INSERT INTO `klasifikasi` (`id_klasifikasi`, `id_testing`, `prediksi`) VALUES
-(20, 20, 'Positif'),
-(21, 21, 'Negatif'),
-(22, 22, 'Negatif'),
-(23, 23, 'Positif'),
-(24, 24, 'Negatif');
 
 -- --------------------------------------------------------
 
@@ -29551,35 +29108,9 @@ CREATE TABLE `term_frequency` (
   `kata` varchar(50) DEFAULT NULL,
   `kategori` varchar(10) DEFAULT NULL,
   `jumlah` int(10) DEFAULT NULL,
-  `id_training` int(10) DEFAULT NULL
+  `id_training` int(10) DEFAULT NULL,
+  `id_testing` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `term_frequency`
---
-
-INSERT INTO `term_frequency` (`id_term`, `kata`, `kategori`, `jumlah`, `id_training`) VALUES
-(68, 'layar', 'Positif', 1, 36),
-(69, 'iphone', 'Positif', 2, 36),
-(70, 'sangat', 'Positif', 2, 36),
-(71, 'bagus', 'Positif', 2, 36),
-(72, 'batre', 'Positif', 1, 37),
-(73, 'tahan', 'Positif', 1, 37),
-(74, 'lama', 'Positif', 1, 37),
-(75, 'susah', 'Negatif', 1, 38),
-(76, 'dapet', 'Negatif', 1, 38),
-(77, 'sinyal', 'Negatif', 1, 38),
-(78, 'batre', 'Negatif', 1, 39),
-(79, 'boros', 'Negatif', 1, 39),
-(80, 'layar', 'Negatif', 1, 40),
-(81, 'gampang', 'Negatif', 1, 40),
-(82, 'retak', 'Negatif', 1, 40),
-(83, 'desain', 'Positif', 1, 41),
-(84, 'tombol', 'Negatif', 1, 42),
-(85, 'tidak', 'Negatif', 1, 42),
-(86, 'berfungsi', 'Negatif', 1, 42),
-(87, 'iphone', 'Negatif', 1, 43),
-(88, 'mahal', 'Negatif', 1, 43);
 
 --
 -- Indexes for dumped tables
@@ -29606,6 +29137,13 @@ ALTER TABLE `data_training`
   ADD KEY `id_crawling` (`id_crawling`);
 
 --
+-- Indexes for table `hasil`
+--
+ALTER TABLE `hasil`
+  ADD PRIMARY KEY (`id_hasil`),
+  ADD KEY `id_testing` (`id_testing`);
+
+--
 -- Indexes for table `klasifikasi`
 --
 ALTER TABLE `klasifikasi`
@@ -29629,7 +29167,8 @@ ALTER TABLE `stopwords`
 --
 ALTER TABLE `term_frequency`
   ADD PRIMARY KEY (`id_term`),
-  ADD KEY `id_training` (`id_training`);
+  ADD KEY `id_training` (`id_training`),
+  ADD KEY `id_testing` (`id_testing`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -29639,25 +29178,31 @@ ALTER TABLE `term_frequency`
 -- AUTO_INCREMENT for table `data_crawling`
 --
 ALTER TABLE `data_crawling`
-  MODIFY `id_crawling` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=418;
+  MODIFY `id_crawling` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7635;
 
 --
 -- AUTO_INCREMENT for table `data_testing`
 --
 ALTER TABLE `data_testing`
-  MODIFY `id_testing` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_testing` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
 
 --
 -- AUTO_INCREMENT for table `data_training`
 --
 ALTER TABLE `data_training`
-  MODIFY `id_training` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id_training` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4057;
+
+--
+-- AUTO_INCREMENT for table `hasil`
+--
+ALTER TABLE `hasil`
+  MODIFY `id_hasil` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1261;
 
 --
 -- AUTO_INCREMENT for table `klasifikasi`
 --
 ALTER TABLE `klasifikasi`
-  MODIFY `id_klasifikasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id_klasifikasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=421;
 
 --
 -- AUTO_INCREMENT for table `stemming`
@@ -29675,7 +29220,7 @@ ALTER TABLE `stopwords`
 -- AUTO_INCREMENT for table `term_frequency`
 --
 ALTER TABLE `term_frequency`
-  MODIFY `id_term` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_term` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49603;
 
 --
 -- Constraints for dumped tables
@@ -29694,6 +29239,12 @@ ALTER TABLE `data_training`
   ADD CONSTRAINT `data_training_ibfk_1` FOREIGN KEY (`id_crawling`) REFERENCES `data_crawling` (`id_crawling`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `hasil`
+--
+ALTER TABLE `hasil`
+  ADD CONSTRAINT `hasil_ibfk_1` FOREIGN KEY (`id_testing`) REFERENCES `data_testing` (`id_testing`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `klasifikasi`
 --
 ALTER TABLE `klasifikasi`
@@ -29703,7 +29254,8 @@ ALTER TABLE `klasifikasi`
 -- Constraints for table `term_frequency`
 --
 ALTER TABLE `term_frequency`
-  ADD CONSTRAINT `term_frequency_ibfk_1` FOREIGN KEY (`id_training`) REFERENCES `data_training` (`id_training`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `term_frequency_ibfk_1` FOREIGN KEY (`id_training`) REFERENCES `data_training` (`id_training`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `term_frequency_ibfk_2` FOREIGN KEY (`id_testing`) REFERENCES `data_testing` (`id_testing`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
