@@ -9,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
+    <link rel="icon" href="{{'AdminLTE/img/logo-ubl-web.png'}}" type="image/ico">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{'AdminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css'}}">
     <!-- Font Awesome -->
@@ -160,6 +161,7 @@
         <div class="content-wrapper">
             @yield('main')
         </div>
+        
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="pull-right hidden-xs">

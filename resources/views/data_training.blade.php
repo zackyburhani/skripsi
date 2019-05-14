@@ -18,10 +18,9 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="title">Daftar Positif ({{count($data_positif)}}) <button value="Positif" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Positif</button></h4>
+                    <h4 class="title">Daftar Positif <button value="Positif" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Positif</button></h4>
                     <hr>
                     @if(COUNT($data_positif) != 0)
-                    <div style="height: 300px; overflow: scroll;">
                         <table style="table-layout:fixed" id="table-positif" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -41,7 +40,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
                     @else
                         <p><b><center>Data Tidak Ditemukan</center></b></p>
                     @endif
@@ -54,10 +52,9 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="title">Daftar Negatif ({{count($data_negatif)}}) <button value="Negatif" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Negatif</button></h4>
+                    <h4 class="title">Daftar Negatif <button value="Negatif" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Negatif</button></h4>
                     <hr>
                     @if(COUNT($data_negatif) != 0)
-                    <div style="height: 300px; overflow: scroll;">
                         <table style="table-layout:fixed" id="table-negatif" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -77,7 +74,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
                     @else
                         <p><b><center>Data Tidak Ditemukan</center></b></p>
                     @endif
@@ -90,10 +86,9 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <h4 class="title">Daftar Netral ({{count($data_netral)}}) <button value="Netral" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Netral</button></h4>
+                    <h4 class="title">Daftar Netral <button value="Netral" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training Netral</button></h4>
                     <hr>
                     @if(COUNT($data_netral) != 0)
-                    <div style="height: 300px; overflow: scroll;">
                         <table style="table-layout:fixed" id="table-netral" class="table table-striped table-bordered table-hover">
                             <thead>
                                 <tr>
@@ -113,7 +108,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                    </div>
                     @else
                         <p><b><center>Data Tidak Ditemukan</center></b></p>
                     @endif
@@ -123,7 +117,41 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                     <table>
+                        <tbody>
+                            @foreach($prior as $pr)
+                            <tr>
+                                <td width="130px"><h4>Prior {{$pr['kelas']}}</h4></td>
+                                <td width="15px"><h4>:</h4></td>
+                                <td width="100px"><h4>{{round($pr['nilai'],2)}}</h4></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                     <table>
+                        <tbody>
+                            @foreach($data_sum as $sum)
+                            <tr> 
+                                <td width="160px"><h4>Frequency {{$sum['kelas']}}</h4></td>
+                                <td width="10px"><h4>:</h4></td>
+                                <td width="100px"><h4>{{$sum['jumlah']}}</h4></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-body">
                      <table>
@@ -147,6 +175,12 @@
 </section>
 
 <script text="text/javascript">
+$(document).ready( function () {
+    $('#table-positif').DataTable();
+    $('#table-negatif').DataTable();
+    $('#table-netral').DataTable();
+});
+
 $(document).on('click','.btn-danger',function(e) {
     var url = $('#url_root').val();
     var value = $(this).val();

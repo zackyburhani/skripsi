@@ -39,7 +39,7 @@ class ControllerCrawlingTwitter extends Controller
                 $twitter->kategori = "Netral";
                 $twitter->save();
             }
-            return redirect('/crawling')->with('sukses', 'Data Berhasil Diproses !');;
+            return redirect('/crawling')->with('sukses', 'Data Berhasil Diproses !');
         }
         catch (\Exception $e) {
             return redirect('/crawling')->with('status', 'Tidak Dapat Memproses Data !');
@@ -125,7 +125,11 @@ class ControllerCrawlingTwitter extends Controller
             $twitter->tgl_tweet = Carbon::parse($excel->tgl_tweet)->format('Y-m-d');
             $twitter->status = null;
             $twitter->proses = "0";
-            $twitter->kategori = $excel->label;
+            if($excel->label == "") {
+                $twitter->kategori = "Netral";    
+            } else {
+                $twitter->kategori = $excel->label;
+            }
             $twitter->tweet = $excel->tweet;
             $upload = $twitter->save();
         }

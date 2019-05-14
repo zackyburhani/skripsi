@@ -76,9 +76,7 @@ class ControllerAnalisa extends Controller
 
     public function confusion_matrix()
     {
-
         try {
-
             $title = "Data Confusion Matrix";
             $testing_data = DataTesting::count();
             // $confusionMatrix = new ControllerConfusionMatrix();
@@ -116,13 +114,12 @@ class ControllerAnalisa extends Controller
     
         }
         catch (\Exception $e) {
-            return view('visualisasi.confusion_matrix',compact(['title','testing_data']));
+            return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
         }
     }
 
     public function column_drilldown()
     {
-
         try {
             $testing_data = DataTesting::count();
             $klasifikasi = Klasifikasi::all();
@@ -338,10 +335,10 @@ class ControllerAnalisa extends Controller
     //     return $category;
     // }
 
-    public function tokenizing($string)
-    {
-        $array = explode(' ', $string);
-        return $array;
-    }
+    // public function tokenizing($string)
+    // {
+    //     $array = explode(' ', $string);
+    //     return $array;
+    // }
 
 }
