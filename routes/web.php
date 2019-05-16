@@ -56,6 +56,7 @@ Route::post('/data-uji', 'ControllerPreprocessing@data_uji');
 //training
 Route::get('/training', 'ControllerTraining@index');
 Route::get('/hapus-training/{training}', 'ControllerTraining@hapus_training');
+Route::get('/data-sentimen', 'ControllerTraining@data_sentimen');
 
 // analisa
 Route::get('/analisa', 'ControllerAnalisa@index');
@@ -66,6 +67,7 @@ Route::get('/data-cloud/{data}', 'ControllerAnalisa@data_cloud');
 Route::get('/prediksi-sentimen', 'ControllerAnalisa@prediksi');
 Route::get('/data-sentimen/{data-sentimen}', 'ControllerAnalisa@data_prediksi');
 Route::get('/column-drilldown', 'ControllerAnalisa@column_drilldown');
+Route::get('/jumlah-kategori-cloud', 'ControllerAnalisa@jumlah_kategori_cloud');
 
 // Stemming
 // Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');

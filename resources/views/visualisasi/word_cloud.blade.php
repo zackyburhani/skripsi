@@ -22,6 +22,7 @@
     </div>           
 </section>
 @else
+
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -36,7 +37,13 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="matriks">
-                                <div id="container_positif"></div>
+                                @foreach($klasifikasi as $class => $val)
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div id="container_{{$val->sentimen->kategori}}"></div>
+                                    </div>
+                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -44,17 +51,8 @@
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div id="container_negatif"></div>
-        </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div id="container_netral"></div>
-        </div>
-    </div>
 </section>
+
 @endif
 {{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
 
@@ -71,36 +69,52 @@
         var url = $('#url_root').val();
         $.ajax({
             type: "GET",
-            url: url + '/data-cloud/Positif',
-            success: function (string) {
-                var text = string;
-                var lines = text.split(/[,\. ]+/g);
-                    data = Highcharts.reduce(lines, function (arr, word) {
-                        var obj = Highcharts.find(arr, function (obj) {
-                            return obj.name === word;
-                        });
-                        if (obj) {
-                            obj.weight += 1;
-                        } else {
-                            obj = {
-                                name: word,
-                                weight: 1
-                            };
-                            arr.push(obj);
-                        }
-                        return arr;
-                    }, []);
+            url: url + '/jumlah-kategori-cloud/',
+            success: function (data) {
+                $.each( data, function( key, value ) {
+                    $.ajax({
+                        type: "GET",
+                        url: url + '/data-cloud/'+value.sentimen.kategori,
+                        success: function (string) {
+                            var chart = 'container_'+value.sentimen.kategori
+                            var text = string;
+                            var lines = text.split(/[,\. ]+/g);
+                                data = Highcharts.reduce(lines, function (arr, word) {
+                                    var obj = Highcharts.find(arr, function (obj) {
+                                        return obj.name === word;
+                                    });
+                                    if (obj) {
+                                        obj.weight += 1;
+                                    } else {
+                                        obj = {
+                                            name: word,
+                                            weight: 1
+                                        };
+                                        arr.push(obj);
+                                    }
+                                    return arr;
+                                }, []);
 
-                Highcharts.chart('container_positif', {
-                    series: [{
-                        type: 'wordcloud',
-                        data: data,
-                        name: 'Occurrences'
-                    }],
-                    title: {
-                        text: 'Sentimen Positif'
-                    },
-                    colors: ['#6dd5ed'] 
+                            Highcharts.chart(chart, {
+                                series: [{
+                                    type: 'wordcloud',
+                                    data: data,
+                                    name: 'Kemunculan'
+                                }],
+                                title: {
+                                    text: 'Sentimen '+value.sentimen.kategori
+                                },
+                            });
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                            new PNotify({
+                                title: 'Error !',
+                                text: 'Terdapat Kesalahan Sistem',
+                                type: 'error'
+                            });
+                        }
+                    });
                 });
             },
             error: function (data) {
@@ -112,95 +126,6 @@
                 });
             }
         });
-
-        $.ajax({
-            type: "GET",
-            url: url + '/data-cloud/Negatif',
-            success: function (string) {
-                var text = string;
-                var lines = text.split(/[,\. ]+/g);
-                    data = Highcharts.reduce(lines, function (arr, word) {
-                        var obj = Highcharts.find(arr, function (obj) {
-                            return obj.name === word;
-                        });
-                        if (obj) {
-                            obj.weight += 1;
-                        } else {
-                            obj = {
-                                name: word,
-                                weight: 1
-                            };
-                            arr.push(obj);
-                        }
-                        return arr;
-                    }, []);
-
-                Highcharts.chart('container_negatif', {
-                    series: [{
-                        type: 'wordcloud',
-                        data: data,
-                        name: 'Occurrences'
-                    }],
-                    title: {
-                        text: 'Sentimen Negatif'
-                    },
-                    colors: ['#EB3349'] 
-                });
-            },
-            error: function (data) {
-                console.log('Error:', data);
-                new PNotify({
-                    title: 'Error !',
-                    text: 'Terdapat Kesalahan Sistem',
-                    type: 'error'
-                });
-            }
-        });
-
-        $.ajax({
-            type: "GET",
-            url: url + '/data-cloud/Netral',
-            success: function (string) {
-                var text = string;
-                var lines = text.split(/[,\. ]+/g);
-                    data = Highcharts.reduce(lines, function (arr, word) {
-                        var obj = Highcharts.find(arr, function (obj) {
-                            return obj.name === word;
-                        });
-                        if (obj) {
-                            obj.weight += 1;
-                        } else {
-                            obj = {
-                                name: word,
-                                weight: 1
-                            };
-                            arr.push(obj);
-                        }
-                        return arr;
-                    }, []);
-
-                Highcharts.chart('container_netral', {
-                    series: [{
-                        type: 'wordcloud',
-                        data: data,
-                        name: 'Occurrences'
-                    }],
-                    title: {
-                        text: 'Sentimen Netral'
-                    },
-                    colors: ['#2C5364'] 
-                });
-            },
-            error: function (data) {
-                console.log('Error:', data);
-                new PNotify({
-                    title: 'Error !',
-                    text: 'Terdapat Kesalahan Sistem',
-                    type: 'error'
-                });
-            }
-        });
-
         // var text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean bibendum erat ac justo sollicitudin, quis lacinia ligula fringilla. Pellentesque hendrerit, nisi vitae posuere condimentum, lectus urna accumsan libero, rutrum commodo mi lacus pretium erat. Phasellus pretium pretium pretium pretium ultrices mi sed semper. Praesent ut tristique magna. Donec nisl tellus, sagittis ut tempus sit amet, consectetur eget erat. Sed ornare gravida lacinia. Curabitur iaculis metus purus, eget pretium est laoreet ut. Quisque tristique augue ac eros malesuada, vitae facilisis mauris sollicitudin. Mauris ac molestie nulla, vitae facilisis quam. Curabitur placerat ornare sem, in mattis purus posuere eget. Praesent non condimentum odio. Nunc aliquet, odio nec auctor congue, sapien justo dictum massa, nec fermentum massa sapien non tellus. Praesent luctus eros et nunc pretium hendrerit. In consequat et eros nec interdum. Ut neque dui, maximus id elit ac, consequat pretium tellus. Nullam vel accumsan lorem.';
         
     });

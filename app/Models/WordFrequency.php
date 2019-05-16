@@ -7,12 +7,17 @@ class WordFrequency extends Model
 {
     protected $table = 'term_frequency';
     protected $primaryKey = 'id_term';
-    protected $fillable = ['kata','kategori','jumlah','id_training','id_testing'];
+    protected $fillable = ['kata','id_sentimen','jumlah','id_training','id_testing'];
     public $timestamps = false;
 
     public function data_training()
     {
         return $this->belongsTo('App\Models\DataTraining','id_training','id_training');
+    }
+
+    public function sentimen()
+    {
+        return $this->belongsTo('App\Models\Sentimen','id_sentimen','id_sentimen');
     }
 
     public function data_testing()

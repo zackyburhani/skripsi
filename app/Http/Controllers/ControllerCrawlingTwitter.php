@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Twitter;
 use App\Models\TwitterStream;
+use App\Models\Sentimen;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 use App\Exceptions\Handler;
@@ -14,9 +15,10 @@ class ControllerCrawlingTwitter extends Controller
     public function index()
     {
         $title = "Data Stream";
+        $sentimen = Sentimen::all();
         // $data = TwitterStream::where('proses',"0")->orderBy('id_crawling','DESC')->get();
         $data = TwitterStream::orderBy('id_crawling','DESC')->get();
-        return view('crawling', compact(['title','data']));
+        return view('crawling', compact(['title','sentimen','data']));
     }
 
     public function crawling_data(Request $request)
@@ -36,7 +38,6 @@ class ControllerCrawlingTwitter extends Controller
                 $twitter->tweet = $someObject[$i]->full_text;
                 $twitter->tgl_tweet = Carbon::parse($someObject[$i]->created_at);
                 $twitter->proses = "0";
-                $twitter->kategori = "Netral";
                 $twitter->save();
             }
             return redirect('/crawling')->with('sukses', 'Data Berhasil Diproses !');
@@ -60,13 +61,14 @@ class ControllerCrawlingTwitter extends Controller
                     $i=1;
                     foreach ($twitter as $key) {
                         
+                        $sentimen = Sentimen::where('id_sentimen',$key->id_sentimen)->first();
                         $cetak[] = [
                             'No' => $i++,
                             'tgl_tweet' => Carbon::parse($key->tgl_tweet)->format('d-m-Y'),
                             'tweet_id' => $key->tweet_id,
                             'username' => $key->username,
                             'tweet' => $key->tweet,
-                            'label' =>$key->kategori
+                            'label' =>$sentimen->kategori
                         ];
                     }
     
@@ -94,11 +96,11 @@ class ControllerCrawlingTwitter extends Controller
                         return response()->json(null);
                     }
                     foreach ($twitter as $key) {
-                        
+                        $sentimen = Sentimen::where('id_sentimen',$key->id_sentimen)->first();
                         $cetak[] = [
                             "tweet" => $key->tweet,
                             ";" => ";",
-                            "label" => $key->kategori,
+                            "label" => $sentimen->kategori,
                         ];
                     }
                     $sheet->fromModel($cetak);
@@ -125,10 +127,13 @@ class ControllerCrawlingTwitter extends Controller
             $twitter->tgl_tweet = Carbon::parse($excel->tgl_tweet)->format('Y-m-d');
             $twitter->status = null;
             $twitter->proses = "0";
+
+            $kategori = Sentimen::where('kategori',$excel->label)->first();
+
             if($excel->label == "") {
-                $twitter->kategori = "Netral";    
+                $twitter->id_sentimen = "";    
             } else {
-                $twitter->kategori = $excel->label;
+                $twitter->id_sentimen = $kategori->id_sentimen;
             }
             $twitter->tweet = $excel->tweet;
             $upload = $twitter->save();
@@ -164,7 +169,7 @@ class ControllerCrawlingTwitter extends Controller
     {
         $sentimen = TwitterStream::find($request->id);
         if($sentimen){
-            $sentimen->kategori = $request->klasifikasi;
+            $sentimen->id_sentimen = $request->klasifikasi;
             $sentimen->save();
             return response()->json($sentimen);
         } else{

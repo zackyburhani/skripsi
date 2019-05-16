@@ -68,19 +68,14 @@
                             <tr id="del_{{$key->id_crawling}}">
                                 <td align="center">{{$no++."."}}</td>
                                 <td>{{$key->username}}</td>
-                                <?php if($key->kategori == 'Positif') { ?>
-                                    <td style="color:#0074D9"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td> 
-                                <?php } else if($key->kategori == 'Negatif') { ?>
-                                    <td style="color:#FF4136"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
-                                <?php } else { ?>
-                                    <td style="color:#000000"><span id="{{$key->id_crawling}}">{{$key->tweet}}</span></td>
-                                <?php } ?>
+                                <td><span>{{$key->tweet}}</span></td>
                                 <td align="center">
                                     <select class="dropdown form-control" name="klasifikasi" onchange="class_sentiment(this.value)">
-                                        <option <?php if($key->kategori=="Netral") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Netral">Netral</option>
-                                        <option <?php if($key->kategori=="Positif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Positif|">Positif</option> 
-                                        <option <?php if($key->kategori=="Negatif") echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|Negatif|">Negatif</option>                   
-                                   </select>
+                                            <option value="">--Pilih--</option>
+                                        @foreach($sentimen as $kategori)
+                                            <option <?php if($kategori->id_sentimen == $key->id_sentimen) echo 'selected="selected"'; ?> value="{{$key->id_crawling}}|{{$kategori->id_sentimen}}">{{$kategori->kategori}}</option>
+                                        @endforeach
+                                    </select>
                                 </td>
                                 <td align="center">
                                 <button class="btn btn-danger delete-tweet" value="{{$key->id_crawling}}" type="button"><i class="fa fa-trash"></i></button>
@@ -251,6 +246,7 @@ function class_sentiment(model)
                 }
             },
         });
+
         var url = $('#url').val();
         var explode = model.split("|");
         var id = explode[0];
@@ -258,6 +254,11 @@ function class_sentiment(model)
             klasifikasi : explode[1],
             id : id
         }
+
+        if(id == ""){
+            return false;
+        }
+
         var type = "PUT";
         $.ajax({
             type: type,
@@ -270,15 +271,15 @@ function class_sentiment(model)
                     text: 'Data Berhasi Diubah',
                     type: 'success'
                 });
-                tag = "#"+data.id_crawling;
-                if(data.kategori == 'Positif'){
-                    $(tag).css("color", "#0074D9");
-                } else if(data.kategori == 'Negatif'){
-                    $(tag).css("color", "#FF4136");
-                } else {
-                    $(tag).css("color", "#000000");
-                }
-                console.log(tag)
+                // tag = "#"+data.id_crawling;
+                // if(data.kategori == 'Positif'){
+                //     $(tag).css("color", "#0074D9");
+                // } else if(data.kategori == 'Negatif'){
+                //     $(tag).css("color", "#FF4136");
+                // } else {
+                //     $(tag).css("color", "#000000");
+                // }
+                // console.log(tag)
             },
             error: function (data) {
                 console.log('Error:', data);

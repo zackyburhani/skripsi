@@ -11,6 +11,7 @@ use App\Models\WordFrequency;
 use App\Models\DataTesting;
 use App\Models\Klasifikasi;
 use App\Models\Hasil;
+use App\Models\Sentimen;
 use Illuminate\Http\Respons;
 use DB;
 
@@ -157,9 +158,9 @@ class ControllerPreprocessing extends Controller
             $preprocessing = $value->tweet;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
-            $tokenizing = $this->tokenizing($cleansing);
-            $stopword = $this->stopWord($tokenizing);
-            $stemming = $this->stemming($stopword);
+            $stemming = $this->tokenizing($cleansing);
+            // $stopword = $this->stopWord($tokenizing);
+            // $stemming = $this->stemming($stopword);
 
             //simpan data training
             $data_latih = new DataTraining();
@@ -174,17 +175,17 @@ class ControllerPreprocessing extends Controller
 
             //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
-                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori],['id_testing',null]])->count();
+                $count = WordFrequency::where([['kata', $stemming[$i]],['id_sentimen',$value->id_sentimen],['id_testing',null]])->count();
                 if ($count == 0) {
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
                     $wordFrequency->kata = $stemming[$i];
-                    $wordFrequency->kategori = $value->kategori;
+                    $wordFrequency->id_sentimen = $value->id_sentimen;
                     $wordFrequency->jumlah = 1;
                     $wordFrequency->id_training = $id_training->id_training;
                     $wordFrequency->save();
                 } else {
-                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_testing',null],['kategori',$value->kategori]])->increment('jumlah', 1);
+                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_testing',null],['id_sentimen',$value->id_sentimen]])->increment('jumlah', 1);
                 }
             }
         }
@@ -197,9 +198,9 @@ class ControllerPreprocessing extends Controller
             $preprocessing = $value->tweet;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
-            $tokenizing = $this->tokenizing($cleansing);
-            $stopword = $this->stopWord($tokenizing);
-            $stemming = $this->stemming($stopword);
+            $stemming = $this->tokenizing($cleansing);
+            // $stopword = $this->stopWord($tokenizing);
+            // $stemming = $this->stemming($stopword);
 
             $data_testing = new DataTesting();
             $data_testing->id_crawling = $value->id_crawling;
@@ -220,24 +221,24 @@ class ControllerPreprocessing extends Controller
             
             //simpan klasifikasi
             $klasifikasi = new Klasifikasi();
-            $klasifikasi->prediksi = $kategori;
+            $klasifikasi->id_sentimen = $kategori;
             $klasifikasi->id_testing = $analisa->id_testing;
             $klasifikasi->id_hasil = $hasil->id_hasil;
             $klasifikasi->save();
             
             //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
-                $count = WordFrequency::where([['kata', $stemming[$i]],['kategori',$value->kategori],['id_training',null]])->count();
+                $count = WordFrequency::where([['kata', $stemming[$i]],['id_sentimen',$value->id_sentimen],['id_training',null]])->count();
                 if ($count == 0) {
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
                     $wordFrequency->kata = $stemming[$i];
-                    $wordFrequency->kategori = $value->kategori;
+                    $wordFrequency->id_sentimen = $value->id_sentimen;
                     $wordFrequency->jumlah = 1;
                     $wordFrequency->id_testing = $analisa->id_testing;
                     $wordFrequency->save();
                 } else {
-                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['kategori',$value->kategori]])->increment('jumlah', 1);
+                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['id_sentimen',$value->id_sentimen]])->increment('jumlah', 1);
                 }
             }
         }
@@ -256,10 +257,9 @@ class ControllerPreprocessing extends Controller
 
     private function decide($keywordsArray,$id_testing) 
     {
-        $spam = "Positif";
-        $ham = "Negatif";
-        $net = "Netral";
-        $class['class'] = [$spam,$ham,$net];
+        foreach(Sentimen::all() as $stm){
+            $class['class'][] = $stm->id_sentimen;
+        }
 
         $hitung = 1;
         // $sql = mysqli_query($conn, "SELECT count(*) as total FROM (SELECT word FROM wordFrequency GROUP by word) as x");
@@ -278,7 +278,7 @@ class ControllerPreprocessing extends Controller
                 // $wordCount = mysqli_fetch_assoc($sql);
                 // $wordCount = WordFrequency::where([['word',$word], ['category',$cls]])->first();
                 // $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls'");
-                $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls' AND term_frequency.id_training is not null");
+                $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and id_sentimen = '$cls' AND term_frequency.id_training is not null");
                 if($wordC == null){
                     $wordCount = null;
                 } else {
@@ -289,7 +289,7 @@ class ControllerPreprocessing extends Controller
 
                 $total[$cls][$word] = $wordCount;
                 // $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
-                $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->whereNotNull('id_training')->first();
+                $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('id_sentimen',$cls)->whereNotNull('id_training')->first();
                 $sum[$cls] = $wordSum->jumlah_term;
                 
                 $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
@@ -303,8 +303,8 @@ class ControllerPreprocessing extends Controller
         {
             $Count = DB::table('data_training')
                         ->join('data_crawling', 'data_training.id_crawling', '=', 'data_crawling.id_crawling')
-                        ->select('kategori')
-                        ->where('kategori', '=', $cls)
+                        ->select('id_sentimen')
+                        ->where('id_sentimen', '=', $cls)
                         ->count();
             // $Count = DataTraining::where('kategori',$cls)->count();
             $totalCount = DataTraining::count();
@@ -325,7 +325,7 @@ class ControllerPreprocessing extends Controller
             $hasil = new Hasil();
             $hasil->nilai = $final[$cls];
             $hasil->id_testing = $id_testing;
-            $hasil->kelas = $cls;
+            $hasil->id_sentimen = $cls;
             $hasil->save();
         }
 

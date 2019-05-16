@@ -115,10 +115,10 @@
                             @foreach($data as $row)
                             <tr>
                                 <td align="center">{{$no++ ."."}}</td>
-                                <td align="center">{{$row['nilai']}}</td>
-                                <td align="center">{{$row['kelas']}}</td>
+                                <td align="center">{{$row->nilai}}</td>
+                                <td align="center">{{$row->sentimen->kategori}}</td>
                             </tr>
-                            <?php $tampung[$row['kelas']] = $row['nilai']; ?>
+                            <?php $tampung[$row->sentimen->kategori] = $row['nilai']; ?>
                             @endforeach
                         </tbody>
                     </table>
@@ -142,7 +142,7 @@
                                 @foreach($data as $row)
                                 <tr>
                                     <td align="center">{{$no++ ."."}}</td>
-                                    <td align="center">{{$row['kata']}}</td>
+                                    <td align="center">{{$row->kata}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

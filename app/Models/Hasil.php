@@ -7,7 +7,7 @@ class Hasil extends Model
 {
     protected $table = 'hasil';
     protected $primaryKey = 'id_hasil';
-    protected $fillable = ['id_hasil','nilai','kelas','id_testing'];
+    protected $fillable = ['id_hasil','nilai','id_sentimen','id_testing'];
     public $timestamps = false;
 
     public function data_testing()
@@ -18,5 +18,10 @@ class Hasil extends Model
     public function klasifikasi()
     {
         return $this->hasMany('App\Models\Klasifikasi','id_hasil','id_hasil');
+    }
+
+    public function sentimen()
+    {
+        return $this->belongsTo('App\Models\Sentimen','id_sentimen','id_sentimen');
     }
 }

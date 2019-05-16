@@ -9,7 +9,7 @@ class TwitterStream extends Model
 {
     protected $table = 'data_crawling';
     protected $primaryKey = 'id_crawling';
-    protected $fillable = ['id_crawling','username','tweet_id','tweet','tgl_tweet','status','proses','kategori'];
+    protected $fillable = ['id_crawling','username','tweet_id','tweet','tgl_tweet','status','proses','id_sentimen'];
     public $timestamps = false;
 
     public function data_testing()
@@ -20,6 +20,11 @@ class TwitterStream extends Model
     public function data_training()
     {
         return $this->hasOne('App\Models\DataTraining','id_crawling','id_crawling');
+    }
+
+    public function sentimen()
+    {
+        return $this->belongsTo('App\Models\Sentimen','id_sentimen','id_sentimen');
     }
     
     public static function getTanggal() 

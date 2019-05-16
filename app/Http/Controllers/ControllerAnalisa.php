@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Models\DataTraining;
 use App\Models\DataTesting;
@@ -9,8 +10,8 @@ use App\Models\WordFrequency;
 use App\Models\Klasifikasi;
 use App\Models\TwitterStream;
 use App\Models\Hasil;
+use App\Models\Sentimen;
 use App\Http\Controllers\ControllerConfusionMatrix;
-use DB;
 
 class ControllerAnalisa extends Controller
 {
@@ -20,6 +21,8 @@ class ControllerAnalisa extends Controller
 
     public function index()
     {
+
+
         // $this->positif = "Positif";
         // $this->negatif = "Negatif";
         // $this->train('sepakbola indah menyerang', 'Olahraga');
@@ -77,6 +80,7 @@ class ControllerAnalisa extends Controller
     public function confusion_matrix()
     {
         try {
+
             $title = "Data Confusion Matrix";
             $testing_data = DataTesting::count();
             // $confusionMatrix = new ControllerConfusionMatrix();
@@ -84,13 +88,16 @@ class ControllerAnalisa extends Controller
             // $actualLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TEPAT'];
             // $predictedLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TERLAMBAT'];
 
-            $klasifikasi = Klasifikasi::all();
+            // $actualLabels = ['Negatif', 'Positif', 'Negatif', 'Negatif', 'Positif'];
+            // $predictedLabels = ['Negatif', 'Positif', 'Negatif', 'Negatif', 'Negatif'];
+
+            $klasifikasi = Klasifikasi::with('sentimen')->get();
 
             foreach($klasifikasi as $kelas){
-                $predictedLabels[] = $kelas->prediksi;
+                $predictedLabels[] = $kelas->sentimen->kategori;
                 $testing = DataTesting::where('id_testing',$kelas->id_testing)->first();
-                $twitter = TwitterStream::where('id_crawling',$testing->id_crawling)->first();
-                $actualLabels[] = $twitter->kategori;
+                $twitter = TwitterStream::with('sentimen')->where('id_crawling',$testing->id_crawling)->first();
+                $actualLabels[] = $twitter->sentimen->kategori;
             }
 
             $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels);
@@ -102,15 +109,21 @@ class ControllerAnalisa extends Controller
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
 
-            $th = [$this->negatif,$this->netral,$this->positif];
-            $tr = [$this->negatif,$this->positif,$this->netral];
+            foreach(klasifikasi::select(['id_sentimen'])->groupBy('id_sentimen')->orderBy('id_klasifikasi')->get() as $data){
+                $sentimen[] = $data->sentimen->kategori;
+            }
+            
+            $th = $sentimen;
+            // return $th;
+            // $th = [$this->negatif,$this->netral,$this->positif];
+            // $tr = [$this->negatif,$this->positif,$this->netral];
             $matrix = array();
 
             foreach($th as $index_th => $value){
                 $matrix[$value] = $confusionMatrix[$index_th];
             }
-            
-            return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','tr','matrix','recall','precision','accuracy']));
+
+            return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','matrix','recall','precision','accuracy']));
     
         }
         catch (\Exception $e) {
@@ -122,13 +135,13 @@ class ControllerAnalisa extends Controller
     {
         try {
             $testing_data = DataTesting::count();
-            $klasifikasi = Klasifikasi::all();
+            $klasifikasi = Klasifikasi::with('sentimen')->get();
 
             foreach($klasifikasi as $kelas){
-                $predictedLabels[] = $kelas->prediksi;
+                $predictedLabels[] = $kelas->sentimen->kategori;
                 $testing = DataTesting::where('id_testing',$kelas->id_testing)->first();
                 $twitter = TwitterStream::where('id_crawling',$testing->id_crawling)->first();
-                $actualLabels[] = $twitter->kategori;
+                $actualLabels[] = $twitter->sentimen->kategori;
             }
 
             $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
@@ -158,7 +171,14 @@ class ControllerAnalisa extends Controller
     {
         $title = "Data Word Cloud";
         $testing_data = DataTesting::count();
-        return view('visualisasi.word_cloud', compact(['title','testing_data']));
+        $klasifikasi = Klasifikasi::with('sentimen')->select('id_sentimen')->groupBy('id_sentimen')->get();
+        return view('visualisasi.word_cloud', compact(['title','klasifikasi','testing_data']));
+    }
+
+    public function jumlah_kategori_cloud()
+    {
+        $klasifikasi = Klasifikasi::with('sentimen')->select('id_sentimen')->groupBy('id_sentimen')->get();
+        return response()->json($klasifikasi);
     }
 
     public function prediksi()
@@ -168,14 +188,15 @@ class ControllerAnalisa extends Controller
         $testing_data = DataTesting::count();
         $klasifikasi = DataTesting::with(['data_crawling','klasifikasi'])->get();
         foreach($klasifikasi as $class){
-            $prediksi = Klasifikasi::where('id_testing',$class->id_testing)->first();
+            $prediksi = Klasifikasi::with(['sentimen'])->where('id_testing',$class->id_testing)->first();
             $hasil = Hasil::where('id_testing',$class->id_testing)->get();
+            $aktual = Sentimen::where('id_sentimen', $class->data_crawling->id_sentimen)->first();
             $collection[] = [
                 'id_testing' => $class->id_testing,
                 'username' => $class->data_crawling->username,
                 'tweet' => $class->data_crawling->tweet,
-                'kategori' => $class->data_crawling->kategori,
-                'prediksi' => $prediksi->prediksi,
+                'kategori' => $aktual->kategori,
+                'prediksi' => $prediksi->sentimen->kategori,
             ];
         }
         
@@ -194,9 +215,10 @@ class ControllerAnalisa extends Controller
                 ->select(DB::raw("REPEAT(CONCAT(kata, ' '), jumlah) as string"))
                 ->join('data_testing', 'term_frequency.id_testing', '=', 'data_testing.id_testing')
                 ->join('data_crawling', 'data_crawling.id_crawling', '=', 'data_testing.id_crawling')
+                ->join('sentimen', 'data_crawling.id_sentimen', '=', 'sentimen.id_sentimen')
                 ->whereNull('term_frequency.id_training')
                 ->WhereNotNull('term_frequency.id_testing')
-                ->where('data_crawling.kategori',$kategori)
+                ->where('sentimen.kategori',$kategori)
                 ->get();
 
         if(count($data) == 0){
@@ -215,8 +237,9 @@ class ControllerAnalisa extends Controller
     public function klasifikasi()
     {
         $data =  DB::table('klasifikasi')
-                ->select('prediksi as name',DB::raw('COUNT(*) as y'))
-                ->groupBy('prediksi')
+                ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
+                ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
+                ->groupBy('sentimen.kategori')
                 ->get();
         
         $sum = Klasifikasi::count();
