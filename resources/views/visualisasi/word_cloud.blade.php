@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-pie-chart"></i> Analisa Data
+        <i class="fa fa-pie-chart"></i> Visualisasi Data
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
@@ -74,7 +74,7 @@
                 $.each( data, function( key, value ) {
                     $.ajax({
                         type: "GET",
-                        url: url + '/data-cloud/'+value.sentimen.kategori,
+                        url: url + '/data-cloud/'+value.sentimen.id_sentimen,
                         success: function (string) {
                             var chart = 'container_'+value.sentimen.kategori
                             var text = string;

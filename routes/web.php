@@ -31,15 +31,15 @@ Route::get('/kata-dasar/{kata_dasar}','ControllerKosaKata@get_kata_dasar');
 Route::put('/kata-dasar/{kata_dasar}','ControllerKosaKata@update_kata_dasar');
 Route::delete('/kata-dasar/{kata_dasar}','ControllerKosaKata@delete_kata_dasar');
 
-//emoticon
-Route::get('/emoticon', 'ControllerKosaKata@emoticon');
-Route::post('/emoticon','ControllerKosaKata@store_emoticon');
-Route::get('/emoticon_all','ControllerKosaKata@all_emoticon');
-Route::get('/emoticon/{emoticon}','ControllerKosaKata@get_emoticon');
-Route::put('/emoticon/{emoticon}','ControllerKosaKata@update_emoticon');
-Route::delete('/emoticon/{emoticon}','ControllerKosaKata@delete_emoticon');
+//kategori-sentimen
+Route::get('/kategori-sentimen', 'ControllerKategori@kategori');
+Route::post('/kategori-sentimen','ControllerKategori@store_kategori');
+Route::get('/kategori-sentimen-all','ControllerKategori@all_kategori');
+Route::get('/kategori-sentimen/{kategori}','ControllerKategori@get_kategori');
+Route::put('/kategori-sentimen/{kategori}','ControllerKategori@update_kategori');
+Route::delete('/kategori-sentimen/{kategori}','ControllerKategori@delete_kategori');
 
-//emoticon
+//stopword
 Route::get('/stopword', 'ControllerKosaKata@stopword');
 Route::post('/stopword','ControllerKosaKata@store_stopword');
 Route::get('/stopword_all','ControllerKosaKata@all_stopword');

@@ -158,9 +158,9 @@ class ControllerPreprocessing extends Controller
             $preprocessing = $value->tweet;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
-            $stemming = $this->tokenizing($cleansing);
-            // $stopword = $this->stopWord($tokenizing);
-            // $stemming = $this->stemming($stopword);
+            $tokenizing = $this->tokenizing($cleansing);
+            $stopword = $this->stopWord($tokenizing);
+            $stemming = $this->stemming($stopword);
 
             //simpan data training
             $data_latih = new DataTraining();
@@ -198,9 +198,9 @@ class ControllerPreprocessing extends Controller
             $preprocessing = $value->tweet;
             $case_folding = $this->case_folding($preprocessing);
             $cleansing = $this->cleansing($case_folding);
-            $stemming = $this->tokenizing($cleansing);
-            // $stopword = $this->stopWord($tokenizing);
-            // $stemming = $this->stemming($stopword);
+            $tokenizing = $this->tokenizing($cleansing);
+            $stopword = $this->stopWord($tokenizing);
+            $stemming = $this->stemming($stopword);
 
             $data_testing = new DataTesting();
             $data_testing->id_crawling = $value->id_crawling;
@@ -233,12 +233,12 @@ class ControllerPreprocessing extends Controller
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
                     $wordFrequency->kata = $stemming[$i];
-                    $wordFrequency->id_sentimen = $value->id_sentimen;
+                    $wordFrequency->id_sentimen = $kategori;
                     $wordFrequency->jumlah = 1;
                     $wordFrequency->id_testing = $analisa->id_testing;
                     $wordFrequency->save();
                 } else {
-                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['id_sentimen',$value->id_sentimen]])->increment('jumlah', 1);
+                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['id_sentimen',$kategori]])->increment('jumlah', 1);
                 }
             }
         }

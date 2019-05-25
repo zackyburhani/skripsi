@@ -5,7 +5,7 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-pie-chart"></i> Analisa Data
+        <i class="fa fa-pie-chart"></i> Visualisasi Data
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">

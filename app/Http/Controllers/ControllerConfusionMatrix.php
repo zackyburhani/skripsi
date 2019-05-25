@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Models\Sentimen;
 use Illuminate\Http\Request;
 
 class ControllerConfusionMatrix extends Controller
@@ -195,7 +196,7 @@ class ControllerConfusionMatrix extends Controller
         if ($divider == 0) {
             return 0.0;
         }
-
+        
         return round(($truePositive / $divider)*100,2);
     }
 
@@ -225,8 +226,7 @@ class ControllerConfusionMatrix extends Controller
     private static function getLabelIndexedArray(array $actualLabels, array $predictedLabels): array
     {
         $labels = array_values(array_unique(array_merge($actualLabels, $predictedLabels)));
-        // sort($labels);
-
+        sort($labels);
         return (array) array_combine($labels, array_fill(0, count($labels), 0));
     }
 
@@ -262,15 +262,16 @@ class ControllerConfusionMatrix extends Controller
 
         for ($i = 0; $i < $count; ++$i) {
             $matrix[$i] = array_fill(0, $count, 0);
+        
         }
-
+        
         return $matrix;
     }
 
     private static function getUniqueLabels(array $labels): array
     {
         $labels = array_values(array_unique($labels));
-        // sort($labels);
+        sort($labels);
 
         return array_flip($labels);
     }

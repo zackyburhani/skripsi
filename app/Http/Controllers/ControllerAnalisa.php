@@ -79,7 +79,7 @@ class ControllerAnalisa extends Controller
 
     public function confusion_matrix()
     {
-        try {
+        // try {
 
             $title = "Data Confusion Matrix";
             $testing_data = DataTesting::count();
@@ -99,8 +99,6 @@ class ControllerAnalisa extends Controller
                 $twitter = TwitterStream::with('sentimen')->where('id_crawling',$testing->id_crawling)->first();
                 $actualLabels[] = $twitter->sentimen->kategori;
             }
-
-            $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels);
             // echo $confusionMatrix = Accuracy::score($actualLabels, $predictedLabels);
             // return $confusionMatrix;
 
@@ -108,27 +106,39 @@ class ControllerAnalisa extends Controller
             $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
-
-            foreach(klasifikasi::select(['id_sentimen'])->groupBy('id_sentimen')->orderBy('id_klasifikasi')->get() as $data){
-                $sentimen[] = $data->sentimen->kategori;
+            
+            // $th = array_values(array_unique($actualLabels));
+            // foreach(Sentimen::all() as $dt){
+            //     $th[] = $dt->kategori;
+            // }
+            foreach($precision as $index_pc => $value_pc){
+                $th[] = $index_pc;
             }
             
-            $th = $sentimen;
-            // return $th;
+            sort($th);
+            $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels,$th);
+            
             // $th = [$this->negatif,$this->netral,$this->positif];
             // $tr = [$this->negatif,$this->positif,$this->netral];
             $matrix = array();
 
             foreach($th as $index_th => $value){
                 $matrix[$value] = $confusionMatrix[$index_th];
+                if(!array_key_exists($value,$recall)){
+                    $recall[$value] = 0;
+                } 
+                if(!array_key_exists($value,$precision)){
+                    $precision[$value] = 0;
+                } 
             }
 
+            ksort($precision);
             return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','matrix','recall','precision','accuracy']));
     
-        }
-        catch (\Exception $e) {
-            return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
-        }
+        // }    
+        // catch (\Exception $e) {
+        //     return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
+        // }
     }
 
     public function column_drilldown()
@@ -149,14 +159,45 @@ class ControllerAnalisa extends Controller
             $error_rate = ControllerConfusionMatrix::error_rate($actualLabels, $predictedLabels);
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
+            $devide_recall = $getPrecision->getRecall();
+            $devide_precision = $getPrecision->getPrecision();
+
+            foreach ($devide_recall as $array_key1 => $array_item1) {
+                if ($devide_recall[$array_key1] == 0) {
+                  unset($devide_recall[$array_key1]);
+                }
+            }
+
+            foreach ($devide_precision as $array_key2 => $array_item2) {
+                if ($devide_precision[$array_key2] == 0) {
+                  unset($devide_precision[$array_key2]);
+                }
+            }
+
+            $sum_precision = array_sum($precision);
+            $count_precision = count($devide_precision);
+            $sum_recall = array_sum($recall);
+            $count_recall = count($devide_recall);
+            
+            if($sum_precision == 0 && $count_precision == 0){
+                $total_precision = 0;
+            } else {
+                $total_precision = $sum_precision/$count_precision;
+            }
+
+            if($sum_recall == 0 && $count_recall == 0){
+                $total_recall = 0;
+            } else {
+                $total_recall = $sum_recall/$count_recall;
+            }        
 
             $data[] = [
                 'accuracy' => round($accuracy*100,2),
                 'precision' => $precision,
                 'recall' => $recall,
                 'error_rate' => round($error_rate*100,2),
-                'total_precision' => round(array_sum($precision)/count($precision),2),
-                'total_recall' => round(array_sum($recall)/count($recall),2),
+                'total_precision' => round($total_precision,2),
+                'total_recall' => round($total_recall,2),
             ]; 
 
             return response()->json($data);
@@ -211,14 +252,21 @@ class ControllerAnalisa extends Controller
 
     public function data_cloud($kategori)
     {  
+        // $data = DB::table("term_frequency")
+        //         ->select(DB::raw("REPEAT(CONCAT(kata, ' '), jumlah) as string"))
+        //         ->join('data_testing', 'term_frequency.id_testing', '=', 'data_testing.id_testing')
+        //         ->join('data_crawling', 'data_crawling.id_crawling', '=', 'data_testing.id_crawling')
+        //         ->join('sentimen', 'data_crawling.id_sentimen', '=', 'sentimen.id_sentimen')
+        //         ->whereNull('term_frequency.id_training')
+        //         ->WhereNotNull('term_frequency.id_testing')
+        //         ->where('sentimen.kategori',$kategori)
+        //         ->get();
+
         $data = DB::table("term_frequency")
                 ->select(DB::raw("REPEAT(CONCAT(kata, ' '), jumlah) as string"))
-                ->join('data_testing', 'term_frequency.id_testing', '=', 'data_testing.id_testing')
-                ->join('data_crawling', 'data_crawling.id_crawling', '=', 'data_testing.id_crawling')
-                ->join('sentimen', 'data_crawling.id_sentimen', '=', 'sentimen.id_sentimen')
                 ->whereNull('term_frequency.id_training')
                 ->WhereNotNull('term_frequency.id_testing')
-                ->where('sentimen.kategori',$kategori)
+                ->where('id_sentimen',$kategori)
                 ->get();
 
         if(count($data) == 0){

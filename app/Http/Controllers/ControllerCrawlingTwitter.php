@@ -68,7 +68,7 @@ class ControllerCrawlingTwitter extends Controller
                             'tweet_id' => $key->tweet_id,
                             'username' => $key->username,
                             'tweet' => $key->tweet,
-                            'label' =>$sentimen->kategori
+                            'sentimen' =>$sentimen->kategori
                         ];
                     }
     
@@ -100,7 +100,7 @@ class ControllerCrawlingTwitter extends Controller
                         $cetak[] = [
                             "tweet" => $key->tweet,
                             ";" => ";",
-                            "label" => $sentimen->kategori,
+                            "sentimen" => $sentimen->kategori,
                         ];
                     }
                     $sheet->fromModel($cetak);
@@ -117,6 +117,7 @@ class ControllerCrawlingTwitter extends Controller
         if(empty($data)){
             return response()->json(error);
         }
+
         foreach($data as $excel){
             // if($excel->ubah_class != ""){
             //     $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
@@ -127,12 +128,11 @@ class ControllerCrawlingTwitter extends Controller
             $twitter->tgl_tweet = Carbon::parse($excel->tgl_tweet)->format('Y-m-d');
             $twitter->status = null;
             $twitter->proses = "0";
-
-            $kategori = Sentimen::where('kategori',$excel->label)->first();
-
-            if($excel->label == "") {
-                $twitter->id_sentimen = "";    
+                
+            if($excel->sentimen == "") {
+                $twitter->id_sentimen = null;    
             } else {
+                $kategori = Sentimen::where('kategori',$excel->sentimen)->first();
                 $twitter->id_sentimen = $kategori->id_sentimen;
             }
             $twitter->tweet = $excel->tweet;

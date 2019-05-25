@@ -5,12 +5,11 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-users"></i> Emoticon
+        <i class="fa fa-tags"></i> Kategori Sentimen
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-file-text"></i> Kosa Kata</a></li>
-        <li><a href="/emoticon"><i class="fa fa-users"></i> Emoticon</a></li>
+        <li><a href="/kategori-sentimen"><i class="fa fa-tags"></i> Kategori Sentimen</a></li>
     </ol>
 </section>
 
@@ -19,11 +18,11 @@
         <div class="col-lg-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <form id="frmEmoticon" name="frmEmoticon">
+                    <form id="frmKategori" name="frmKategori">
                         <div class="form-group">
-                            <label class="col-sm-1 col-form-label">Emoticon</label>
-                            <div class="col-sm-6">
-                                <input type="text" placeholder="Masukkan Simbol Emoticon" name="emoticon"
+                            <label class="col-sm-2 col-form-label">Kategori Sentimen</label>
+                            <div class="col-sm-4">
+                                <input type="text" placeholder="Masukkan Kategori Sentimen" name="kategori"
                                     class="form-control">
                             </div>
                             <div class="col-sm-5" id="addition_button">
@@ -35,21 +34,21 @@
                 </div>
                 <div class="box-body">
                     <hr>
-                    <table id="table-emoticon" class="table table-striped table-bordered nowrap">
+                    <table id="table-kategori" class="table table-striped table-bordered nowrap">
                         <thead>
                             <tr>
                                 <th width="30px">
                                     <center>No.</center>
                                 </th>
                                 <th>
-                                    <center>Emoticon</center>
+                                    <center>Kategori Sentimen</center>
                                 </th>
                                 <th width="150px">
                                     <center>Action</center>
                                 </th>
                             </tr>
                         </thead>
-                        <tbody id="emoticon-tbody">
+                        <tbody id="kategori-tbody">
                         </tbody>
                     </table>
                 </div>
@@ -57,5 +56,5 @@
         </div>
     </div>
 </section>
-<script src="{{asset('js/kosakata/emoticon.js')}}"></script>
+<script src="{{asset('js/kosakata/kategori.js')}}"></script>
 @endsection

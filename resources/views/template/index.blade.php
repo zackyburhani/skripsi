@@ -121,6 +121,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/kategori-sentimen">
+                            <i class="fa fa-tags"></i> <span>Kategori Sentimen</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/crawling">
                             <i class="fa fa-twitter"></i> <span>Twitter Crawling</span>
                         </a>

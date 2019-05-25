@@ -4,7 +4,22 @@
 <section class="content">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <!-- small box -->
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h3>{{$sentimen}}</h3>
+
+                    <p>Data Kategori</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-tags"></i>
+                </div>
+                <a href="/stopword" class="small-box-footer">Lihat Selengkapnya <i
+                        class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3">
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
@@ -19,7 +34,7 @@
                         class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
@@ -35,7 +50,7 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-md-4">
+        <div class="col-md-3">
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">

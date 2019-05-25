@@ -1,20 +1,20 @@
 var url = $('#url').val();
 var url_root = $('#url_root').val();
-emoticon_table();
-$('#table-emoticon').DataTable();
+kategori_table();
+$('#table-kategori').DataTable();
 
 //display data edit
-$(document).on('click','.edit-emoticon',function(){
-    var emoticon_id = $(this).val();
+$(document).on('click','.edit-kategori',function(){
+    var kategori_id = $(this).val();
        
-    $.get(url + '/' + emoticon_id, function (data) {
+    $.get(url + '/' + kategori_id, function (data) {
         //success data
         if( $('#button-update').length ){
-            $('[name="emoticon"]').val(data.emoticon);
-            $('.btn-update').val(data.id);
+            $('[name="kategori"]').val(data.kategori);
+            $('.btn-update').val(data.id_sentimen);
         } else {
-            $('[name="emoticon"]').val(data.emoticon);
-            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id + '"><i class="fa fa-edit"></i> Ubah</button> '+' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
+            $('[name="kategori"]').val(data.kategori);
+            var button = '<div id="button-update"><button type="button" class="btn btn-warning btn-update" value="' + data.id_sentimen + '"><i class="fa fa-edit"></i> Ubah</button> '+' <button type="button" class="btn btn-danger btn-close"><i class="fa fa-close"></i> Batal</button></div>';
             $('#addition_button').append(button);
         }
         $('.btn-save').hide();
@@ -23,13 +23,13 @@ $(document).on('click','.edit-emoticon',function(){
 
 //close
 $(document).on('click','.btn-close',function(){
-    $('#frmEmoticon').trigger("reset");
+    $('#frmKategori').trigger("reset");
     $('#button-update').remove();
     $('.btn-save').show();
 });
 
 //delete item
-$(document).on('click','.delete-emoticon',function(){
+$(document).on('click','.delete-kategori',function(){
     var id = $(this).val();
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
@@ -53,7 +53,7 @@ $(document).on('click','.delete-emoticon',function(){
                 type: "DELETE",
                 url: url + '/' + id,
                 success: function (data) {
-                    emoticon_table();
+                    kategori_table();
                     new PNotify({
                         title: 'Sukses !',
                         text: 'Data Berhasi Dihapus',
@@ -88,7 +88,7 @@ $(".btn-save").click(function (e) {
     });
     e.preventDefault(); 
     var formData = {
-        emoticon: $('[name="emoticon"]').val(),
+        kategori: $('[name="kategori"]').val(),
     }
 
     var type = "POST"; //for creating new resource
@@ -104,8 +104,8 @@ $(".btn-save").click(function (e) {
                 text: 'Data Berhasi Dimasukkan',
                 type: 'success'
             });
-            emoticon_table();
-            $('#frmEmoticon').trigger("reset");
+            kategori_table();
+            $('#frmKategori').trigger("reset");
         },
         error: function (data) {
             console.log('Error:', data);
@@ -129,7 +129,7 @@ $(document).on('click','.btn-update',function(e) {
     });
     e.preventDefault(); 
     var formData = {
-        emoticon: $('[name="emoticon"]').val(),
+        kategori: $('[name="kategori"]').val(),
     }
     var type = "PUT";
     var id = $(this).val();
@@ -144,8 +144,8 @@ $(document).on('click','.btn-update',function(e) {
                 text: 'Data Berhasi Diubah',
                 type: 'success'
             });
-            emoticon_table();
-            $('#frmEmoticon').trigger("reset");
+            kategori_table();
+            $('#frmKategori').trigger("reset");
             $('#button-update').remove();
             $('.btn-save').show();
         },
@@ -160,7 +160,7 @@ $(document).on('click','.btn-update',function(e) {
     });
 });
 
-function emoticon_table()
+function kategori_table()
 {
     $.ajaxSetup({
         beforeSend: function(xhr, type) {
@@ -171,7 +171,7 @@ function emoticon_table()
     });
     $.ajax({
         type  : 'get',
-        url   : url_root + "/emoticon_all",
+        url   : url_root + "/kategori-sentimen-all",
         async : false,
         dataType : 'json',
         success : function(data){
@@ -182,14 +182,14 @@ function emoticon_table()
                 html += 
                 '<tr>'+
                     '<td align="center">'+ no++ +'.'+'</td>'+
-                    '<td align="center">'+data[i].emoticon+'</td>'+
+                    '<td align="center">'+data[i].kategori+'</td>'+
                     '<td style="text-align:center;">'+
-                      '<button class="btn btn-warning edit-emoticon" value="' + data[i].id + '">Pilih</button>'+' '+
-                      '<button class="btn btn-danger btn-delete delete-emoticon" value="' + data[i].id + '">Hapus</button></td></tr>'+
+                      '<button class="btn btn-warning edit-kategori" value="' + data[i].id_sentimen + '">Pilih</button>'+' '+
+                      '<button class="btn btn-danger btn-delete delete-kategori" value="' + data[i].id_sentimen + '">Hapus</button></td></tr>'+
                     '</td>'+
                 '</tr>';
             }
-            $('#emoticon-tbody').html(html);
+            $('#kategori-tbody').html(html);
         },
         error: function (data) {
             console.log('Error:', data);

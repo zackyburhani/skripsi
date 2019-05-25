@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stemming;
-use App\Models\Emoticon;
 use App\Models\Stopword;
 
 class ControllerKosaKata extends Controller
