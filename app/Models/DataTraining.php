@@ -19,4 +19,9 @@ class DataTraining extends Model
     {
         return $this->hasMany('App\Models\WordFrequency','id_training','id_training');
     }
+
+    public function data_testing()
+    {
+        return $this->belongsToMany('App\Models\DataTesting','proses','id_training','id_testing');
+    }
 }

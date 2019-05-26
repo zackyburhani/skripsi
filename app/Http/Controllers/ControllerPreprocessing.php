@@ -12,6 +12,7 @@ use App\Models\DataTesting;
 use App\Models\Klasifikasi;
 use App\Models\Hasil;
 use App\Models\Sentimen;
+use App\Models\Proses;
 use Illuminate\Http\Respons;
 use DB;
 
@@ -221,7 +222,7 @@ class ControllerPreprocessing extends Controller
             
             //simpan klasifikasi
             $klasifikasi = new Klasifikasi();
-            $klasifikasi->id_sentimen = $kategori;
+            $klasifikasi->id_sentimen = $kategori['hasil'];
             $klasifikasi->id_testing = $analisa->id_testing;
             $klasifikasi->id_hasil = $hasil->id_hasil;
             $klasifikasi->save();
@@ -233,12 +234,31 @@ class ControllerPreprocessing extends Controller
                     $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
                     $wordFrequency->kata = $stemming[$i];
-                    $wordFrequency->id_sentimen = $kategori;
+                    $wordFrequency->id_sentimen = $kategori['hasil'];
                     $wordFrequency->jumlah = 1;
                     $wordFrequency->id_testing = $analisa->id_testing;
                     $wordFrequency->save();
                 } else {
-                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['id_sentimen',$kategori]])->increment('jumlah', 1);
+                    $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_training',null],['id_sentimen',$kategori['hasil']]])->increment('jumlah', 1);
+                }
+            }
+
+            //simpan proses
+            foreach($kategori['value'] as $index_kategori => $value_kategori){
+                foreach($value_kategori as $index_kata => $data_kata){
+                    foreach($data_kata as $index_nilai => $data_nilai){
+                        $id_training = WordFrequency::where([['id_sentimen',$index_kategori],['kata',$index_kata]])->whereNotNull('id_training')->first();
+                        $data_proses = new Proses();
+                        $data_proses->id_testing = $analisa->id_testing;
+                        if(empty($id_training)){
+                            $data_proses->id_training = null;
+                        } else {
+                            $data_proses->id_training = $id_training->id_training;
+                        }
+                        $data_proses->kemunculan_kata = $index_kata;
+                        $data_proses->nilai = $data_nilai;
+                        $data_proses->save();
+                    }
                 }
             }
         }
@@ -329,23 +349,24 @@ class ControllerPreprocessing extends Controller
             $hasil->save();
         }
 
-        // $semua_data = [
-        //     'kata_unik' => $uniqueWords,
-        //     'word_count' => $wordCount,
-        //     'total' => $total,
-        //     'sum' => $sum,
-        //     'value' => $value,
-        //     'class' => $Count,
-        //     'total_semua_class' => $totalCount,
-        //     'prior' => $prior,
-        //     'final' => $final,
-        //     'hasil' => $category = key($final)
-        // ];
-
         // echo json_encode($semua_data); die();
         arsort($final);
         $category = key($final);
-        return $category;
+
+        $semua_data = [
+            'kata_unik' => $uniqueWords,
+            'word_count' => $wordCount,
+            'total' => $total,
+            'sum' => $sum,
+            'value' => $value,
+            'class' => $Count,
+            'total_semua_class' => $totalCount,
+            'prior' => $prior,
+            'final' => $final,
+            'hasil' => $category
+        ];
+
+        return $semua_data;
     }
 
 }
