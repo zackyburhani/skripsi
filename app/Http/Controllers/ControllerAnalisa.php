@@ -226,6 +226,7 @@ class ControllerAnalisa extends Controller
     {
         $collection = array();
         $title = "Data Prediksi Sentimen";
+        $sentimen = Sentimen::all();
         $testing_data = DataTesting::count();
         $klasifikasi = DataTesting::with(['data_crawling','klasifikasi'])->get();
         foreach($klasifikasi as $class){
@@ -241,7 +242,7 @@ class ControllerAnalisa extends Controller
             ];
         }
         
-        return view('visualisasi.prediksi', compact(['title','collection','testing_data','hasil']));
+        return view('visualisasi.prediksi', compact(['title','sentimen','collection','testing_data','hasil']));
     }
 
     public function data_prediksi($id)

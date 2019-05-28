@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Http\Controllers\ControllerStemming;
 use App\Models\TwitterStream;
 use App\Models\Stopword;
@@ -13,6 +14,10 @@ use App\Models\Klasifikasi;
 use App\Models\Hasil;
 use App\Models\Sentimen;
 use App\Models\Proses;
+use App\Models\TestingStemming;
+use App\Models\TestingStopword;
+use App\Models\TrainingStemming;
+use App\Models\TrainingStopword;
 use Illuminate\Http\Respons;
 use DB;
 
@@ -174,11 +179,13 @@ class ControllerPreprocessing extends Controller
             //update proses data crawling
             $crawling = TwitterStream::where('id_crawling',$value->id_crawling)->update(['proses' => "1"]);
 
+            //ambil id training
+            $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
+
             //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
                 $count = WordFrequency::where([['kata', $stemming[$i]],['id_sentimen',$value->id_sentimen],['id_testing',null]])->count();
                 if ($count == 0) {
-                    $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
                     $wordFrequency = new WordFrequency();
                     $wordFrequency->kata = $stemming[$i];
                     $wordFrequency->id_sentimen = $value->id_sentimen;
@@ -189,6 +196,9 @@ class ControllerPreprocessing extends Controller
                     $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_testing',null],['id_sentimen',$value->id_sentimen]])->increment('jumlah', 1);
                 }
             }
+
+            //simpan stopword latih
+            $this->simpan_stopword($tokenizing,$id_training->id_training,null,0);
         }
    }
 
@@ -196,13 +206,6 @@ class ControllerPreprocessing extends Controller
    {
         $twitter = TwitterStream::where('proses',"0")->get();
         foreach($twitter as $tweet => $value){
-            $preprocessing = $value->tweet;
-            $case_folding = $this->case_folding($preprocessing);
-            $cleansing = $this->cleansing($case_folding);
-            $tokenizing = $this->tokenizing($cleansing);
-            $stopword = $this->stopWord($tokenizing);
-            $stemming = $this->stemming($stopword);
-
             $data_testing = new DataTesting();
             $data_testing->id_crawling = $value->id_crawling;
             $data_testing->save();
@@ -215,7 +218,16 @@ class ControllerPreprocessing extends Controller
         
             //ambil data testing dan klasifikasikan dengan NBC
             $analisa = DataTesting::with(['data_crawling'])->where('id_crawling',$value->id_crawling)->first();
-            $kategori = $this->classify($analisa->data_crawling->tweet,$analisa->id_testing);
+            
+            
+            $preprocessing = $analisa->data_crawling->tweet;
+            $case_folding = $this->case_folding($preprocessing);
+            $cleansing = $this->cleansing($case_folding);
+            $tokenizing = $this->tokenizing($cleansing);
+            $stopword = $this->stopWord($tokenizing);
+            $stemming = $this->stemming($stopword);
+            
+            $kategori = $this->decide($stemming,$analisa->id_testing);
             
             //ambil data hasil
             $hasil = Hasil::where('id_testing', $analisa->id_testing)->first();
@@ -248,6 +260,7 @@ class ControllerPreprocessing extends Controller
                 foreach($value_kategori as $index_kata => $data_kata){
                     foreach($data_kata as $index_nilai => $data_nilai){
                         $id_training = WordFrequency::where([['id_sentimen',$index_kategori],['kata',$index_kata]])->whereNotNull('id_training')->first();
+                        $kelas_peluang = Sentimen::where('id_sentimen',$index_kategori)->first();
                         $data_proses = new Proses();
                         $data_proses->id_testing = $analisa->id_testing;
                         if(empty($id_training)){
@@ -256,24 +269,51 @@ class ControllerPreprocessing extends Controller
                             $data_proses->id_training = $id_training->id_training;
                         }
                         $data_proses->kemunculan_kata = $index_kata;
+                        $data_proses->kelas_peluang = $kelas_peluang->kategori;
                         $data_proses->nilai = $data_nilai;
                         $data_proses->save();
                     }
                 }
             }
+
+            //simpan stopword testing
+            $this->simpan_stopword($tokenizing,null,$analisa->id_testing,1);
         }
    }
 
-    private function classify($sentence,$id_testing) 
-    {   
-        $case_folding = $this->case_folding($sentence);
-        $cleansing = $this->cleansing($case_folding);
-        $tokenizing = $this->tokenizing($cleansing);
-        $stopword = $this->stopWord($tokenizing);
-        $stemming = $this->stemming($stopword);
-        $category = $this->decide($stemming,$id_testing);
-        return $category;
-    }
+   private function simpan_stopword($tokenizing,$id_training,$id_testing,$status)
+   {
+        $stopwords = Stopword::all();
+        foreach($stopwords as $stop){
+            $list[] = $stop->stopword;
+        }
+
+        if($id_training != null && $status == 0){
+            foreach($tokenizing as $token_index => $token_value){
+                if (in_array($token_value, $list, true)) {
+                    $id_stopword = Stopword::where('stopword',$token_value)->first();
+                    $simpan = new TrainingStopword();
+                    $simpan->id_stopword = $id_stopword->id;
+                    $simpan->id_training = $id_training;
+                    $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
+                    $simpan->save();
+                }
+            }
+        }
+
+        if($id_testing != null && $status == 1){
+            foreach($tokenizing as $token_index => $token_value){
+                if (in_array($token_value, $list, true)) {
+                    $id_stopword = Stopword::where('stopword',$token_value)->first();
+                    $simpan = new TestingStopword();
+                    $simpan->id_stopword = $id_stopword->id;
+                    $simpan->id_testing = $id_testing;
+                    $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
+                    $simpan->save();
+                }
+            }
+        }
+   }
 
     private function decide($keywordsArray,$id_testing) 
     {

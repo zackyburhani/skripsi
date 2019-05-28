@@ -29,5 +29,4 @@ class Sentimen extends Model
     {
         return $this->hasMany('App\Models\WordFrequency','id_sentimen','id_sentimen');
     }
-    
 }

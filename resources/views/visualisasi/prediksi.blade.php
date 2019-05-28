@@ -17,9 +17,11 @@
 <section class="content">
     <div class="panel panel-default">
         <div class="panel-body">
-        <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
+            <center>
+                <h3>Data <i>Testing</i> Tidak Ditemukan</h3>
+            </center>
         </div>
-    </div>           
+    </div>
 </section>
 @else
 <section class="content">
@@ -86,75 +88,118 @@
 <div class="modal fade" id="Detail_{{$key['id_testing']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true">
     <form id="frmUpload" enctype="multipart/form-data">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     <h4 class="modal-title" id="myModalLabel"><i class="fa fa-xlsx"></i>Detail Confidence</h4>
                 </div>
                 <div class="modal-body">
-                    <table style="table-layout:fixed" id="table-prediksi"
-                        class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th width="7%">
-                                    <center>No.<center>
-                                </th>
-                                <th>
-                                    <center>Hasil <i>Naïve Bayes Classifier (NBC)</i>
-                                        <center>
-                                </th>
-                                <th width="20%">
-                                    <center>Kategori<center>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no=1; ?>
-                            <?php $data = App\Models\Klasifikasi::getHasil($key['id_testing']); ?>
-                            @foreach($data as $row)
-                            <tr>
-                                <td align="center">{{$no++ ."."}}</td>
-                                <td align="center">{{$row->nilai}}</td>
-                                <td align="center">{{$row->sentimen->kategori}}</td>
-                            </tr>
-                            <?php $tampung[$row->sentimen->kategori] = $row['nilai']; ?>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    
-                    <div style="height: 250px; overflow: scroll;">
-                        <table style="table-layout:fixed" id="table-prediksi"
-                            class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th width="7%">
-                                        <center>No.<center>
-                                    </th>
-                                    <th>
-                                        <center>Hasil <i>Preprocessing</i>
-                                        <center>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no=1; ?>
-                                <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing']); ?>
-                                @foreach($data as $row)
-                                <tr>
-                                    <td align="center">{{$no++ ."."}}</td>
-                                    <td align="center">{{$row->kata}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_nbc_{{$key['id_testing']}}" data-toggle="tab">Hasil Kategori Sentimen</a></li>
+                            <li><a href="#tab_hitung_{{$key['id_testing']}}" data-toggle="tab">Detail Perhitungan</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_nbc_{{$key['id_testing']}}">
+                                <table style="table-layout:fixed" id="table-prediksi"
+                                    class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th width="7%">
+                                                <center>No.<center>
+                                            </th>
+                                            <th>
+                                                <center>Hasil <i>Naïve Bayes Classifier (NBC)</i>
+                                                    <center>
+                                            </th>
+                                            <th width="20%">
+                                                <center>Kategori<center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
+                                        <?php $data = App\Models\Klasifikasi::getHasil($key['id_testing']); ?>
+                                        @foreach($data as $row)
+                                        <tr>
+                                            <td align="center">{{$no++ ."."}}</td>
+                                            <td align="center">{{$row->nilai}}</td>
+                                            <td align="center">{{$row->sentimen->kategori}}</td>
+                                        </tr>
+                                        <?php $tampung[$row->sentimen->kategori] = $row['nilai']; ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+
+                                <div style="height: 250px; overflow: scroll;">
+                                    <table style="table-layout:fixed" id="table-prediksi"
+                                        class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="7%">
+                                                    <center>No.<center>
+                                                </th>
+                                                <th>
+                                                    <center>Hasil <i>Preprocessing</i>
+                                                        <center>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no=1; ?>
+                                            <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing']); ?>
+                                            @foreach($data as $row)
+                                            <tr>
+                                                <td align="center">{{$no++ ."."}}</td>
+                                                <td align="center">{{$row->kata}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <hr>
+                                <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
+                                <table>
+                                    <tr>
+                                        <td>Hasil Klasifikasi : <b><?php echo $hasil_klasifikasi ?></b></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab_hitung_{{$key['id_testing']}}">
+                                <table style="table-layout:fixed" id="table-hasil"
+                                    class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th width="7%">
+                                                <center>No.<center>
+                                            </th>
+                                            <th>
+                                                <center>Kata<center>
+                                            </th>
+                                            <th width="20%">
+                                                <center>Kategori<center>
+                                            </th>
+                                            <th width="50%">
+                                                <center>Hasil Perhitungan<center>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no=1; ?>
+                                        <?php $data_hitung = App\Models\DataTesting::getDetailHitung($key['id_testing']); ?>
+                                        @foreach($data_hitung as $index_row => $row)
+                                        <tr>
+                                            <td align="center">{{$no++ ."."}}</td>
+                                            <td align="center">{{$row->kemunculan_kata}}</td>
+                                            <td align="center">{{$row->kelas_peluang}}</td>
+                                            <td align="center">{{$row->nilai}}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <hr>
-                    <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
-                    <table>
-                        <tr>
-                            <td>Hasil Klasifikasi : <b><?php echo $hasil_klasifikasi ?></b></td>
-                        </tr>
-                    </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i>

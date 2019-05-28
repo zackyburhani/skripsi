@@ -14,7 +14,7 @@ class ControllerTraining extends Controller
 {
     public function index()
     {
-        // try {
+        try {
             $title = "Data Training";
             foreach(Sentimen::all() as $stm){
                 $class['class'][] = $stm->kategori;
@@ -58,10 +58,10 @@ class ControllerTraining extends Controller
             }
             // return $data;
             return view('data_training', compact(['title','data_sum','prior','uniqueWords','data_training','total']));
-        // }
-        // catch (\Exception $e) {
-        //     return redirect('/crawling')->with('status', 'Data Training Tidak Ditemukan !');
-        // }
+        }
+        catch (\Exception $e) {
+            return redirect('/crawling')->with('status', 'Data Training Tidak Ditemukan !');
+        }
     }
 
     public function hapus_training($kategori)
