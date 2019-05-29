@@ -145,15 +145,6 @@ class ControllerCrawlingTwitter extends Controller
         }
     }
 
-    //useless 
-    // private function tokenizing($data)
-    // {
-    //   $tokenizing = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
-    //   $string = str_replace('  ', ' ', $tokenizing);
-    //   $lower = strtolower($string);
-    //   return $lower;
-    // }
-
     public function destroy_crawling($id)
     {
         $crawling = TwitterStream::findOrFail($id);

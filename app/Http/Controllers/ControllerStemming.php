@@ -4,15 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Stemming;
+use Illuminate\Support\Facades\Storage;
 
 class ControllerStemming extends Controller
 {
 
     function cekKamus($kata)
     {
-        $kataAsal = $kata;
-        $data = Stemming::where('katadasar',$kata)->count();
-        if($data == 1){
+		set_time_limit(0);
+		$kataAsal = $kata;
+        // $data = Stemming::where('katadasar',$kata)->count();
+        // if($data == 1){
+        //     return true;
+        // } else {
+        //     return false;
+		// }
+		$contents = Storage::get('public/preprocessing/katadasar.txt');
+        $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
+        $katadasar = explode("\n",$code);
+
+        $stemming = array_search($kata,$katadasar);
+
+        if ($stemming !== false) {
             return true;
         } else {
             return false;

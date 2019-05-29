@@ -66,7 +66,8 @@ class ControllerTraining extends Controller
 
     public function hapus_training($kategori)
     {
-        $data_training = TwitterStream::where('id_sentimen',$kategori)->delete();
+        $sentimen = Sentimen::where('kategori',$kategori)->first();
+        $data_training = TwitterStream::where('id_sentimen',$sentimen->id_sentimen)->delete();
         return redirect('/training');
     }
 

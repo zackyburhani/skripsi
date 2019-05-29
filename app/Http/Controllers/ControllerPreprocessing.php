@@ -13,16 +13,20 @@ use App\Models\DataTesting;
 use App\Models\Klasifikasi;
 use App\Models\Hasil;
 use App\Models\Sentimen;
+use App\Models\Stemming;
 use App\Models\Proses;
 use App\Models\TestingStemming;
 use App\Models\TestingStopword;
 use App\Models\TrainingStemming;
 use App\Models\TrainingStopword;
 use Illuminate\Http\Respons;
+use Illuminate\Support\Facades\Storage;
 use DB;
 
 class ControllerPreprocessing extends Controller
 {
+    private $store_stemming = array();
+
     public function preprocessing()
     {
         $title = "Data Preprocessing";
@@ -102,12 +106,17 @@ class ControllerPreprocessing extends Controller
     public function stopWord($data) 
     {
         $searchString = implode(" ",$data);
-        $stopwords = Stopword::all();
-        foreach($stopwords as $stop){
-            $list[] = $stop->stopword;
-        }
+        // $stopwords = Stopword::all();
+        $contents = Storage::get('public/preprocessing/stopword.txt');
+        $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
+        $stopwords = explode("\n",$code);
+        
+        // foreach($stopwords as $stop){
+        //     $list[] = $stop->stopword;
+        // }
+        
         $wordsFromSearchString = str_word_count($searchString, true);
-        $finalWords = array_diff($wordsFromSearchString, $list);
+        $finalWords = array_diff($wordsFromSearchString, $stopwords);
         $implode = implode(" ", $finalWords);
         $array = $this->tokenizing($implode);
         return $array;
@@ -117,11 +126,12 @@ class ControllerPreprocessing extends Controller
     {
         $stemming = new ControllerStemming();
         $term = array();
-
+        
         foreach($kata as $value){
             /* 1. Cek Kata di Kamus jika Ada SELESAI */
             if($stemming->cekKamus($value)){ // Cek Kamus
                 array_push($term,$value); // Jika Ada push kedalam array
+                // array_push($this->store_stemming,$value);
                 continue;
             }
             /* 2. Buang Infection suffixes (\-lah", \-kah", \-ku", \-mu", atau \-nya") */
@@ -133,6 +143,9 @@ class ControllerPreprocessing extends Controller
             /* 4. Buang Derivation prefix */
             $value = $stemming->Del_Derivation_Prefix($value);
             
+            // // simpan ke variable stemming_training
+            // array_push($this->store_stemming,$value);
+
             array_push($term,$value);
         }
         return $term;
@@ -198,8 +211,25 @@ class ControllerPreprocessing extends Controller
             }
 
             //simpan stopword latih
-            $this->simpan_stopword($tokenizing,$id_training->id_training,null,0);
+            // $this->simpan_stopword($tokenizing,$id_training->id_training,null,0);
+
+            //simpan stemming latih
+            // foreach($this->store_stemming as $stem){
+            //     $id_ktdasar = Stemming::where('katadasar', $stem)->first();
+            //     $stemming_training = new TrainingStemming();
+            //     $stemming_training->id_training = $id_training->id_training;
+            //     if(empty($id_ktdasar)){
+            //         $stemming_training->id_ktdasar = null;
+            //     } else {
+            //         $stemming_training->id_ktdasar = $id_ktdasar->id_ktdasar;
+            //     }
+            //     $stemming_training->tgl_proses = Carbon::now()->format('Y-m-d');
+            //     $stemming_training->save();
+            // }
         }
+
+        //atur default store stemming
+        // $this->store_stemming = array();
    }
 
    public function data_uji()
@@ -277,43 +307,60 @@ class ControllerPreprocessing extends Controller
             }
 
             //simpan stopword testing
-            $this->simpan_stopword($tokenizing,null,$analisa->id_testing,1);
+            // $this->simpan_stopword($tokenizing,null,$analisa->id_testing,1);
+
+            //simpan stemming latih
+            // foreach($this->store_stemming as $stem){
+            //     $id_ktdasar = Stemming::where('katadasar', $stem)->first();
+            //     $stemming_testing = new TestingStemming();
+            //     $stemming_testing->id_testing = $analisa->id_testing;
+            //     if(empty($id_ktdasar)){
+            //         $stemming_testing->id_ktdasar = null;
+            //     } else {
+            //         $stemming_testing->id_ktdasar = $id_ktdasar->id_ktdasar;
+            //     }
+            //     $stemming_testing->tgl_proses = Carbon::now()->format('Y-m-d');
+            //     $stemming_testing->save();
+            // }
         }
+        
+        //atur default store stemming
+        // $this->store_stemming = array();
    }
 
-   private function simpan_stopword($tokenizing,$id_training,$id_testing,$status)
-   {
-        $stopwords = Stopword::all();
-        foreach($stopwords as $stop){
-            $list[] = $stop->stopword;
-        }
+//    private function simpan_stopword($tokenizing,$id_training,$id_testing,$status)
+//    {
+//         $stopwords = Stopword::all();
+//         foreach($stopwords as $stop){
+//             $list[] = $stop->stopword;
+//         }
 
-        if($id_training != null && $status == 0){
-            foreach($tokenizing as $token_index => $token_value){
-                if (in_array($token_value, $list, true)) {
-                    $id_stopword = Stopword::where('stopword',$token_value)->first();
-                    $simpan = new TrainingStopword();
-                    $simpan->id_stopword = $id_stopword->id;
-                    $simpan->id_training = $id_training;
-                    $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
-                    $simpan->save();
-                }
-            }
-        }
+//         if($id_training != null && $status == 0){
+//             foreach($tokenizing as $token_index => $token_value){
+//                 if (in_array($token_value, $list, true)) {
+//                     $id_stopword = Stopword::where('stopword',$token_value)->first();
+//                     $simpan = new TrainingStopword();
+//                     $simpan->id_stopword = $id_stopword->id;
+//                     $simpan->id_training = $id_training;
+//                     $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
+//                     $simpan->save();
+//                 }
+//             }
+//         }
 
-        if($id_testing != null && $status == 1){
-            foreach($tokenizing as $token_index => $token_value){
-                if (in_array($token_value, $list, true)) {
-                    $id_stopword = Stopword::where('stopword',$token_value)->first();
-                    $simpan = new TestingStopword();
-                    $simpan->id_stopword = $id_stopword->id;
-                    $simpan->id_testing = $id_testing;
-                    $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
-                    $simpan->save();
-                }
-            }
-        }
-   }
+//         if($id_testing != null && $status == 1){
+//             foreach($tokenizing as $token_index => $token_value){
+//                 if (in_array($token_value, $list, true)) {
+//                     $id_stopword = Stopword::where('stopword',$token_value)->first();
+//                     $simpan = new TestingStopword();
+//                     $simpan->id_stopword = $id_stopword->id;
+//                     $simpan->id_testing = $id_testing;
+//                     $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
+//                     $simpan->save();
+//                 }
+//             }
+//         }
+//    }
 
     private function decide($keywordsArray,$id_testing) 
     {

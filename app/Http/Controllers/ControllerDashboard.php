@@ -12,7 +12,7 @@ class ControllerDashboard extends Controller
 {
     public function index()
     {
-        $title = "Dashboard";
+         $title = "Dashboard";
         $data_crawling = TwitterStream::count();
         $stopword = Stopword::count();
         $stemming = Stemming::count();
