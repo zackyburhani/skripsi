@@ -7,17 +7,40 @@ use App\Models\TwitterStream;
 use App\Models\Stemming;
 use App\Models\Stopword;
 use App\Models\Sentimen;
+use Illuminate\Support\Facades\Storage;
+use File;
 
 class ControllerDashboard extends Controller
 {
     public function index()
     {
-         $title = "Dashboard";
+        $title = "Dashboard";
         $data_crawling = TwitterStream::count();
-        $stopword = Stopword::count();
-        $stemming = Stemming::count();
         $sentimen = Sentimen::count();
+        $kata = Storage::get('public/preprocessing/katadasar/katadasar.txt');
+        $stop_list = Storage::get('public/preprocessing/stopword/stopword.txt');
+
+        if(file_exists("storage/preprocessing/katadasar/katadasar.txt")){
+            $stemming = $this->total_file($kata);
+        }else{
+            $stemming = 0;
+        }
+
+        if(file_exists("storage/preprocessing/stopword/stopword.txt")){
+            $stopword = $this->total_file($stop_list);
+        }else{
+            $stopword = 0;
+        }
+
         return view('dashboard', compact('title','sentimen','stemming','stopword','data_crawling'));
+    }
+
+    private function total_file($param)
+    {
+        $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$param)));
+        $kata = explode("\n",$code);
+        $count = count($kata);
+        return $count;
     }
 
     public function searchPage(Request $request)

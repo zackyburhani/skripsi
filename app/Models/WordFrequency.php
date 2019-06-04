@@ -7,7 +7,7 @@ class WordFrequency extends Model
 {
     protected $table = 'term_frequency';
     protected $primaryKey = 'id_term';
-    protected $fillable = ['kata','id_sentimen','jumlah','id_training','id_testing'];
+    protected $fillable = ['kata','id_sentimen','jumlah','id_training','id_testing','nilai_perhitungan'];
     public $timestamps = false;
 
     public function data_training()

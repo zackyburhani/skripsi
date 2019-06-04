@@ -15,18 +15,12 @@ use App\Models\Hasil;
 use App\Models\Sentimen;
 use App\Models\Stemming;
 use App\Models\Proses;
-use App\Models\TestingStemming;
-use App\Models\TestingStopword;
-use App\Models\TrainingStemming;
-use App\Models\TrainingStopword;
 use Illuminate\Http\Respons;
 use Illuminate\Support\Facades\Storage;
 use DB;
 
 class ControllerPreprocessing extends Controller
 {
-    private $store_stemming = array();
-
     public function preprocessing()
     {
         $title = "Data Preprocessing";
@@ -106,14 +100,9 @@ class ControllerPreprocessing extends Controller
     public function stopWord($data) 
     {
         $searchString = implode(" ",$data);
-        // $stopwords = Stopword::all();
-        $contents = Storage::get('public/preprocessing/stopword.txt');
+        $contents = Storage::get('public/preprocessing/stopword/stopword.txt');
         $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
         $stopwords = explode("\n",$code);
-        
-        // foreach($stopwords as $stop){
-        //     $list[] = $stop->stopword;
-        // }
         
         $wordsFromSearchString = str_word_count($searchString, true);
         $finalWords = array_diff($wordsFromSearchString, $stopwords);
@@ -131,7 +120,6 @@ class ControllerPreprocessing extends Controller
             /* 1. Cek Kata di Kamus jika Ada SELESAI */
             if($stemming->cekKamus($value)){ // Cek Kamus
                 array_push($term,$value); // Jika Ada push kedalam array
-                // array_push($this->store_stemming,$value);
                 continue;
             }
             /* 2. Buang Infection suffixes (\-lah", \-kah", \-ku", \-mu", atau \-nya") */
@@ -143,12 +131,10 @@ class ControllerPreprocessing extends Controller
             /* 4. Buang Derivation prefix */
             $value = $stemming->Del_Derivation_Prefix($value);
             
-            // // simpan ke variable stemming_training
-            // array_push($this->store_stemming,$value);
-
             array_push($term,$value);
         }
-        return $term;
+
+        return array_values(array_filter($term));
     }
 
     //Unicode
@@ -209,27 +195,44 @@ class ControllerPreprocessing extends Controller
                     $wordFrequency = WordFrequency::where([['kata',$stemming[$i]],['id_testing',null],['id_sentimen',$value->id_sentimen]])->increment('jumlah', 1);
                 }
             }
-
-            //simpan stopword latih
-            // $this->simpan_stopword($tokenizing,$id_training->id_training,null,0);
-
-            //simpan stemming latih
-            // foreach($this->store_stemming as $stem){
-            //     $id_ktdasar = Stemming::where('katadasar', $stem)->first();
-            //     $stemming_training = new TrainingStemming();
-            //     $stemming_training->id_training = $id_training->id_training;
-            //     if(empty($id_ktdasar)){
-            //         $stemming_training->id_ktdasar = null;
-            //     } else {
-            //         $stemming_training->id_ktdasar = $id_ktdasar->id_ktdasar;
-            //     }
-            //     $stemming_training->tgl_proses = Carbon::now()->format('Y-m-d');
-            //     $stemming_training->save();
-            // }
+            $update_nilai[] = $stemming;
         }
 
-        //atur default store stemming
-        // $this->store_stemming = array();
+        //simpan nilai_perhitungan pada table term freq
+        foreach(Sentimen::all() as $stm){
+            $class['class'][] = $stm->id_sentimen;
+        }
+
+        foreach($update_nilai as $nilai_stemming){
+            $hitung = 1;
+            $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency WHERE term_frequency.id_training is not null GROUP by kata) as x");
+            foreach($distinct as $dst){
+                $distinctWords = $dst->total;
+            }
+            $uniqueWords = $distinctWords;
+
+            foreach ($nilai_stemming as $word) {
+                foreach($class['class'] as $cls ){
+                    $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and id_sentimen = '$cls' AND term_frequency.id_training is not null");
+                    if($wordC == null){
+                        $wordCount = null;
+                    } else {
+                        foreach($wordC as $wC){
+                            $wordCount = $wC->total;
+                        }
+                    }
+
+                    $total[$cls][$word] = $wordCount;
+                    $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('id_sentimen',$cls)->whereNotNull('id_training')->first();
+                    $sum[$cls] = $wordSum->jumlah_term;
+                    
+                    $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
+                    // $value[$cls][$word][] = round($prob,11); 
+                    $update = round($prob,11);
+                    WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_perhitungan' => $update]);
+                }
+            }
+        }
    }
 
    public function data_uji()
@@ -305,62 +308,8 @@ class ControllerPreprocessing extends Controller
                     }
                 }
             }
-
-            //simpan stopword testing
-            // $this->simpan_stopword($tokenizing,null,$analisa->id_testing,1);
-
-            //simpan stemming latih
-            // foreach($this->store_stemming as $stem){
-            //     $id_ktdasar = Stemming::where('katadasar', $stem)->first();
-            //     $stemming_testing = new TestingStemming();
-            //     $stemming_testing->id_testing = $analisa->id_testing;
-            //     if(empty($id_ktdasar)){
-            //         $stemming_testing->id_ktdasar = null;
-            //     } else {
-            //         $stemming_testing->id_ktdasar = $id_ktdasar->id_ktdasar;
-            //     }
-            //     $stemming_testing->tgl_proses = Carbon::now()->format('Y-m-d');
-            //     $stemming_testing->save();
-            // }
         }
-        
-        //atur default store stemming
-        // $this->store_stemming = array();
    }
-
-//    private function simpan_stopword($tokenizing,$id_training,$id_testing,$status)
-//    {
-//         $stopwords = Stopword::all();
-//         foreach($stopwords as $stop){
-//             $list[] = $stop->stopword;
-//         }
-
-//         if($id_training != null && $status == 0){
-//             foreach($tokenizing as $token_index => $token_value){
-//                 if (in_array($token_value, $list, true)) {
-//                     $id_stopword = Stopword::where('stopword',$token_value)->first();
-//                     $simpan = new TrainingStopword();
-//                     $simpan->id_stopword = $id_stopword->id;
-//                     $simpan->id_training = $id_training;
-//                     $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
-//                     $simpan->save();
-//                 }
-//             }
-//         }
-
-//         if($id_testing != null && $status == 1){
-//             foreach($tokenizing as $token_index => $token_value){
-//                 if (in_array($token_value, $list, true)) {
-//                     $id_stopword = Stopword::where('stopword',$token_value)->first();
-//                     $simpan = new TestingStopword();
-//                     $simpan->id_stopword = $id_stopword->id;
-//                     $simpan->id_testing = $id_testing;
-//                     $simpan->tgl_proses = Carbon::now()->format('Y-m-d');
-//                     $simpan->save();
-//                 }
-//             }
-//         }
-//    }
 
     private function decide($keywordsArray,$id_testing) 
     {
@@ -400,7 +349,7 @@ class ControllerPreprocessing extends Controller
                 $sum[$cls] = $wordSum->jumlah_term;
                 
                 $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
-                $value[$cls][$word][] = $prob; 
+                $value[$cls][$word][] = round($prob,11); 
             }
         }	
 

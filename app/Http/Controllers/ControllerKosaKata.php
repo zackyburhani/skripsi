@@ -5,171 +5,103 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Stemming;
 use App\Models\Stopword;
+use Illuminate\Http\File;
+use Validator;
+use Illuminate\Support\Facades\Storage;
+use File as files;
 
 class ControllerKosaKata extends Controller
 {
     public function kata_dasar()
     {
+        $result = files::exists('storage/preprocessing/katadasar');
+        if(!empty($result)){
+            $status = 1;
+        } else {
+            $status = 2;
+        }
         $title = "Kata Dasar";
-        return view('kata_dasar', compact(['title']));
+        return view('kata_dasar', compact(['title','status']));
     }
 
     public function all_kata_dasar()
     {
-        $kata_dasar = Stemming::orderby('id_ktdasar', 'DESC')->get();
+        // $kata_dasar = Stemming::orderby('id_ktdasar', 'DESC')->get();
+        $contents = Storage::get('public/preprocessing/katadasar/katadasar.txt');
+        $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
+        $kata_dasar = explode("\n",$code);
         return response()->json($kata_dasar);
     }
 
     public function store_kata_dasar(Request $request)
     {
-        $kata_dasar = Stemming::create($request->input());
-        return response()->json($kata_dasar);
-    }
-
-    public function get_kata_dasar($id)
-    {
-        $kata_dasar = Stemming::find($id);
-        if($kata_dasar){
-            return response()->json($kata_dasar);
-        } else{
-            return response()->json(error);
+        $file = $request->file('data_katadasar');  
+        if($file == ""){
+            return redirect('/kata-dasar')->with('gagal', 'Data Tidak Berhasil Disimpan !');    
         }
-    }
 
-    public function update_kata_dasar(Request $request,$id)
-    {
-        $kata_dasar = Stemming::find($id);
+        $name = $file->getClientOriginalName();
 
-        if($kata_dasar){
-            $kata_dasar->katadasar = $request->katadasar;
-            $kata_dasar->tipe_katadasar = $request->tipe_katadasar;
-            $kata_dasar->save();
-            return response()->json($kata_dasar);
-        } else{
-            return response()->json(error);
-        } 
-    }
-
-    public function delete_kata_dasar($id)
-    {
-        $kata_dasar = Stemming::findOrFail($id);
-        if($kata_dasar){
-            $kata_dasar->delete();
-            return response()->json(true);
-        } else{
-            return response()->json(error);
-        } 
-    }
-
-    public function emoticon()
-    {
-        $title = "Emoticon";
-        return view('emoticon', compact('title'));
-    }
-
-    public function all_emoticon()
-    {
-        $emoticon = Emoticon::orderby('id', 'DESC')->get();
-        return response()->json($emoticon);
-    }
-
-    public function store_emoticon(Request $request)
-    {
-        $emoticon = Emoticon::create($request->input());
-        return response()->json($emoticon);
-    }
-
-    public function get_emoticon($id)
-    {
-        $emoticon = Emoticon::find($id);
-        if($emoticon){
-            return response()->json($emoticon);
-        } else{
-            return response()->json(error);
+        if($name != "katadasar.txt"){
+            return redirect('/kata-dasar')->with('gagal', 'Data Tidak Berhasil Disimpan !');
         }
+
+        $tujuan_upload = 'storage/preprocessing/katadasar/';
+        $file->move($tujuan_upload,$name);
+        return redirect('/kata-dasar')->with('sukses', 'Data Berhasil Disimpan !');
     }
 
-    public function update_emoticon(Request $request,$id)
-    {
-        $emoticon = Emoticon::find($id);
-
-        if($emoticon){
-            $emoticon->emoticon = $request->emoticon;
-            $emoticon->save();
-            return response()->json($emoticon);
-        } else{
-            return response()->json(error);
-        } 
-    }
-
-    public function delete_emoticon($id)
-    {
-        $emoticon = Emoticon::findOrFail($id);
-        if($emoticon){
-            $emoticon->delete();
-            return response()->json(true);
-        } else{
-            return response()->json(error);
-        } 
+    public function delete_kata_dasar()
+    {   
+        $directory = 'storage/preprocessing/katadasar';
+        files::deleteDirectory(public_path($directory));
+        return redirect('/kata-dasar')->with('sukses', 'Data Berhasil Dihapus !');
     }
 
     public function stopword()
     {
+        $result = files::exists('storage/preprocessing/stopword');
+        if(!empty($result)){
+            $status = 1;
+        } else {
+            $status = 2;
+        }
         $title = "Stopword";
-        return view('stopword', compact('title'));
+        return view('stopword', compact(['title','status']));
     }
 
     public function all_stopword()
     {
-        $stopword = Stopword::orderby('id', 'DESC')->get();
+        $contents = Storage::get('public/preprocessing/stopword/stopword.txt');
+        $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
+        $stopword = explode("\n",$code);
         return response()->json($stopword);
     }
 
     public function store_stopword(Request $request)
     {
-        $string = str_replace('  ', ' ', $request->stopword);
-        $array = explode(' ', $string);
-    
-        for($i=0; $i<count($array); $i++){
-            $stopword = new Stopword();
-            $stopword->stopword = $array[$i];
-            $stopword->save();
+        $file = $request->file('data_stopword');    
+
+        if($file == ""){
+            return redirect('/stopword')->with('gagal', 'Data Tidak Berhasil Disimpan !');    
         }
 
-        return response()->json($stopword);
-    }
+        $name = $file->getClientOriginalName();
 
-    public function get_stopword($id)
-    {
-        $stopword = Stopword::find($id);
-        if($stopword){
-            return response()->json($stopword);
-        } else{
-            return response()->json(error);
+        if($name != "stopword.txt"){
+            return redirect('/stopword')->with('gagal', 'Data Tidak Berhasil Disimpan !');
         }
+
+
+        $tujuan_upload = 'storage/preprocessing/stopword/';
+        $file->move($tujuan_upload,$file->getClientOriginalName());
+        return redirect('/stopword')->with('sukses', 'Data Berhasil Disimpan !');
     }
 
-    public function update_stopword(Request $request,$id)
+    public function delete_stopword()
     {
-        $stopword = Stopword::find($id);
-
-        if($stopword){
-            $stopword->stopword = $request->stopword;
-            $stopword->save();
-            return response()->json($stopword);
-        } else{
-            return response()->json(error);
-        } 
-    }
-
-    public function delete_stopword($id)
-    {
-        $stopword = Stopword::findOrFail($id);
-        if($stopword){
-            $stopword->delete();
-            return response()->json(true);
-        } else{
-            return response()->json(error);
-        } 
+        $directory = 'storage/preprocessing/stopword';
+        files::deleteDirectory(public_path($directory));
+        return redirect('/stopword')->with('sukses', 'Data Berhasil Dihapus !');
     }
 }

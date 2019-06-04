@@ -18,13 +18,13 @@ class ControllerTraining extends Controller
             $title = "Data Training";
             foreach(Sentimen::all() as $stm){
                 $class['class'][] = $stm->kategori;
-                $data_training[$stm->kategori] = WordFrequency::where('id_sentimen',$stm->id_sentimen)->get();
+                $data_training[$stm->kategori] = WordFrequency::where('id_sentimen',$stm->id_sentimen)->whereNotNull('id_training')->get();
             }
             
             // $data_negatif = WordFrequency::where('kategori','Negatif')->get();
             // $data_netral = WordFrequency::where('kategori','Netral')->get();
             $total = WordFrequency::count();
-
+            
             foreach($class['class'] as $cls){
                 $sum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->join('sentimen', 'sentimen.id_sentimen', '=', 'term_frequency.id_sentimen')->where('sentimen.kategori',$cls)->whereNotNull('id_training')->first();   
                 $data_sum[] = [
@@ -56,7 +56,7 @@ class ControllerTraining extends Controller
                     'nilai' => $Count / $totalCount,
                 ];
             }
-            // return $data;
+            // return $prior;
             return view('data_training', compact(['title','data_sum','prior','uniqueWords','data_training','total']));
         }
         catch (\Exception $e) {

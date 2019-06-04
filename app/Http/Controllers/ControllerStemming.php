@@ -19,7 +19,7 @@ class ControllerStemming extends Controller
         // } else {
         //     return false;
 		// }
-		$contents = Storage::get('public/preprocessing/katadasar.txt');
+		$contents = Storage::get('public/preprocessing/katadasar/katadasar.txt');
         $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
         $katadasar = explode("\n",$code);
 

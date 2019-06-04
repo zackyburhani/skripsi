@@ -29,7 +29,8 @@ Route::post('/kata-dasar','ControllerKosaKata@store_kata_dasar');
 Route::get('/kata-dasar-all','ControllerKosaKata@all_kata_dasar');
 Route::get('/kata-dasar/{kata_dasar}','ControllerKosaKata@get_kata_dasar');
 Route::put('/kata-dasar/{kata_dasar}','ControllerKosaKata@update_kata_dasar');
-Route::delete('/kata-dasar/{kata_dasar}','ControllerKosaKata@delete_kata_dasar');
+Route::get('/hapus-katadasar','ControllerKosaKata@delete_kata_dasar');
+// Route::delete('/kata-dasar/{kata_dasar}','ControllerKosaKata@delete_kata_dasar');
 
 //kategori-sentimen
 Route::get('/kategori-sentimen', 'ControllerKategori@kategori');
@@ -45,7 +46,8 @@ Route::post('/stopword','ControllerKosaKata@store_stopword');
 Route::get('/stopword_all','ControllerKosaKata@all_stopword');
 Route::get('/stopword/{stopword}','ControllerKosaKata@get_stopword');
 Route::put('/stopword/{stopword}','ControllerKosaKata@update_stopword');
-Route::delete('/stopword/{stopword}','ControllerKosaKata@delete_stopword');
+Route::get('/hapus-stopword','ControllerKosaKata@delete_stopword');
+// Route::delete('/stopword/{stopword}','ControllerKosaKata@delete_stopword');
 
 // preprocessing
 Route::get('/preprocessing', 'ControllerPreprocessing@preprocessing');
@@ -72,3 +74,5 @@ Route::get('/jumlah-kategori-cloud', 'ControllerAnalisa@jumlah_kategori_cloud');
 // Stemming
 // Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');
 // Route::post('/stemming', 'ControllerPreprocessing@stemming');
+
+Route::get('/cross', 'Cross@index');

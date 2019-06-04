@@ -29,7 +29,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <button class="btn btn-success btn-export" value="xlsx"><i class="fa fa-file-excel-o"></i> Export XLSX</button>
-                    <button class="btn btn-success btn-export" value="csv"><i class="fa fa-file-o"></i> Export CSV</button>
+                    {{-- <button class="btn btn-success btn-export" value="csv"><i class="fa fa-file-o"></i> Export CSV</button> --}}
                     <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Import XLSX</button>
                     <button class="btn pull-right btn-danger btn-refresh" value="xlsx"><i class="fa fa-recycle"></i> Bersihkan Data</button>
                 </div>

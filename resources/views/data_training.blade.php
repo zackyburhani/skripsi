@@ -28,6 +28,7 @@
                                 <th width="5px"><center>No.<center></th>
                                 <th width="100px"><center>Kata<center></th>
                                 <th width="100px"><center>Frequency</center></th>
+                                <th width="100px"><center>Nilai Perhitungan</center></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +38,7 @@
                                 <td align="center">{{$no++ ."."}}</td>
                                 <td align="center">{{$content->kata}}</td>
                                 <td align="center">{{$content->jumlah}}</td>
+                                <td align="center">{{$content->nilai_perhitungan}}</td>
                             </tr>           
                             @endforeach
                         </tbody>

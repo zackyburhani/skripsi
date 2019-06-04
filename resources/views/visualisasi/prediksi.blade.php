@@ -141,24 +141,23 @@
                                                     <center>No.<center>
                                                 </th>
                                                 <th>
-                                                    <center>Hasil <i>Preprocessing</i>
-                                                        <center>
+                                                    <center>Hasil <i>Preprocessing</i><center>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $no=1; ?>
-                                            <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing']); ?>
+                                            <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
+                                            <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing'],$hasil_klasifikasi); ?>
                                             @foreach($data as $row)
                                             <tr>
                                                 <td align="center">{{$no++ ."."}}</td>
-                                                <td align="center">{{$row->kata}}</td>
+                                                <td align="center">{{$row->kemunculan_kata}}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
                                 </div>
                                 <hr>
-                                <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
                                 <table>
                                     <tr>
                                         <td>Hasil Klasifikasi : <b><?php echo $hasil_klasifikasi ?></b></td>
@@ -210,8 +209,6 @@
     </form>
 </div>
 @endforeach
-{{-- <script src="{{asset('js/kosakata/emoticon.js')}}"></script> --}}
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('#table-prediksi').DataTable();

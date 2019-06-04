@@ -87,26 +87,27 @@ class ControllerCrawlingTwitter extends Controller
                     $sheet->fromModel($cetak);
                 });
             })->download($format);
-        } else {
-            return Excel::create($name, function($excel) {
-                $excel->sheet('Data Crawling', function($sheet) {
-                    // $twitter = TwitterStream::where('proses',"0")->get();
-                    $twitter = TwitterStream::all();
-                    if($twitter == ""){
-                        return response()->json(null);
-                    }
-                    foreach ($twitter as $key) {
-                        $sentimen = Sentimen::where('id_sentimen',$key->id_sentimen)->first();
-                        $cetak[] = [
-                            "tweet" => $key->tweet,
-                            ";" => ";",
-                            "sentimen" => $sentimen->kategori,
-                        ];
-                    }
-                    $sheet->fromModel($cetak);
-                });
-            })->download($format);
-        }
+        } 
+        // else {
+        //     return Excel::create($name, function($excel) {
+        //         $excel->sheet('Data Crawling', function($sheet) {
+        //             // $twitter = TwitterStream::where('proses',"0")->get();
+        //             $twitter = TwitterStream::all();
+        //             if($twitter == ""){
+        //                 return response()->json(null);
+        //             }
+        //             foreach ($twitter as $key) {
+        //                 $sentimen = Sentimen::where('id_sentimen',$key->id_sentimen)->first();
+        //                 $cetak[] = [
+        //                     "tweet" => $key->tweet,
+        //                     ";" => ";",
+        //                     "sentimen" => $sentimen->kategori,
+        //                 ];
+        //             }
+        //             $sheet->fromModel($cetak);
+        //         });
+        //     })->download($format);
+        // }
     }
 
     public function upload(Request $request)

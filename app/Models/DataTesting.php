@@ -35,9 +35,9 @@ class DataTesting extends Model
         return $this->belongsToMany('App\Models\DataTraining','proses','id_testing','id_training');
     }
 
-    public static function getFreqTest($id_testing) 
+    public static function getFreqTest($id_testing,$kelas_peluang) 
     {
-        $term_freq = WordFrequency::whereNotnull('id_testing')->where('id_testing',$id_testing)->get();
+        $term_freq = Proses::where([['id_testing',$id_testing],['kelas_peluang',$kelas_peluang]])->get();
         return $term_freq;
     }
 
