@@ -15,6 +15,16 @@
 
 @if($testing == 0)
 <section class="content">
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('sukses'))
+        <div class="alert alert-success">
+            {{ session('sukses') }}
+        </div>
+    @endif
     <div class="panel panel-default">
         <div class="panel-body">
         <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
@@ -23,6 +33,16 @@
 </section>
 @else
 <section class="content">
+    @if (session('status'))
+        <div class="alert alert-danger">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if (session('sukses'))
+        <div class="alert alert-success">
+            {{ session('sukses') }}
+        </div>
+    @endif
      <div class="container-fluid">
         <div class="row">
             <div class="row">
@@ -33,6 +53,9 @@
                             <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
                             <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
                             <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
+                            <li class="pull-right">
+                                <button class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Testing </button>
+                            </i>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="klasifikasi">
@@ -127,5 +150,29 @@
             }
         });
     });
+
+$(document).on('click','.btn-danger',function(e) {
+    var url = $('#url_root').val();
+    var value = $(this).val();
+    
+    swal({
+        title: "Anda Yakin Ingin Menghapus Data Testing ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url + '/hapus-testing/' + value;
+        } else {
+            swal.close();
+        }
+    });
+});
+window.setTimeout(function() {
+    $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+    $(".alert-success").fadeTo(500, 0).slideUp(500, function(){ $(this).remove(); }); 
+}, 3000); 
 </script>
 @endsection

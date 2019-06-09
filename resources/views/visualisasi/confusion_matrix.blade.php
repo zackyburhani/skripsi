@@ -35,6 +35,9 @@
                             <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
                             <li class="active"><a href="{{ url('confusion-matrix') }}">Confusion Matriks</a></li>
                             <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
+                            <li class="pull-right">
+                                <button class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Testing </button>
+                            </i>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="confusion_matrix">
@@ -208,5 +211,25 @@
             }
         });
     });
+
+$(document).on('click','.btn-danger',function(e) {
+    var url = $('#url_root').val();
+    var value = $(this).val();
+    
+    swal({
+        title: "Anda Yakin Ingin Menghapus Data Testing ?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((willDelete) => {
+        if (willDelete) {
+            window.location.href = url + '/hapus-testing/' + value;
+        } else {
+            swal.close();
+        }
+    });
+});
 </script>
 @endsection

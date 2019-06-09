@@ -229,7 +229,7 @@ class ControllerPreprocessing extends Controller
                     $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
                     // $value[$cls][$word][] = round($prob,11); 
                     $update = round($prob,11);
-                    WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_perhitungan' => $update]);
+                    WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_hitung' => $update]);
                 }
             }
         }

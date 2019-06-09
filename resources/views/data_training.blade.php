@@ -38,7 +38,7 @@
                                 <td align="center">{{$no++ ."."}}</td>
                                 <td align="center">{{$content->kata}}</td>
                                 <td align="center">{{$content->jumlah}}</td>
-                                <td align="center">{{$content->nilai_perhitungan}}</td>
+                                <td align="center">{{$content->nilai_hitung}}</td>
                             </tr>           
                             @endforeach
                         </tbody>
@@ -63,7 +63,7 @@
                             <tr>
                                 <td width="130px"><h4>Prior {{$pr['kelas']}}</h4></td>
                                 <td width="15px"><h4>:</h4></td>
-                                <td width="100px"><h4>{{round($pr['nilai'],2)}}</h4></td>
+                                <td width="100px"><h4>{{$pr['nilai']}}</h4></td>
                             </tr>
                             @endforeach
                         </tbody>

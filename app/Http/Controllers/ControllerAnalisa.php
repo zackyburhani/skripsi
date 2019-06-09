@@ -26,9 +26,30 @@ class ControllerAnalisa extends Controller
         return view('visualisasi.analisa', compact(['title','testing']));
     }
 
+    public function klasifikasi()
+    {
+        $data =  DB::table('klasifikasi')
+                ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
+                ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
+                ->groupBy('sentimen.kategori')
+                ->get();
+        
+        $sum = Klasifikasi::count();
+        
+        $tampung = array();
+        foreach($data as $val){
+            $tampung[] = [
+                'name' => $val->name,
+                'persentase' => $val->y,
+                'y' => round($val->y/$sum*100,2)
+            ];
+        }
+        return $tampung;
+    }
+
     public function confusion_matrix()
     {
-        // try {
+        try {
 
             $title = "Data Confusion Matrix";
             $testing_data = DataTesting::count();
@@ -84,10 +105,10 @@ class ControllerAnalisa extends Controller
             ksort($precision);
             return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','matrix','recall','precision','accuracy']));
     
-        // }    
-        // catch (\Exception $e) {
-        //     return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
-        // }
+        }    
+        catch (\Exception $e) {
+            return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
+        }
     }
 
     public function column_drilldown()
@@ -169,8 +190,8 @@ class ControllerAnalisa extends Controller
     {  
         $data = DB::table("term_frequency")
                 ->select(DB::raw("REPEAT(CONCAT(kata, ' '), jumlah) as string"))
-                // ->whereNull('term_frequency.id_training')
-                // ->WhereNotNull('term_frequency.id_testing')
+                ->whereNull('term_frequency.id_training')
+                ->WhereNotNull('term_frequency.id_testing')
                 ->where('id_sentimen',$kategori)
                 ->get();
 
@@ -222,24 +243,14 @@ class ControllerAnalisa extends Controller
         return $hasil;
     }
 
-    public function klasifikasi()
+    public function hapus_testing()
     {
-        $data =  DB::table('klasifikasi')
-                ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
-                ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
-                ->groupBy('sentimen.kategori')
-                ->get();
-        
-        $sum = Klasifikasi::count();
-        
-        $tampung = array();
-        foreach($data as $val){
-            $tampung[] = [
-                'name' => $val->name,
-                'persentase' => $val->y,
-                'y' => round($val->y/$sum*100,2)
-            ];
+        try{
+            $data_training = TwitterStream::where('status','1')->delete();
+            return redirect('/analisa')->with('sukses', 'Data Berhasil Dihapus !');
+        }    
+        catch (\Exception $e) {
+            return redirect('/analisa')->with('status', 'Data Tidak Berhasil Dihapus');
         }
-        return $tampung;
     }
 }
