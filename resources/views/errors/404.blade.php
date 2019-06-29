@@ -71,7 +71,7 @@
                             <i class="fa fa-twitter"></i> <span>Twitter Crawling</span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    {{-- <li class="treeview">
                         <a href="#">
                             <i class="fa fa-file-text"></i> <span>Kosa Kata</span>
                             <span class="pull-right-container">
@@ -82,7 +82,7 @@
                             <li><a href="/kata-dasar"><i class="fa fa-circle-o"></i> Kata Dasar</a></li>
                             <li><a href="/stopword"><i class="fa fa-circle-o"></i> Stopwords</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li>
                         <a href="/preprocessing">
                             <i class="fa fa-gears"></i> <span>Preprocessing</span>

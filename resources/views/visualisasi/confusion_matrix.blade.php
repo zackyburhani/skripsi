@@ -225,7 +225,14 @@ $(document).on('click','.btn-danger',function(e) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            window.location.href = url + '/hapus-testing/' + value;
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Data Testing Berhasil Dihapus",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url + '/hapus-testing/' + value;
+            });
         } else {
             swal.close();
         }

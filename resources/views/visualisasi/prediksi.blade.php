@@ -127,7 +127,7 @@
                                         @foreach($data as $row)
                                         <tr>
                                             <td align="center">{{$no++ ."."}}</td>
-                                            <td align="center">{{$row->nilai}}</td>
+                                            <td align="center">{{$row->vmap}}</td>
                                             <td align="center">{{$row->sentimen->kategori}}</td>
                                         </tr>
                                         <?php $tampung[$row->sentimen->kategori] = $row['nilai']; ?>
@@ -194,7 +194,7 @@
                                             <td align="center">{{$no++ ."."}}</td>
                                             <td align="center">{{$row->kemunculan_kata}}</td>
                                             <td align="center">{{$row->kelas_peluang}}</td>
-                                            <td align="center">{{$row->nilai}}</td>
+                                            <td align="center">{{$row->nilai_proses}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -230,7 +230,14 @@ $(document).on('click','.btn-danger',function(e) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            window.location.href = url + '/hapus-testing/' + value;
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Data Testing Berhasil Dihapus",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url + '/hapus-testing/' + value;
+            });
         } else {
             swal.close();
         }

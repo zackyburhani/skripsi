@@ -229,7 +229,7 @@ class ControllerPreprocessing extends Controller
                     $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
                     // $value[$cls][$word][] = round($prob,11); 
                     $update = round($prob,11);
-                    WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_hitung' => $update]);
+                    WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_bobot' => $update]);
                 }
             }
         }
@@ -251,7 +251,6 @@ class ControllerPreprocessing extends Controller
         
             //ambil data testing dan klasifikasikan dengan NBC
             $analisa = DataTesting::with(['data_crawling'])->where('id_crawling',$value->id_crawling)->first();
-            
             
             $preprocessing = $analisa->data_crawling->tweet;
             $case_folding = $this->case_folding($preprocessing);
@@ -303,7 +302,7 @@ class ControllerPreprocessing extends Controller
                         }
                         $data_proses->kemunculan_kata = $index_kata;
                         $data_proses->kelas_peluang = $kelas_peluang->kategori;
-                        $data_proses->nilai = $data_nilai;
+                        $data_proses->nilai_proses = $data_nilai;
                         $data_proses->save();
                     }
                 }
@@ -379,7 +378,7 @@ class ControllerPreprocessing extends Controller
         foreach($class['class'] as $cls){
             //simpan hasil
             $hasil = new Hasil();
-            $hasil->nilai = $final[$cls];
+            $hasil->vmap = $final[$cls];
             $hasil->id_testing = $id_testing;
             $hasil->id_sentimen = $cls;
             $hasil->save();

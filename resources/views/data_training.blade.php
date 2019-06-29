@@ -38,7 +38,7 @@
                                 <td align="center">{{$no++ ."."}}</td>
                                 <td align="center">{{$content->kata}}</td>
                                 <td align="center">{{$content->jumlah}}</td>
-                                <td align="center">{{$content->nilai_hitung}}</td>
+                                <td align="center">{{$content->nilai_bobot}}</td>
                             </tr>           
                             @endforeach
                         </tbody>
@@ -157,7 +157,14 @@ $(document).on('click','.btn-danger',function(e) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            window.location.href = url + '/hapus-training/' + value;
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Data Training " + value + " Berhasil Dihapus",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url + '/hapus-training/' + value;
+            });
         } else {
             swal.close();
         }

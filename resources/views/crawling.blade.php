@@ -142,7 +142,14 @@ $(document).on('click','.btn-refresh',function(e) {
       })
       .then((willDelete) => {
         if (willDelete) {
-            window.location.href = url + '/refresh-crawling';
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Dataset Berhasil Dihapus",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url + '/refresh-crawling';
+            });
         } else {
             swal.close();
         }
@@ -172,12 +179,14 @@ $('#frmUpload').submit( function(e) {
             console.log(data);
             $('#frmUpload').trigger("reset");
             $('#myModal').modal('hide');
-            // new PNotify({
-            //     title: 'Sukses !',
-            //     text: 'Data Berhasil Diupload',
-            //     type: 'success'
-            // });
-            window.location.href = url_param;
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Dataset Berhasil Disimpan",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url_param;
+            });
         },
         error: function (data) {
             console.log('Error:', data);
@@ -214,13 +223,16 @@ $(document).on('click','.delete-tweet',function(){
                 type: "DELETE",
                 url: url + '/' + id,
                 success: function (data) {
-                    new PNotify({
-                        title: 'Sukses !',
-                        text: 'Data Berhasi Dihapus',
-                        type: 'success'
+                    swal({
+                        icon: "success",
+                        title: "Berhasil",
+                        text: "Data Berhasil Dihapus",
+                        timer: 3000
+                    }).then(function () {
+                        window.location.href = $('#url').val();
                     });
-                    tag = "#del_"+id;
-                    $(tag).remove();
+                    // tag = "#del_"+id;
+                    // $(tag).remove();
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -271,15 +283,6 @@ function class_sentiment(model)
                     text: 'Data Berhasi Diubah',
                     type: 'success'
                 });
-                // tag = "#"+data.id_crawling;
-                // if(data.kategori == 'Positif'){
-                //     $(tag).css("color", "#0074D9");
-                // } else if(data.kategori == 'Negatif'){
-                //     $(tag).css("color", "#FF4136");
-                // } else {
-                //     $(tag).css("color", "#000000");
-                // }
-                // console.log(tag)
             },
             error: function (data) {
                 console.log('Error:', data);

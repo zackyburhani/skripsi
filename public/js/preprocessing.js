@@ -23,10 +23,10 @@ $(document).on('click', '.btn-preprocessing', function (e) {
         processData: false,
         success: function (data) {
             if(data == 0){
-                new PNotify({
-                    title: 'Warning !',
-                    text: 'Data Tidak Ditemukan',
-                    type: 'warning'
+                swal({
+                    icon: "warning",
+                    title: "Gagal",
+                    text: "Data Tidak Ditemukan",
                 });
                 $('.btn-preprocessing').attr('disabled',false);
                 $('.btn-preprocessing i.fa-gear').removeClass('fa-spin');
@@ -98,14 +98,16 @@ $(document).on('click', '.btn-latih', function (e) {
                 type: "POST",
                 url: url + '/data-latih',
                 success: function (data) {
-                    // new PNotify({
-                    //     title: 'Sukses !',
-                    //     text: 'Data Berhasi Dihapus',
-                    //     type: 'success'
-                    // });
+                    swal({
+                        icon: "success",
+                        title: "Berhasil",
+                        text: "Dataset Berhasil Disimpan",
+                        timer: 3000
+                    }).then(function () {
+                        window.location.href = "/training";
+                    });
                     $('.btn-latih').attr('disabled',false);
                     $('.btn-latih i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
-                    window.location.href = "/training";
                 },
                 error: function (data) {
                     console.log('Error:', data);
@@ -156,15 +158,17 @@ $(document).on('click', '.btn-uji', function (e) {
                 type: "POST",
                 url: url + '/data-uji',
                 success: function (data) {
-                    // new PNotify({
-                    //     title: 'Sukses !',
-                    //     text: 'Data Berhasi Dihapus',
-                    //     type: 'success'
-                    // });
+                    swal({
+                        icon: "success",
+                        title: "Berhasil",
+                        text: "Dataset Berhasil Disimpan",
+                        timer: 3000
+                    }).then(function () {
+                        window.location.href = "/analisa";
+                    });
                     $('.btn-uji').attr('disabled',false);
                     $('.btn-latih').attr('disabled',false);
                     $('.btn-uji i.fa-spinner').removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-file-text');
-                    window.location.href = "/analisa";
                 },
                 error: function (data) {
                     console.log('Error:', data);

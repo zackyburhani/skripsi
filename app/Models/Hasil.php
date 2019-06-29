@@ -7,7 +7,7 @@ class Hasil extends Model
 {
     protected $table = 'hasil';
     protected $primaryKey = 'id_hasil';
-    protected $fillable = ['id_hasil','nilai','id_sentimen','id_testing'];
+    protected $fillable = ['id_hasil','vmap','id_sentimen','id_testing'];
     public $timestamps = false;
 
     public function data_testing()

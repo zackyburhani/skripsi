@@ -15,10 +15,6 @@ use App\Http\Controllers\ControllerConfusionMatrix;
 
 class ControllerAnalisa extends Controller
 {
-    public $positif = "Positif";
-    public $negatif = "Negatif";
-    public $netral = "Netral";
-
     public function index()
     {
         $title = "Data analisa";
@@ -28,9 +24,9 @@ class ControllerAnalisa extends Controller
 
     public function klasifikasi()
     {
-        $data =  DB::table('klasifikasi')
+        $data =  DB::table('confusion_matrix')
                 ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
-                ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
+                ->join('sentimen', 'sentimen.id_sentimen', '=', 'confusion_matrix.id_sentimen')
                 ->groupBy('sentimen.kategori')
                 ->get();
         
@@ -247,7 +243,7 @@ class ControllerAnalisa extends Controller
     {
         try{
             $data_training = TwitterStream::where('status','1')->delete();
-            return redirect('/analisa')->with('sukses', 'Data Berhasil Dihapus !');
+            return redirect('/analisa');
         }    
         catch (\Exception $e) {
             return redirect('/analisa')->with('status', 'Data Tidak Berhasil Dihapus');

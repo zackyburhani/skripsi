@@ -20,11 +20,6 @@
             {{ session('status') }}
         </div>
     @endif
-    @if (session('sukses'))
-        <div class="alert alert-success">
-            {{ session('sukses') }}
-        </div>
-    @endif
     <div class="panel panel-default">
         <div class="panel-body">
         <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
@@ -164,7 +159,14 @@ $(document).on('click','.btn-danger',function(e) {
     })
     .then((willDelete) => {
         if (willDelete) {
-            window.location.href = url + '/hapus-testing/' + value;
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Data Testing Berhasil Dihapus",
+                timer: 3000
+            }).then(function () {
+                window.location.href = url + '/hapus-testing/' + value;
+            });
         } else {
             swal.close();
         }

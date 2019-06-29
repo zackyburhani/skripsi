@@ -45,6 +45,10 @@ class ControllerDashboard extends Controller
 
     public function searchPage(Request $request)
     {
+        if($request->search == ""){
+            return redirect('/');
+        }
+
         return redirect($request->search);
     }
 }
