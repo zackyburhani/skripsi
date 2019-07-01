@@ -86,8 +86,8 @@ $(document).on('click', '.btn-latih', function (e) {
     var url = $('#url_root').val();
     
     swal({
-        title: "Anda Yakin Ingin Memproses Data Latih ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Memproses Data Latih ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -146,8 +146,8 @@ $(document).on('click', '.btn-uji', function (e) {
     var url = $('#url_root').val();
     
     swal({
-        title: "Anda Yakin Ingin Memproses Data Uji ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Memproses Data Uji ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

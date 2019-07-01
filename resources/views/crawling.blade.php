@@ -15,14 +15,29 @@
 
 <section class="content">
     @if (session('status'))
-        <div class="alert alert-danger">
-            {{ session('status') }}
-        </div>
+        {{-- <div class="alert alert-danger"> --}}
+            {{-- {{ session('status') }} --}}
+        {{-- </div> --}}
+        <script>
+            swal({
+                icon: "error",
+                title: "Berhasil",
+                text: "Data Tidak Ditemukan",
+            })
+            </script>
     @endif
     @if (session('sukses'))
-        <div class="alert alert-success">
+        {{-- <div class="alert alert-success">
             {{ session('sukses') }}
-        </div>
+        </div> --}}
+        <script>            
+            swal({
+                icon: "success",
+                title: "Berhasil",
+                text: "Data Berhasil Diproses",
+                timer: 3000
+            })
+        </script>
     @endif
     <div class="row">
         <div class="col-lg-12">
@@ -134,8 +149,8 @@ $(document).on('click','.btn-export',function(e) {
 $(document).on('click','.btn-refresh',function(e) {
     var url = $('#url_root').val();
     swal({
-        title: "Anda Yakin Ingin Membersihkan Data ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Membersihkan Data ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -211,8 +226,8 @@ $(document).on('click','.delete-tweet',function(){
     });
     var url = $('#url').val();
     swal({
-        title: "Anda Yakin Ingin Menghapus Data ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

@@ -24,9 +24,9 @@ class ControllerAnalisa extends Controller
 
     public function klasifikasi()
     {
-        $data =  DB::table('confusion_matrix')
+        $data =  DB::table('klasifikasi')
                 ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
-                ->join('sentimen', 'sentimen.id_sentimen', '=', 'confusion_matrix.id_sentimen')
+                ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
                 ->groupBy('sentimen.kategori')
                 ->get();
         

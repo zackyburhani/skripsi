@@ -149,8 +149,8 @@ $(document).on('click','.btn-danger',function(e) {
     var value = $(this).val();
     
     swal({
-        title: "Anda Yakin Ingin Menghapus Data Training "+ value + " ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data Training "+ value + " ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

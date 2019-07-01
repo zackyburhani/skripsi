@@ -31,6 +31,11 @@ class ControllerCrawlingTwitter extends Controller
             $data = $someObject->statuses;
             $konvert = json_encode($data); 
             $someObject = json_decode($konvert);
+
+            if(count($someObject) == 0){
+                return redirect('/crawling')->with('status', 'Tidak Dapat Memproses Data !');
+            }
+
             for($i=0; $i<count($someObject) ; $i++) {
                 $twitter = new TwitterStream;
                 $twitter->tweet_id = $someObject[$i]->id;
@@ -50,6 +55,11 @@ class ControllerCrawlingTwitter extends Controller
     public function export($format)
     {
         $name = 'data_crawling_'.Carbon::now()->format('d_m_Y');
+
+        if($twitter = TwitterStream::count() == 0){
+            return redirect('/crawling')->with('status','Tidak Dapat Memproses Data !');
+        }
+
         if($format == 'xlsx'){
             return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
@@ -172,7 +182,6 @@ class ControllerCrawlingTwitter extends Controller
     public function refresh_crawling()
     {
         $crawling = TwitterStream::query()->delete();
-        return redirect('/crawling');
-        
+        return redirect('/crawling');  
     }
 }

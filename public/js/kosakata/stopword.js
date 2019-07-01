@@ -43,8 +43,8 @@ function stopword_table() {
 $(document).on('click','.btn-hapus-stopword',function(e) {
     var url = $('#url_root').val();
     swal({
-        title: "Anda Yakin Ingin Menghapus Data Stopword ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Kata Dasar ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

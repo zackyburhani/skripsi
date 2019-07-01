@@ -79,6 +79,7 @@
                         type: "GET",
                         url: url + '/data-cloud/'+value.sentimen.id_sentimen,
                         success: function (string) {
+                            console.log(string)
                             var chart = 'container_'+value.sentimen.kategori
                             var text = string;
                             var lines = text.split(/[,\. ]+/g);
@@ -137,8 +138,8 @@ $(document).on('click','.btn-danger',function(e) {
     var value = $(this).val();
     
     swal({
-        title: "Anda Yakin Ingin Menghapus Data Testing ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data Testing ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2019 at 09:34 AM
+-- Generation Time: Jun 29, 2019 at 10:19 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -21,105 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `analisis_sentimen`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `confusion_matrix`
---
-
-CREATE TABLE `confusion_matrix` (
-  `id_klasifikasi` int(10) NOT NULL,
-  `id_testing` int(10) DEFAULT NULL,
-  `id_hasil` int(10) DEFAULT NULL,
-  `id_sentimen` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `confusion_matrix`
---
-
-INSERT INTO `confusion_matrix` (`id_klasifikasi`, `id_testing`, `id_hasil`, `id_sentimen`) VALUES
-(321, 321, 961, 3),
-(322, 322, 964, 3),
-(323, 323, 967, 3),
-(324, 324, 970, 3),
-(325, 325, 973, 3),
-(326, 326, 976, 3),
-(327, 327, 979, 3),
-(328, 328, 982, 3),
-(329, 329, 985, 3),
-(330, 330, 988, 3),
-(331, 331, 991, 2),
-(332, 332, 994, 3),
-(333, 333, 997, 3),
-(334, 334, 1000, 3),
-(335, 335, 1003, 3),
-(336, 336, 1006, 3),
-(337, 337, 1009, 1),
-(338, 338, 1012, 3),
-(339, 339, 1015, 3),
-(340, 340, 1018, 3),
-(341, 341, 1021, 2),
-(342, 342, 1024, 3),
-(343, 343, 1027, 3),
-(344, 344, 1030, 3),
-(345, 345, 1033, 3),
-(346, 346, 1036, 3),
-(347, 347, 1039, 2),
-(348, 348, 1042, 2),
-(349, 349, 1045, 3),
-(350, 350, 1048, 3),
-(351, 351, 1051, 3),
-(352, 352, 1054, 2),
-(353, 353, 1057, 3),
-(354, 354, 1060, 3),
-(355, 355, 1063, 2),
-(356, 356, 1066, 2),
-(357, 357, 1069, 3),
-(358, 358, 1072, 3),
-(359, 359, 1075, 3),
-(360, 360, 1078, 2),
-(361, 361, 1081, 1),
-(362, 362, 1084, 1),
-(363, 363, 1087, 2),
-(364, 364, 1090, 3),
-(365, 365, 1093, 3),
-(366, 366, 1096, 3),
-(367, 367, 1099, 2),
-(368, 368, 1102, 3),
-(369, 369, 1105, 2),
-(370, 370, 1108, 2),
-(371, 371, 1111, 1),
-(372, 372, 1114, 3),
-(373, 373, 1117, 2),
-(374, 374, 1120, 3),
-(375, 375, 1123, 3),
-(376, 376, 1126, 2),
-(377, 377, 1129, 3),
-(378, 378, 1132, 2),
-(379, 379, 1135, 2),
-(380, 380, 1138, 3),
-(381, 381, 1141, 3),
-(382, 382, 1144, 3),
-(383, 383, 1147, 2),
-(384, 384, 1150, 2),
-(385, 385, 1153, 3),
-(386, 386, 1156, 3),
-(387, 387, 1159, 2),
-(388, 388, 1162, 3),
-(389, 389, 1165, 3),
-(390, 390, 1168, 3),
-(391, 391, 1171, 3),
-(392, 392, 1174, 3),
-(393, 393, 1177, 3),
-(394, 394, 1180, 3),
-(395, 395, 1183, 1),
-(396, 396, 1186, 2),
-(397, 397, 1189, 2),
-(398, 398, 1192, 3),
-(399, 399, 1195, 3),
-(400, 400, 1198, 3);
 
 -- --------------------------------------------------------
 
@@ -1237,6 +1138,105 @@ INSERT INTO `hasil` (`id_hasil`, `vmap`, `id_sentimen`, `id_testing`) VALUES
 (1198, '0.0000000000069798544712017205', 1, 400),
 (1199, '0.000000000045029295963229656', 2, 400),
 (1200, '0.0000000005351686308334242', 3, 400);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `klasifikasi`
+--
+
+CREATE TABLE `klasifikasi` (
+  `id_klasifikasi` int(10) NOT NULL,
+  `id_testing` int(10) DEFAULT NULL,
+  `id_hasil` int(10) DEFAULT NULL,
+  `id_sentimen` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `klasifikasi`
+--
+
+INSERT INTO `klasifikasi` (`id_klasifikasi`, `id_testing`, `id_hasil`, `id_sentimen`) VALUES
+(321, 321, 961, 3),
+(322, 322, 964, 3),
+(323, 323, 967, 3),
+(324, 324, 970, 3),
+(325, 325, 973, 3),
+(326, 326, 976, 3),
+(327, 327, 979, 3),
+(328, 328, 982, 3),
+(329, 329, 985, 3),
+(330, 330, 988, 3),
+(331, 331, 991, 2),
+(332, 332, 994, 3),
+(333, 333, 997, 3),
+(334, 334, 1000, 3),
+(335, 335, 1003, 3),
+(336, 336, 1006, 3),
+(337, 337, 1009, 1),
+(338, 338, 1012, 3),
+(339, 339, 1015, 3),
+(340, 340, 1018, 3),
+(341, 341, 1021, 2),
+(342, 342, 1024, 3),
+(343, 343, 1027, 3),
+(344, 344, 1030, 3),
+(345, 345, 1033, 3),
+(346, 346, 1036, 3),
+(347, 347, 1039, 2),
+(348, 348, 1042, 2),
+(349, 349, 1045, 3),
+(350, 350, 1048, 3),
+(351, 351, 1051, 3),
+(352, 352, 1054, 2),
+(353, 353, 1057, 3),
+(354, 354, 1060, 3),
+(355, 355, 1063, 2),
+(356, 356, 1066, 2),
+(357, 357, 1069, 3),
+(358, 358, 1072, 3),
+(359, 359, 1075, 3),
+(360, 360, 1078, 2),
+(361, 361, 1081, 1),
+(362, 362, 1084, 1),
+(363, 363, 1087, 2),
+(364, 364, 1090, 3),
+(365, 365, 1093, 3),
+(366, 366, 1096, 3),
+(367, 367, 1099, 2),
+(368, 368, 1102, 3),
+(369, 369, 1105, 2),
+(370, 370, 1108, 2),
+(371, 371, 1111, 1),
+(372, 372, 1114, 3),
+(373, 373, 1117, 2),
+(374, 374, 1120, 3),
+(375, 375, 1123, 3),
+(376, 376, 1126, 2),
+(377, 377, 1129, 3),
+(378, 378, 1132, 2),
+(379, 379, 1135, 2),
+(380, 380, 1138, 3),
+(381, 381, 1141, 3),
+(382, 382, 1144, 3),
+(383, 383, 1147, 2),
+(384, 384, 1150, 2),
+(385, 385, 1153, 3),
+(386, 386, 1156, 3),
+(387, 387, 1159, 2),
+(388, 388, 1162, 3),
+(389, 389, 1165, 3),
+(390, 390, 1168, 3),
+(391, 391, 1171, 3),
+(392, 392, 1174, 3),
+(393, 393, 1177, 3),
+(394, 394, 1180, 3),
+(395, 395, 1183, 1),
+(396, 396, 1186, 2),
+(397, 397, 1189, 2),
+(398, 398, 1192, 3),
+(399, 399, 1195, 3),
+(400, 400, 1198, 3);
 
 -- --------------------------------------------------------
 
@@ -6420,15 +6420,6 @@ INSERT INTO `term_frequency` (`id_term`, `kata`, `id_sentimen`, `jumlah`, `id_tr
 --
 
 --
--- Indexes for table `confusion_matrix`
---
-ALTER TABLE `confusion_matrix`
-  ADD PRIMARY KEY (`id_klasifikasi`),
-  ADD KEY `id_testing` (`id_testing`),
-  ADD KEY `prediksi` (`id_sentimen`),
-  ADD KEY `id_hasil` (`id_hasil`);
-
---
 -- Indexes for table `data_crawling`
 --
 ALTER TABLE `data_crawling`
@@ -6458,6 +6449,15 @@ ALTER TABLE `hasil`
   ADD KEY `kelas` (`id_sentimen`);
 
 --
+-- Indexes for table `klasifikasi`
+--
+ALTER TABLE `klasifikasi`
+  ADD PRIMARY KEY (`id_klasifikasi`),
+  ADD KEY `id_testing` (`id_testing`),
+  ADD KEY `prediksi` (`id_sentimen`),
+  ADD KEY `id_hasil` (`id_hasil`);
+
+--
 -- Indexes for table `proses`
 --
 ALTER TABLE `proses`
@@ -6484,12 +6484,6 @@ ALTER TABLE `term_frequency`
 --
 
 --
--- AUTO_INCREMENT for table `confusion_matrix`
---
-ALTER TABLE `confusion_matrix`
-  MODIFY `id_klasifikasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
-
---
 -- AUTO_INCREMENT for table `data_crawling`
 --
 ALTER TABLE `data_crawling`
@@ -6514,6 +6508,12 @@ ALTER TABLE `hasil`
   MODIFY `id_hasil` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1201;
 
 --
+-- AUTO_INCREMENT for table `klasifikasi`
+--
+ALTER TABLE `klasifikasi`
+  MODIFY `id_klasifikasi` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=401;
+
+--
 -- AUTO_INCREMENT for table `sentimen`
 --
 ALTER TABLE `sentimen`
@@ -6528,14 +6528,6 @@ ALTER TABLE `term_frequency`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `confusion_matrix`
---
-ALTER TABLE `confusion_matrix`
-  ADD CONSTRAINT `confusion_matrix_ibfk_1` FOREIGN KEY (`id_testing`) REFERENCES `data_testing` (`id_testing`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `confusion_matrix_ibfk_2` FOREIGN KEY (`id_sentimen`) REFERENCES `sentimen` (`id_sentimen`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `confusion_matrix_ibfk_3` FOREIGN KEY (`id_hasil`) REFERENCES `hasil` (`id_hasil`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_crawling`
@@ -6561,6 +6553,14 @@ ALTER TABLE `data_training`
 ALTER TABLE `hasil`
   ADD CONSTRAINT `hasil_ibfk_1` FOREIGN KEY (`id_testing`) REFERENCES `data_testing` (`id_testing`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hasil_ibfk_2` FOREIGN KEY (`id_sentimen`) REFERENCES `sentimen` (`id_sentimen`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `klasifikasi`
+--
+ALTER TABLE `klasifikasi`
+  ADD CONSTRAINT `klasifikasi_ibfk_1` FOREIGN KEY (`id_testing`) REFERENCES `data_testing` (`id_testing`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `klasifikasi_ibfk_2` FOREIGN KEY (`id_sentimen`) REFERENCES `sentimen` (`id_sentimen`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `klasifikasi_ibfk_3` FOREIGN KEY (`id_hasil`) REFERENCES `hasil` (`id_hasil`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `proses`

@@ -16,13 +16,23 @@
 @if($testing == 0)
 <section class="content">
     @if (session('status'))
-        <div class="alert alert-danger">
+        {{-- <div class="alert alert-danger">
             {{ session('status') }}
-        </div>
+        </div> --}}
+
+         <script>
+            
+            swal({
+                icon: "error",
+                title: "Berhasil",
+                text: "Data Tidak Ditemukan",
+            })
+            
+        </script>
     @endif
     <div class="panel panel-default">
         <div class="panel-body">
-        <center><h3>Data <i>Testing</i> Tidak Ditemukan</h3></center>
+        <center><h3><i>Data Testing</i> Tidak Ditemukan</h3></center>
         </div>
     </div>           
 </section>
@@ -151,8 +161,8 @@ $(document).on('click','.btn-danger',function(e) {
     var value = $(this).val();
     
     swal({
-        title: "Anda Yakin Ingin Menghapus Data Testing ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data Testing ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

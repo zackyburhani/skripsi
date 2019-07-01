@@ -108,7 +108,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    404 Error Page
+                        <i class="fa fa-warning"></i> 404 Error Page
                 </h1>
                 <ol class="breadcrumb">
                     <li class="active"><i class="fa fa-warning"></i> 404 error</li>

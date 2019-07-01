@@ -39,10 +39,9 @@ $(document).on('click','.delete-kategori',function(){
         },
     });
 
-
     swal({
-        title: "Anda Yakin Ingin Menghapus Data?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -184,8 +183,8 @@ function kategori_table()
                     '<td align="center">'+ no++ +'.'+'</td>'+
                     '<td align="center">'+data[i].kategori+'</td>'+
                     '<td style="text-align:center;">'+
-                      '<button class="btn btn-warning edit-kategori" value="' + data[i].id_sentimen + '">Pilih</button>'+' '+
-                      '<button class="btn btn-danger btn-delete delete-kategori" value="' + data[i].id_sentimen + '">Hapus</button></td></tr>'+
+                      '<button class="btn btn-warning edit-kategori" value="' + data[i].id_sentimen + '"><i class="fa fa-edit"></i> Pilih</button>'+' '+
+                      '<button class="btn btn-danger btn-delete delete-kategori" value="' + data[i].id_sentimen + '"><i class="fa fa-trash"></i> Hapus</button></td></tr>'+
                     '</td>'+
                 '</tr>';
             }

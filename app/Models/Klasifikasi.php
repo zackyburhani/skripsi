@@ -6,7 +6,7 @@ use App\Models\Hasil;
 
 class Klasifikasi extends Model
 {
-    protected $table = 'confusion_matrix';
+    protected $table = 'klasifikasi';
     protected $primaryKey = 'id_klasifikasi';
     protected $fillable = ['id_klasifikasi','id_sentimen','id_hasil','id_testing'];
     public $timestamps = false;

@@ -95,13 +95,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-xlsx"></i>Detail Confidence</h4>
+                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-file"></i> Detail Perhitungan</h4>
                 </div>
                 <div class="modal-body">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab_nbc_{{$key['id_testing']}}" data-toggle="tab">Hasil Kategori Sentimen</a></li>
                             <li><a href="#tab_hitung_{{$key['id_testing']}}" data-toggle="tab">Detail Perhitungan</a></li>
+                            <li><a href="#tab_prepro_{{$key['id_testing']}}" data-toggle="tab">Hasil <i>Preprocessing</i></a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tab_nbc_{{$key['id_testing']}}">
@@ -134,35 +135,10 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-
-                                <div style="height: 250px; overflow: scroll;">
-                                    <table style="table-layout:fixed" id="table-prediksi"
-                                        class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="7%">
-                                                    <center>No.<center>
-                                                </th>
-                                                <th>
-                                                    <center>Hasil <i>Preprocessing</i><center>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $no=1; ?>
-                                            <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
-                                            <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing'],$hasil_klasifikasi); ?>
-                                            @foreach($data as $row)
-                                            <tr>
-                                                <td align="center">{{$no++ ."."}}</td>
-                                                <td align="center">{{$row->kemunculan_kata}}</td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
                                 <hr>
                                 <table>
                                     <tr>
+                                        <?php  arsort($tampung); $hasil_klasifikasi = key($tampung); ?>
                                         <td>Hasil Klasifikasi : <b><?php echo $hasil_klasifikasi ?></b></td>
                                     </tr>
                                 </table>
@@ -200,6 +176,34 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="tab-pane" id="tab_prepro_{{$key['id_testing']}}">
+                                {{-- <div style="height: 250px; overflow: scroll;"> --}}
+                                    <table style="table-layout:fixed" id="table-prediksi"
+                                        class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th width="7%">
+                                                    <center>No.<center>
+                                                </th>
+                                                <th>
+                                                    <center>Hasil <i>Preprocessing</i><center>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php $no=1; ?>
+                                            <?php $data = App\Models\DataTesting::getFreqTest($key['id_testing'],$hasil_klasifikasi); ?>
+                                            @foreach($data as $row)
+                                            <tr>
+                                                <td align="center">{{$no++ ."."}}</td>
+                                                <td align="center">{{$row->kemunculan_kata}}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                {{-- </div> --}}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -222,8 +226,8 @@ $(document).on('click','.btn-danger',function(e) {
     var value = $(this).val();
     
     swal({
-        title: "Anda Yakin Ingin Menghapus Data Testing ?",
-        text: "",
+        title: "Warning !",
+        text: "Anda Yakin Ingin Menghapus Data Testing ?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
