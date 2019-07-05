@@ -35,9 +35,6 @@
                             <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
                             <li class="active"><a href="{{ url('confusion-matrix') }}">Confusion Matriks</a></li>
                             <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
-                            <li class="pull-right">
-                                <button class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Testing </button>
-                            </i>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="confusion_matrix">
