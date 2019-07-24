@@ -234,16 +234,17 @@ class ControllerConfusionMatrix extends Controller
     {
         $labels = count($labels) === 0 ? self::getUniqueLabels($actualLabels) : array_flip($labels);
         $matrix = self::generateMatrixWithZeros($labels);
-
+        
         foreach ($actualLabels as $index => $actual) {
             $predicted = $predictedLabels[$index];
-
+            
             if (!isset($labels[$actual], $labels[$predicted])) {
                 continue;
             }
 
             if ($predicted === $actual) {
                 $row = $column = $labels[$actual];
+                
             } else {
                 $row = $labels[$actual];
                 $column = $labels[$predicted];

@@ -8,7 +8,7 @@
             <!-- small box -->
             <div class="small-box bg-blue">
                 <div class="inner">
-                    <h3>{{$sentimen}}</h3>
+                    <h3 class="count">{{$sentimen}}</h3>
 
                     <p>Data Kategori</p>
                 </div>
@@ -23,7 +23,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>{{$data_crawling}}</h3>
+                    <h3 class="count">{{$data_crawling}}</h3>
 
                     <p>Data Crawling</p>
                 </div>
@@ -85,9 +85,9 @@
             <b1>
                 <p><b>Tentang Aplikasi :</b></p>
                 <p>1. Aplikasi Dapat Melakukan <i>Crawling Data Tweet</i> Secara <i>Real-time</i> </p>
-                <p>2. Aplikasi Mengklasifikasikan Data Sentimen Kedalam Tiga Kelas : Positif, Negatif & Netral</p>
-                <p>3. Klasifikasi Menggunakan Algoritme <i>Naïve Bayes Classifier</i> </p>
-                <p>4. Preprocessing Terdiri Dari 5 tahap : <i>Case Folding</i>, <i>Cleansing</i>, <i>Tokenizing</i>, <i>Stopword</i> Dan <i>Stemming</i></p>
+                <p>2. Aplikasi Mengklasifikasikan Data Sentimen Kedalam Tiga Kelas : Positif, Netral & Negatif</p>
+                <p>3. Klasifikasi Menggunakan Algoritme <i>Naïve Bayes Classifier (NBC)</i> </p>
+                <p>4. <i>Preprocessing</i> Terdiri Dari 5 tahap : <i>Case Folding</i>, <i>Cleansing</i>, <i>Tokenizing</i>, <i>Stopword</i> Dan <i>Stemming</i></p>
                 <p>5. Menggunakan Algoritme Nazief & Adriani Pada Proses <i>Stemming</i></p>
                 <p>6. Visualisasi Data Menggunakan <i>Pie Chart</i>, <i>Column Chart</i> Dan <i>Word Cloud</i></p>
                 <p>7. Pengujian Akurasi Menggunakan Metode <i>Confusion Matrix</i> : <i>Accuracy</i>, <i>Precision</i>, <i>Recall</i> dan <i>Error Rate</i></p>
@@ -98,4 +98,18 @@
 
 </section>
 <!-- right col -->
+<script>
+$('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 2000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+</script>
+
 @endsection

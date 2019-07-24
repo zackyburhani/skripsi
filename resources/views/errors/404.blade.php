@@ -67,6 +67,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="/kategori-sentimen">
+                            <i class="fa fa-tags"></i> <span>Kategori Sentimen</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/crawling">
                             <i class="fa fa-twitter"></i> <span>Twitter Crawling</span>
                         </a>
@@ -94,8 +99,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/analisa">
-                            <i class="fa fa-pie-chart"></i> <span>Analisa Data</span>
+                        <a href="/visualisasi-data">
+                            <i class="fa fa-pie-chart"></i> <span>Visualisasi Data</span>
                         </a>
                     </li>
                 </ul>

@@ -69,18 +69,19 @@ class ControllerPreprocessing extends Controller
         return $this->convert_from_latin1_to_utf8_recursively($data);
     }
 
-    private function case_folding($data)
+    public function case_folding($data)
     {
         // $unicode = preg_replace('/[\x{10000}-\x{10FFFF}]/u', "\xEF\xBF\xBD", $data);
         $lower = strtolower($data);
         return $lower;
     }
 
-    private function cleansing($data)
+    public function cleansing($data)
     {
         $data = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', '', $data); //remove url
         $data = preg_replace('/#([\w-]+)/i', '', $data); //  #remove tag
         $data = preg_replace('/@([\w-]+)/i', '', $data); // #remove @someone
+        $data = preg_replace('/[0-9]+/', '', $data); //remove angka
         $data = str_replace('rt : ', '', $data); // #remove RT
         $data = str_replace(',', '  ', $data);
         $data = str_replace('.', '  ', $data);
@@ -292,7 +293,7 @@ class ControllerPreprocessing extends Controller
                 foreach($value_kategori as $index_kata => $data_kata){
                     foreach($data_kata as $index_nilai => $data_nilai){
                         $id_training = WordFrequency::where([['id_sentimen',$index_kategori],['kata',$index_kata]])->whereNotNull('id_training')->first();
-                        $kelas_peluang = Sentimen::where('id_sentimen',$index_kategori)->first();
+                        // $kelas_peluang = Sentimen::where('id_sentimen',$index_kategori)->first();
                         $data_proses = new Proses();
                         $data_proses->id_testing = $analisa->id_testing;
                         if(empty($id_training)){
@@ -301,7 +302,7 @@ class ControllerPreprocessing extends Controller
                             $data_proses->id_training = $id_training->id_training;
                         }
                         $data_proses->kemunculan_kata = $index_kata;
-                        $data_proses->kelas_peluang = $kelas_peluang->kategori;
+                        // $data_proses->kelas_peluang = $kelas_peluang->kategori;
                         $data_proses->nilai_proses = $data_nilai;
                         $data_proses->save();
                     }

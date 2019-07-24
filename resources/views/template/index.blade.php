@@ -83,9 +83,9 @@
     <div class="wrapper">
         <header class="main-header">
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="/" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
-                <span class="logo-mini"><b>A</b>LT</span>
+                <span class="logo-mini"><b>A</b>S</span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg"><b>Analisis</b> Sentimen</span>
             </a>
@@ -153,8 +153,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/analisa">
-                            <i class="fa fa-pie-chart"></i> <span>Analisa Data</span>
+                        <a href="/visualisasi-data">
+                            <i class="fa fa-pie-chart"></i> <span>Visualisasi Data</span>
                         </a>
                     </li>
                 </ul>

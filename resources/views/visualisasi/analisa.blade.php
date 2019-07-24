@@ -9,7 +9,7 @@
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/analisa"><i class="fa fa-pie-chart"></i> Analisa Data</a></li>
+        <li><a href="/visualisasi-data"><i class="fa fa-pie-chart"></i> Visualisasi Data</a></li>
     </ol>
 </section>
 
@@ -54,8 +54,8 @@
                 <div class="col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="{{ url('analisa') }}">Klasifikasi</a></li>
-                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
+                            <li class="active"><a href="{{ url('visualisasi-data') }}">Visualisasi Data</a></li>
+                            <li><a href="{{ url('hasil-perhitungan') }}">Hasil Perhitungan</a></li>
                             <li><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
                             <li><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
                             <li class="pull-right">

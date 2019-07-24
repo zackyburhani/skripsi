@@ -164,7 +164,7 @@ $(document).on('click', '.btn-uji', function (e) {
                         text: "Dataset Berhasil Disimpan",
                         timer: 3000
                     }).then(function () {
-                        window.location.href = "/analisa";
+                        window.location.href = "/visualisasi-data";
                     });
                     $('.btn-uji').attr('disabled',false);
                     $('.btn-latih').attr('disabled',false);

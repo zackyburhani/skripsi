@@ -21,8 +21,6 @@ class ControllerTraining extends Controller
                 $data_training[$stm->kategori] = WordFrequency::where('id_sentimen',$stm->id_sentimen)->whereNotNull('id_training')->get();
             }
             
-            // $data_negatif = WordFrequency::where('kategori','Negatif')->get();
-            // $data_netral = WordFrequency::where('kategori','Netral')->get();
             $total = WordFrequency::count();
             
             foreach($class['class'] as $cls){

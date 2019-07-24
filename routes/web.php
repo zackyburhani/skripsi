@@ -61,16 +61,18 @@ Route::get('/hapus-training/{training}', 'ControllerTraining@hapus_training');
 Route::get('/data-sentimen', 'ControllerTraining@data_sentimen');
 
 // analisa
-Route::get('/analisa', 'ControllerAnalisa@index');
+Route::get('/visualisasi-data', 'ControllerAnalisa@index');
 Route::get('/data-klasifikasi', 'ControllerAnalisa@klasifikasi');
 Route::get('/confusion-matrix', 'ControllerAnalisa@confusion_matrix');
 Route::get('/word-cloud', 'ControllerAnalisa@word_cloud');
 Route::get('/data-cloud/{data}', 'ControllerAnalisa@data_cloud');
-Route::get('/prediksi-sentimen', 'ControllerAnalisa@prediksi');
+Route::get('/hasil-perhitungan', 'ControllerAnalisa@prediksi');
 Route::get('/data-sentimen/{data-sentimen}', 'ControllerAnalisa@data_prediksi');
 Route::get('/column-drilldown', 'ControllerAnalisa@column_drilldown');
 Route::get('/jumlah-kategori-cloud', 'ControllerAnalisa@jumlah_kategori_cloud');
 Route::get('/hapus-testing', 'ControllerAnalisa@hapus_testing');
+Route::get('/get-detail-prediksi/{data}', 'ControllerAnalisa@getDetailPrediksi');
+
 
 // Stemming
 // Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');

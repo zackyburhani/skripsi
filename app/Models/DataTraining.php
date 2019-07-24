@@ -2,6 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\TwitterStream;
+use App\Models\Sentimen;
 
 class DataTraining extends Model
 {
@@ -23,5 +25,11 @@ class DataTraining extends Model
     public function data_testing()
     {
         return $this->belongsToMany('App\Models\DataTesting','proses','id_training','id_testing');
+    }
+
+    public static function totalSentimen($id)
+    {
+        $id_sentimen = Sentimen::where('kategori',$id)->first();
+        return TwitterStream::where([['id_sentimen',$id_sentimen->id_sentimen],['status','0']])->count();
     }
 }

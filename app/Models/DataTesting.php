@@ -34,16 +34,4 @@ class DataTesting extends Model
     {
         return $this->belongsToMany('App\Models\DataTraining','proses','id_testing','id_training');
     }
-
-    public static function getFreqTest($id_testing,$kelas_peluang) 
-    {
-        $term_freq = Proses::where([['id_testing',$id_testing],['kelas_peluang',$kelas_peluang]])->get();
-        return $term_freq;
-    }
-
-    public static function getDetailHitung($id_testing) 
-    {
-        $data_hitung = Proses::where('id_testing',$id_testing)->get();
-        return $data_hitung;
-    } 
 }

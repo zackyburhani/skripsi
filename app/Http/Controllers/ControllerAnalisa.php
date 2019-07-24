@@ -11,7 +11,9 @@ use App\Models\Klasifikasi;
 use App\Models\TwitterStream;
 use App\Models\Hasil;
 use App\Models\Sentimen;
+use App\Models\Proses;
 use App\Http\Controllers\ControllerConfusionMatrix;
+use App\Http\Controllers\ControllerPreprocessing;
 
 class ControllerAnalisa extends Controller
 {
@@ -213,7 +215,7 @@ class ControllerAnalisa extends Controller
     public function prediksi()
     {
         $collection = array();
-        $title = "Data Prediksi Sentimen";
+        $title = "Data Perhitungan Sentimen";
         $sentimen = Sentimen::all();
         $testing_data = DataTesting::count();
         $klasifikasi = DataTesting::with(['data_crawling','klasifikasi'])->get();
@@ -233,6 +235,52 @@ class ControllerAnalisa extends Controller
         return view('visualisasi.prediksi', compact(['title','sentimen','collection','testing_data','hasil']));
     }
 
+
+    public function getDetailPrediksi($id)
+    {
+        //ambil data sentimen;
+        $sentimen = Sentimen::all();
+
+        //ambil data crawling
+        $data = DataTesting::with('data_crawling')->where('id_testing',$id)->first();
+
+        //hasil nbc
+        $nbc = Hasil::with(['sentimen'])->where('id_testing',$id)->get();
+
+        //hasil confidence
+        $detail_proses = Proses::where('id_testing',$id)->get();
+
+        //hasil preprocessing
+        $preprocessing = new ControllerPreprocessing();
+        $case_folding = $preprocessing->case_folding($data->data_crawling->tweet);
+        $cleansing = $preprocessing->cleansing($case_folding);
+        $tokenizing = $preprocessing->tokenizing($cleansing);
+        $stopword = $preprocessing->stopword($tokenizing);
+        $stemming = $preprocessing->stemming($stopword);
+
+        foreach($sentimen as $label){
+            foreach($stemming as $index_stemming => $value_stemming){
+                $kelas_peluang[] = $label->kategori;
+            }
+        }
+
+        foreach($nbc as $index_nbc){
+            $tampung[$index_nbc->sentimen->kategori] = $index_nbc->vmap;
+        }
+
+        arsort($tampung); $hasil_klasifikasi = key($tampung);  ;
+
+        $kumpulan = [
+            'kelas_peluang' => $kelas_peluang,
+            'hasil_klasifikasi' => $hasil_klasifikasi,
+            'nbc' => $nbc,
+            'detail' => $detail_proses,
+            'prepro' => $stemming,
+        ];
+
+        return $kumpulan;
+    }
+
     public function data_prediksi($id)
     {   
         $hasil = Hasil::where('id_testing',$id)->get();
@@ -243,10 +291,10 @@ class ControllerAnalisa extends Controller
     {
         try{
             $data_training = TwitterStream::where('status','1')->delete();
-            return redirect('/analisa');
+            return redirect('/visualisasi-data');
         }    
         catch (\Exception $e) {
-            return redirect('/analisa')->with('status', 'Data Tidak Berhasil Dihapus');
+            return redirect('/visualisasi-data')->with('status', 'Data Tidak Berhasil Dihapus');
         }
     }
 }

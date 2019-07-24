@@ -25,10 +25,4 @@ class Klasifikasi extends Model
     {
         return $this->belongsTo('App\Models\Sentimen','id_sentimen','id_sentimen');
     }
-
-    public static function getHasil($id_testing) 
-    {
-        $hasil = Hasil::with(['sentimen'])->where('id_testing',$id_testing)->get();
-        return $hasil;
-    }
 }

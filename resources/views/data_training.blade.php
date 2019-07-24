@@ -9,7 +9,7 @@
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/crawling"><i class="fa fa-list-alt"></i> Data Training</a></li>
+        <li><a href="/training"><i class="fa fa-list-alt"></i> Data Training</a></li>
     </ol>
 </section>
 
@@ -20,7 +20,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                 @if(COUNT($val) != 0)
-                    <h4 class="title">Daftar {{$key}} <button value="{{$key}}" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training {{$key}}</button></h4>
+                    <h4 class="title">Daftar {{$key}} / ({{App\Models\DataTraining::totalSentimen($key)}} Tweet) <button value="{{$key}}" class="btn btn-danger btn-xs btn-fill pull-right"><i class="fa fa-trash"></i> Hapus Data Training {{$key}}</button></h4>
                     <hr>
                     <table style="table-layout:fixed" id="table_{{$key}}" class="table table-striped table-bordered table-hover">
                         <thead>

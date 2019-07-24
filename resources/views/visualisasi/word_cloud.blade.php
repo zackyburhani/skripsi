@@ -5,11 +5,11 @@
 <input id="url_root" type="hidden" value="{{ url("") }}">
 <section class="content-header">
     <h1>
-        <i class="fa fa-pie-chart"></i> Visualisasi Data
+        <i class="fa fa-cloud"></i> Word Cloud
         <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/analisa"><i class="fa fa-pie-chart"></i> Analisa Data</a></li>
+        <li><a href="/word-cloud"><i class="fa fa-cloud"></i> Word Cloud</a></li>
     </ol>
 </section>
 
@@ -30,8 +30,8 @@
                 <div class="col-md-12">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li><a href="{{ url('analisa') }}" >Klasifikasi</a></li>
-                            <li><a href="{{ url('prediksi-sentimen') }}">Prediksi Sentimen</a></li>
+                            <li><a href="{{ url('visualisasi-data') }}" >Visualisasi Data</a></li>
+                            <li><a href="{{ url('hasil-perhitungan') }}">Hasil Perhitungan</a></li>
                             <li ><a href="{{ url('confusion-matrix') }}" >Confusion Matriks</a></li>
                             <li class="active"><a href="{{ url('word-cloud') }}">Word Cloud</a></li>
                         </ul>
@@ -76,7 +76,6 @@
                         type: "GET",
                         url: url + '/data-cloud/'+value.sentimen.id_sentimen,
                         success: function (string) {
-                            console.log(string)
                             var chart = 'container_'+value.sentimen.kategori
                             var text = string;
                             var lines = text.split(/[,\. ]+/g);
