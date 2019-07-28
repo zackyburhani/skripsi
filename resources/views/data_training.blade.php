@@ -99,7 +99,7 @@
                                 <td width="100px"><h4>{{$uniqueWords}}</h4></td>
                             </tr>
                             <tr>
-                                <td><h4>Total Data Training</h4></td>
+                                <td><h4>Total Kata Training</h4></td>
                                 <td><h4>:</h4></td>
                                 <td><h4>{{$total}}</h4></td>
                             </tr>
