@@ -67,14 +67,6 @@
     <script src="{{'Highcharts/code/modules/data.js'}}"></script>
     <script src="{{'Highcharts/code/modules/drilldown.js'}}"></script>
 
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
     <!-- Google Font -->
     {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"> --}}
 </head>
@@ -130,18 +122,6 @@
                             <i class="fa fa-twitter"></i> <span>Twitter Crawling</span>
                         </a>
                     </li>
-                    {{-- <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-file-text"></i> <span>Kosa Kata</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
-                        </a>
-                        <ul class="treeview-menu">
-                            <li><a href="/kata-dasar"><i class="fa fa-circle-o"></i> Kata Dasar</a></li>
-                            <li><a href="/stopword"><i class="fa fa-circle-o"></i> Stopwords</a></li>
-                        </ul>
-                    </li> --}}
                     <li>
                         <a href="/preprocessing">
                             <i class="fa fa-gears"></i> <span>Preprocessing</span>

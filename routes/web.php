@@ -1,16 +1,6 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
+//dashboard
 Route::get('/', 'ControllerDashboard@index');
 Route::get('/search-page', 'ControllerDashboard@searchPage');
 
@@ -30,7 +20,6 @@ Route::get('/kata-dasar-all','ControllerKosaKata@all_kata_dasar');
 Route::get('/kata-dasar/{kata_dasar}','ControllerKosaKata@get_kata_dasar');
 Route::put('/kata-dasar/{kata_dasar}','ControllerKosaKata@update_kata_dasar');
 Route::get('/hapus-katadasar','ControllerKosaKata@delete_kata_dasar');
-// Route::delete('/kata-dasar/{kata_dasar}','ControllerKosaKata@delete_kata_dasar');
 
 //kategori-sentimen
 Route::get('/kategori-sentimen', 'ControllerKategori@kategori');
@@ -72,10 +61,5 @@ Route::get('/column-drilldown', 'ControllerAnalisa@column_drilldown');
 Route::get('/jumlah-kategori-cloud', 'ControllerAnalisa@jumlah_kategori_cloud');
 Route::get('/hapus-testing', 'ControllerAnalisa@hapus_testing');
 Route::get('/get-detail-prediksi/{data}', 'ControllerAnalisa@getDetailPrediksi');
-
-
-// Stemming
-// Route::get('/stemming', 'ControllerPreprocessing@stemming_tes');
-// Route::post('/stemming', 'ControllerPreprocessing@stemming');
 
 Route::get('/cross', 'Cross@index');

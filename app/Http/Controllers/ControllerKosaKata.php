@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Stemming;
-use App\Models\Stopword;
-use Illuminate\Http\File;
-use Validator;
 use Illuminate\Support\Facades\Storage;
 use File as files;
 
@@ -91,7 +87,6 @@ class ControllerKosaKata extends Controller
         if($name != "stopword.txt"){
             return redirect('/stopword')->with('gagal', 'Data Tidak Berhasil Disimpan !');
         }
-
 
         $tujuan_upload = 'storage/preprocessing/stopword/';
         $file->move($tujuan_upload,$file->getClientOriginalName());

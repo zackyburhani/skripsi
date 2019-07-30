@@ -7,7 +7,6 @@
     <h1>
         <i class="fa fa-book"></i>
         Stopwords
-        <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-file-text"></i> Kosa Kata</a></li>

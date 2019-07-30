@@ -7,7 +7,6 @@
 <section class="content-header">
     <h1>
         <i class="fa fa-gears"></i> Preprocessing
-        <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="/preprocessing"><i class="fa fa-gears"></i> Preprocessing</a></li>

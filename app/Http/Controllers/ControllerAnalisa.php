@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
-use Illuminate\Http\Request;
-use App\Models\DataTraining;
 use App\Models\DataTesting;
-use App\Models\WordFrequency;
 use App\Models\Klasifikasi;
 use App\Models\TwitterStream;
 use App\Models\Hasil;
@@ -26,15 +23,14 @@ class ControllerAnalisa extends Controller
 
     public function klasifikasi()
     {
-        $data =  DB::table('klasifikasi')
+        $tampung = array();
+        $sum = Klasifikasi::count();
+        $data = DB::table('klasifikasi')
                 ->select('sentimen.kategori as name',DB::raw('COUNT(*) as y'))
                 ->join('sentimen', 'sentimen.id_sentimen', '=', 'klasifikasi.id_sentimen')
                 ->groupBy('sentimen.kategori')
                 ->get();
         
-        $sum = Klasifikasi::count();
-        
-        $tampung = array();
         foreach($data as $val){
             $tampung[] = [
                 'name' => $val->name,
@@ -48,17 +44,9 @@ class ControllerAnalisa extends Controller
     public function confusion_matrix()
     {
         try {
-
             $title = "Data Confusion Matrix";
+            $matrix = array();
             $testing_data = DataTesting::count();
-            // $confusionMatrix = new ControllerConfusionMatrix();
-
-            // $actualLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TEPAT'];
-            // $predictedLabels = ['TERLAMBAT', 'TEPAT', 'TERLAMBAT', 'TERLAMBAT', 'TERLAMBAT'];
-
-            // $actualLabels = ['Negatif', 'Positif', 'Negatif', 'Negatif', 'Positif'];
-            // $predictedLabels = ['Negatif', 'Positif', 'Negatif', 'Negatif', 'Negatif'];
-
             $klasifikasi = Klasifikasi::with('sentimen')->get();
 
             foreach($klasifikasi as $kelas){
@@ -67,28 +55,18 @@ class ControllerAnalisa extends Controller
                 $twitter = TwitterStream::with('sentimen')->where('id_crawling',$testing->id_crawling)->first();
                 $actualLabels[] = $twitter->sentimen->kategori;
             }
-            // echo $confusionMatrix = Accuracy::score($actualLabels, $predictedLabels);
-            // return $confusionMatrix;
 
             $getPrecision = new ControllerConfusionMatrix($actualLabels, $predictedLabels);
             $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
             
-            // $th = array_values(array_unique($actualLabels));
-            // foreach(Sentimen::all() as $dt){
-            //     $th[] = $dt->kategori;
-            // }
             foreach($precision as $index_pc => $value_pc){
                 $th[] = $index_pc;
             }
             
             sort($th);
             $confusionMatrix = ControllerConfusionMatrix::compute($actualLabels, $predictedLabels,$th);
-            
-            // $th = [$this->negatif,$this->netral,$this->positif];
-            // $tr = [$this->negatif,$this->positif,$this->netral];
-            $matrix = array();
 
             foreach($th as $index_th => $value){
                 $matrix[$value] = $confusionMatrix[$index_th];
@@ -102,7 +80,6 @@ class ControllerAnalisa extends Controller
 
             ksort($precision);
             return view('visualisasi.confusion_matrix', compact(['title','testing_data','confusionMatrix','th','matrix','recall','precision','accuracy']));
-    
         }    
         catch (\Exception $e) {
             return redirect('/crawling')->with('status', 'Data Testing Tidak Ditemukan !');
@@ -169,7 +146,6 @@ class ControllerAnalisa extends Controller
             ]; 
 
             return response()->json($data);
-    
         }
         catch (\Exception $e) {
             return response()->json(error);
@@ -219,6 +195,7 @@ class ControllerAnalisa extends Controller
         $sentimen = Sentimen::all();
         $testing_data = DataTesting::count();
         $klasifikasi = DataTesting::with(['data_crawling','klasifikasi'])->get();
+
         foreach($klasifikasi as $class){
             $prediksi = Klasifikasi::with(['sentimen'])->where('id_testing',$class->id_testing)->first();
             $hasil = Hasil::where('id_testing',$class->id_testing)->get();
@@ -231,26 +208,18 @@ class ControllerAnalisa extends Controller
                 'prediksi' => $prediksi->sentimen->kategori,
             ];
         }
-        
+
         return view('visualisasi.prediksi', compact(['title','sentimen','collection','testing_data','hasil']));
     }
 
 
     public function getDetailPrediksi($id)
     {
-        //ambil data sentimen;
         $sentimen = Sentimen::all();
-
-        //ambil data crawling
         $data = DataTesting::with('data_crawling')->where('id_testing',$id)->first();
-
-        //hasil nbc
         $nbc = Hasil::with(['sentimen'])->where('id_testing',$id)->get();
-
-        //hasil confidence
         $detail_proses = Proses::where('id_testing',$id)->get();
 
-        //hasil preprocessing
         $preprocessing = new ControllerPreprocessing();
         $case_folding = $preprocessing->case_folding($data->data_crawling->tweet);
         $cleansing = $preprocessing->cleansing($case_folding);

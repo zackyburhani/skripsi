@@ -8,7 +8,6 @@
     <h1>
         <i class="fa fa-align-justify"></i>
         Kata Dasar
-        <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-file-text"></i> Kosa Kata</a></li>

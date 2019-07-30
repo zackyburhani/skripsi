@@ -4,11 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TwitterStream;
-use App\Models\Stemming;
-use App\Models\Stopword;
 use App\Models\Sentimen;
 use Illuminate\Support\Facades\Storage;
-use File;
 
 class ControllerDashboard extends Controller
 {

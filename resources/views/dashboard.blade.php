@@ -34,38 +34,6 @@
                         class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
-        {{-- <div class="col-md-3">
-            <!-- small box -->
-            <div class="small-box bg-red">
-                <div class="inner">
-                    <h3>{{$stopword}}</h3>
-
-                    <p>Stopwords</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-file-text"></i>
-                </div>
-                <a href="/stopword" class="small-box-footer">Lihat Selengkapnya <i
-                        class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div> --}}
-        <!-- ./col -->
-        {{-- <div class="col-md-3">
-            <!-- small box -->
-            <div class="small-box bg-green">
-                <div class="inner">
-                    <h3>{{$stemming}}</h3>
-
-                    <p>Kata Dasar</p>
-                </div>
-                <div class="icon">
-                    <i class="fa fa-file-text"></i>
-                </div>
-                <a href="/kata-dasar" class="small-box-footer">Lihat Selengkapnya <i
-                        class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        </div> --}}
-        <!-- ./col -->
     </div>
     <!-- /.row -->
 
@@ -98,18 +66,6 @@
 
 </section>
 <!-- right col -->
-<script>
-$('.count').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 2000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
-});
-</script>
 
+<script src="{{asset('js/dashboard.js')}}"></script>
 @endsection

@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Http\Controllers\ControllerStemming;
 use App\Models\TwitterStream;
-use App\Models\Stopword;
 use App\Models\DataTraining;
 use App\Models\WordFrequency;
 use App\Models\DataTesting;
 use App\Models\Klasifikasi;
 use App\Models\Hasil;
 use App\Models\Sentimen;
-use App\Models\Stemming;
 use App\Models\Proses;
-use Illuminate\Http\Respons;
 use Illuminate\Support\Facades\Storage;
 use DB;
 
@@ -31,9 +26,11 @@ class ControllerPreprocessing extends Controller
     {
         $twitter = TwitterStream::where('proses',"0")->get();
         $data_training = DataTraining::count();
+
         if(count($twitter) == 0){
             return response()->json(0);
         }
+
         foreach($twitter as $tweet){
             $preprocessing = $tweet->tweet;
             $case_folding = $this->case_folding($preprocessing);
@@ -65,30 +62,28 @@ class ControllerPreprocessing extends Controller
                 'training' => $data_training,
             ];
         }
-        // return $data;
+    
         return $this->convert_from_latin1_to_utf8_recursively($data);
     }
 
     public function case_folding($data)
     {
-        // $unicode = preg_replace('/[\x{10000}-\x{10FFFF}]/u', "\xEF\xBF\xBD", $data);
         $lower = strtolower($data);
         return $lower;
     }
 
     public function cleansing($data)
     {
-        $data = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', '', $data); //remove url
-        $data = preg_replace('/#([\w-]+)/i', '', $data); //  #remove tag
-        $data = preg_replace('/@([\w-]+)/i', '', $data); // #remove @someone
-        $data = preg_replace('/[0-9]+/', '', $data); //remove angka
-        $data = str_replace('rt : ', '', $data); // #remove RT
+        $data = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', '', $data);
+        $data = preg_replace('/#([\w-]+)/i', '', $data);
+        $data = preg_replace('/@([\w-]+)/i', '', $data);
+        $data = preg_replace('/[0-9]+/', '', $data);
+        $data = str_replace('rt : ', '', $data); 
         $data = str_replace(',', '  ', $data);
         $data = str_replace('.', '  ', $data);
         $data = preg_replace('/[^A-Za-z0-9\  ]/', '', $data);
         $data = trim(preg_replace('/\s+/', ' ', $data));
         $data = (string)$data;
-
         return $data;
     }
 
@@ -103,8 +98,7 @@ class ControllerPreprocessing extends Controller
         $searchString = implode(" ",$data);
         $contents = Storage::get('public/preprocessing/stopword/stopword.txt');
         $code = preg_replace('/\n$/','',preg_replace('/^\n/','',preg_replace('/[\r\n]+/',"\n",$contents)));
-        $stopwords = explode("\n",$code);
-        
+        $stopwords = explode("\n",$code);    
         $wordsFromSearchString = str_word_count($searchString, true);
         $finalWords = array_diff($wordsFromSearchString, $stopwords);
         $implode = implode(" ", $finalWords);
@@ -118,20 +112,15 @@ class ControllerPreprocessing extends Controller
         $term = array();
         
         foreach($kata as $value){
-            /* 1. Cek Kata di Kamus jika Ada SELESAI */
-            if($stemming->cekKamus($value)){ // Cek Kamus
-                array_push($term,$value); // Jika Ada push kedalam array
+
+            if($stemming->cekKamus($value)){
+                array_push($term,$value);
                 continue;
             }
-            /* 2. Buang Infection suffixes (\-lah", \-kah", \-ku", \-mu", atau \-nya") */
+            
             $value = $stemming->Del_Inflection_Suffixes($value);
-            
-            /* 3. Buang Derivation suffix (\-i" or \-an") */
             $value = $stemming->Del_Derivation_Suffixes($value);
-            
-            /* 4. Buang Derivation prefix */
             $value = $stemming->Del_Derivation_Prefix($value);
-            
             array_push($term,$value);
         }
 
@@ -168,21 +157,14 @@ class ControllerPreprocessing extends Controller
             $stopword = $this->stopWord($tokenizing);
             $stemming = $this->stemming($stopword);
 
-            //simpan data training
             $data_latih = new DataTraining();
             $data_latih->id_crawling = $value->id_crawling;
             $data_latih->save();
 
-            //update status data crawling
             $crawling = TwitterStream::where('id_crawling',$value->id_crawling)->update(['status' => "0"]);
-
-            //update proses data crawling
             $crawling = TwitterStream::where('id_crawling',$value->id_crawling)->update(['proses' => "1"]);
-
-            //ambil id training
             $id_training = DataTraining::where('id_crawling',$value->id_crawling)->first();
 
-            //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
                 $count = WordFrequency::where([['kata', $stemming[$i]],['id_sentimen',$value->id_sentimen],['id_testing',null]])->count();
                 if ($count == 0) {
@@ -199,7 +181,6 @@ class ControllerPreprocessing extends Controller
             $update_nilai[] = $stemming;
         }
 
-        //simpan nilai_perhitungan pada table term freq
         foreach(Sentimen::all() as $stm){
             $class['class'][] = $stm->id_sentimen;
         }
@@ -222,13 +203,11 @@ class ControllerPreprocessing extends Controller
                             $wordCount = $wC->total;
                         }
                     }
-
                     $total[$cls][$word] = $wordCount;
                     $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('id_sentimen',$cls)->whereNotNull('id_training')->first();
                     $sum[$cls] = $wordSum->jumlah_term;
                     
                     $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
-                    // $value[$cls][$word][] = round($prob,11); 
                     $update = round($prob,11);
                     WordFrequency::where([['kata',$word],['id_sentimen',$cls]])->whereNotNull('id_training')->update(['nilai_bobot' => $update]);
                 }
@@ -244,13 +223,8 @@ class ControllerPreprocessing extends Controller
             $data_testing->id_crawling = $value->id_crawling;
             $data_testing->save();
             
-            //update status data crawling
             $crawling = TwitterStream::where('id_crawling',$value->id_crawling)->update(['status' => "1"]);
-
-            //update proses data crawling
             $crawling = TwitterStream::where('id_crawling',$value->id_crawling)->update(['proses' => "1"]);
-        
-            //ambil data testing dan klasifikasikan dengan NBC
             $analisa = DataTesting::with(['data_crawling'])->where('id_crawling',$value->id_crawling)->first();
             
             $preprocessing = $analisa->data_crawling->tweet;
@@ -261,18 +235,14 @@ class ControllerPreprocessing extends Controller
             $stemming = $this->stemming($stopword);
             
             $kategori = $this->decide($stemming,$analisa->id_testing);
-            
-            //ambil data hasil
             $hasil = Hasil::where('id_testing', $analisa->id_testing)->first();
             
-            //simpan klasifikasi
             $klasifikasi = new Klasifikasi();
             $klasifikasi->id_sentimen = $kategori['hasil'];
             $klasifikasi->id_testing = $analisa->id_testing;
             $klasifikasi->id_hasil = $hasil->id_hasil;
             $klasifikasi->save();
             
-            //simpan frekuensi
             for($i=0; $i<count($stemming); $i++){
                 $count = WordFrequency::where([['kata', $stemming[$i]],['id_sentimen',$value->id_sentimen],['id_training',null]])->count();
                 if ($count == 0) {
@@ -288,12 +258,10 @@ class ControllerPreprocessing extends Controller
                 }
             }
 
-            //simpan proses
             foreach($kategori['value'] as $index_kategori => $value_kategori){
                 foreach($value_kategori as $index_kata => $data_kata){
                     foreach($data_kata as $index_nilai => $data_nilai){
                         $id_training = WordFrequency::where([['id_sentimen',$index_kategori],['kata',$index_kata]])->whereNotNull('id_training')->first();
-                        // $kelas_peluang = Sentimen::where('id_sentimen',$index_kategori)->first();
                         $data_proses = new Proses();
                         $data_proses->id_testing = $analisa->id_testing;
                         if(empty($id_training)){
@@ -302,7 +270,6 @@ class ControllerPreprocessing extends Controller
                             $data_proses->id_training = $id_training->id_training;
                         }
                         $data_proses->kemunculan_kata = $index_kata;
-                        // $data_proses->kelas_peluang = $kelas_peluang->kategori;
                         $data_proses->nilai_proses = $data_nilai;
                         $data_proses->save();
                     }
@@ -318,22 +285,16 @@ class ControllerPreprocessing extends Controller
         }
 
         $hitung = 1;
-        // $sql = mysqli_query($conn, "SELECT count(*) as total FROM (SELECT word FROM wordFrequency GROUP by word) as x");
-        // $distinctWords = WordFrequency::select(WordFrequency::selectSub('word','x')->groupBy('word'))->count();
-        // $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency GROUP by kata) as x");
         $distinct = DB::select("SELECT count(*) as total FROM (SELECT kata FROM term_frequency WHERE term_frequency.id_training is not null GROUP by kata) as x");
+        
         foreach($distinct as $dst){
             $distinctWords = $dst->total;
         }
+        
         $uniqueWords = $distinctWords;
 
         foreach ($keywordsArray as $word) {
-
             foreach($class['class'] as $cls ){
-                // $sql = mysqli_query($conn, "SELECT count as total FROM wordFrequency where word = '$word' and category = '$cls' ");
-                // $wordCount = mysqli_fetch_assoc($sql);
-                // $wordCount = WordFrequency::where([['word',$word], ['category',$cls]])->first();
-                // $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and kategori = '$cls'");
                 $wordC = DB::select("SELECT jumlah as total FROM term_frequency where kata = '$word' and id_sentimen = '$cls' AND term_frequency.id_training is not null");
                 if($wordC == null){
                     $wordCount = null;
@@ -342,18 +303,14 @@ class ControllerPreprocessing extends Controller
                         $wordCount = $wC->total;
                     }
                 }
-
                 $total[$cls][$word] = $wordCount;
-                // $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('kategori',$cls)->first();
                 $wordSum = DB::table('term_frequency')->select(DB::raw('SUM(jumlah) as jumlah_term'))->where('id_sentimen',$cls)->whereNotNull('id_training')->first();
                 $sum[$cls] = $wordSum->jumlah_term;
-                
                 $prob = ($total[$cls][$word]+1)/($sum[$cls]+$uniqueWords);
                 $value[$cls][$word][] = round($prob,11); 
             }
         }	
 
-        //cari prior
         $i = 0;
         foreach($class['class'] as $cls)
         {
@@ -362,7 +319,6 @@ class ControllerPreprocessing extends Controller
                         ->select('id_sentimen')
                         ->where('id_sentimen', '=', $cls)
                         ->count();
-            // $Count = DataTraining::where('kategori',$cls)->count();
             $totalCount = DataTraining::count();
             $prior[$cls] = $Count / $totalCount;
         }
@@ -377,7 +333,6 @@ class ControllerPreprocessing extends Controller
         }
 
         foreach($class['class'] as $cls){
-            //simpan hasil
             $hasil = new Hasil();
             $hasil->vmap = $final[$cls];
             $hasil->id_testing = $id_testing;
@@ -385,7 +340,6 @@ class ControllerPreprocessing extends Controller
             $hasil->save();
         }
 
-        // echo json_encode($semua_data); die();
         arsort($final);
         $category = key($final);
 

@@ -6,7 +6,6 @@
 <section class="content-header">
     <h1>
         <i class="fa fa-tags"></i> Kategori Sentimen
-        <!-- <small>Control panel</small> -->
     </h1>
     <ol class="breadcrumb">
         <li><a href="/kategori-sentimen"><i class="fa fa-tags"></i> Kategori Sentimen</a></li>

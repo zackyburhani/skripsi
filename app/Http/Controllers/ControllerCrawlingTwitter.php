@@ -8,7 +8,6 @@ use App\Models\TwitterStream;
 use App\Models\Sentimen;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
-use App\Exceptions\Handler;
 
 class ControllerCrawlingTwitter extends Controller
 {
@@ -16,7 +15,6 @@ class ControllerCrawlingTwitter extends Controller
     {
         $title = "Data Stream";
         $sentimen = Sentimen::all();
-        // $data = TwitterStream::where('proses',"0")->orderBy('id_crawling','DESC')->get();
         $data = TwitterStream::orderBy('id_crawling','DESC')->get();
         return view('crawling', compact(['title','sentimen','data']));
     }
@@ -45,6 +43,7 @@ class ControllerCrawlingTwitter extends Controller
                 $twitter->proses = "0";
                 $twitter->save();
             }
+
             return redirect('/crawling')->with('sukses', 'Data Berhasil Diproses !');
         }
         catch (\Exception $e) {
@@ -56,14 +55,13 @@ class ControllerCrawlingTwitter extends Controller
     {
         $name = 'data_crawling_'.Carbon::now()->format('d_m_Y');
 
-        if($twitter = TwitterStream::count() == 0){
+        if(TwitterStream::count() == 0){
             return redirect('/crawling')->with('status','Tidak Dapat Memproses Data !');
         }
 
         if($format == 'xlsx'){
             return Excel::create($name, function($excel) {
                 $excel->sheet('Data Crawling', function($sheet) {
-                    // $twitter = TwitterStream::where('proses',"0")->get();
                     $twitter = TwitterStream::all();
                     if($twitter == ""){
                         return response()->json(null);
@@ -97,27 +95,7 @@ class ControllerCrawlingTwitter extends Controller
                     $sheet->fromModel($cetak);
                 });
             })->download($format);
-        } 
-        // else {
-        //     return Excel::create($name, function($excel) {
-        //         $excel->sheet('Data Crawling', function($sheet) {
-        //             // $twitter = TwitterStream::where('proses',"0")->get();
-        //             $twitter = TwitterStream::all();
-        //             if($twitter == ""){
-        //                 return response()->json(null);
-        //             }
-        //             foreach ($twitter as $key) {
-        //                 $sentimen = Sentimen::where('id_sentimen',$key->id_sentimen)->first();
-        //                 $cetak[] = [
-        //                     "tweet" => $key->tweet,
-        //                     ";" => ";",
-        //                     "sentimen" => $sentimen->kategori,
-        //                 ];
-        //             }
-        //             $sheet->fromModel($cetak);
-        //         });
-        //     })->download($format);
-        // }
+        }
     }
 
     public function upload(Request $request)
@@ -130,9 +108,6 @@ class ControllerCrawlingTwitter extends Controller
         }
 
         foreach($data as $excel){
-            // if($excel->ubah_class != ""){
-            //     $upload = TwitterStream::where('id', $excel->id)->update(['class' => $excel->ubah_class]);
-            // }
             $twitter = new TwitterStream();
             $twitter->username = $excel->username;
             $twitter->tweet_id = $excel->tweet_id;

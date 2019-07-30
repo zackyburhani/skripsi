@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Models\Sentimen;
-use Illuminate\Http\Request;
-
 class ControllerConfusionMatrix extends Controller
 {
     public const MICRO_AVERAGE = 1;
