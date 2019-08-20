@@ -40,6 +40,11 @@ class ControllerConfusionMatrix extends Controller
     /**
      * @var array
      */
+    private $precision_micro = [];
+
+    /**
+     * @var array
+     */
     private $recall = [];
 
     /**
@@ -67,6 +72,11 @@ class ControllerConfusionMatrix extends Controller
     public function getPrecision(): array
     {
         return $this->precision;
+    }
+
+    public function getPrecisionMicro(): array
+    {
+        return $this->precision_micro;
     }
 
     public function getRecall(): array
@@ -115,6 +125,7 @@ class ControllerConfusionMatrix extends Controller
     {
         foreach ($this->truePositive as $label => $tp) {
             $this->precision[$label] = $this->computePrecision($tp, $this->falsePositive[$label]);
+            $this->precision_micro[$label] = $this->computePrecisionMicro($tp, $this->falsePositive[$label]);
             $this->recall[$label] = $this->computeRecall($tp, $this->falseNegative[$label]);
             $this->f1score[$label] = $this->computeF1Score((float) $this->precision[$label], (float) $this->recall[$label]);
         }
@@ -143,8 +154,9 @@ class ControllerConfusionMatrix extends Controller
         $truePositive = (int) array_sum($this->truePositive);
         $falsePositive = (int) array_sum($this->falsePositive);
         $falseNegative = (int) array_sum($this->falseNegative);
-
+        
         $precision = $this->computePrecision($truePositive, $falsePositive);
+        $precision_micro = $this->computePrecisionMicro($truePositive, $falsePositive);
         $recall = $this->computeRecall($truePositive, $falseNegative);
         $f1score = $this->computeF1Score((float) $precision, (float) $recall);
 
@@ -193,8 +205,20 @@ class ControllerConfusionMatrix extends Controller
         if ($divider == 0) {
             return 0.0;
         }
-        
+    
         return round(($truePositive / $divider)*100,2);
+    }
+
+
+    private function computePrecisionMicro(int $truePositive, int $falsePositive)
+    {
+        $divider = $truePositive + $falsePositive;
+        if ($divider == 0) {
+            return 0.0;
+        }
+    
+        return $truePositive;
+        // return round(($truePositive / $divider)*100,2);
     }
 
     /**
@@ -207,6 +231,7 @@ class ControllerConfusionMatrix extends Controller
             return 0.0;
         }
 
+        return $truePositive;
         return round(($truePositive / $divider)*100,2);
     }
 

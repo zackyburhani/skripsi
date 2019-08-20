@@ -60,7 +60,7 @@ class ControllerAnalisa extends Controller
             $accuracy = ControllerConfusionMatrix::score($actualLabels, $predictedLabels);
             $recall = $getPrecision->getRecall();
             $precision = $getPrecision->getPrecision();
-            
+
             foreach($precision as $index_pc => $value_pc){
                 $th[] = $index_pc;
             }
@@ -107,6 +107,14 @@ class ControllerAnalisa extends Controller
             $devide_recall = $getPrecision->getRecall();
             $devide_precision = $getPrecision->getPrecision();
 
+            $precision_micro = $getPrecision->getPrecisionMicro();
+
+            foreach(Sentimen::all() as $kelas){
+                $a[] = $precision_micro[$kelas->kategori];
+            }
+
+            $micro_precision = array_sum($a)/ DataTesting::count();
+
             foreach ($devide_recall as $array_key1 => $array_item1) {
                 if ($devide_recall[$array_key1] == 0) {
                   unset($devide_recall[$array_key1]);
@@ -143,6 +151,7 @@ class ControllerAnalisa extends Controller
                 'error_rate' => round($error_rate*100,2),
                 'total_precision' => round($total_precision,2),
                 'total_recall' => round($total_recall,2),
+                'micro_precision' => round($micro_precision,4)*100,
             ]; 
 
             return response()->json($data);

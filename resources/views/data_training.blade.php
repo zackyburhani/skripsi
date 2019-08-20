@@ -62,7 +62,7 @@
                             <tr>
                                 <td width="130px"><h4>Prior {{$pr['kelas']}}</h4></td>
                                 <td width="15px"><h4>:</h4></td>
-                                <td width="100px"><h4>{{$pr['nilai']}}</h4></td>
+                                <td width="100px"><h4>{{ round($pr['nilai'],4) }}</h4></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -93,15 +93,15 @@
                      <table>
                         <tbody>
                             <tr> 
-                                <td width="160px"><h4>Total Kata Unik</h4></td>
+                                <td width="160px"><h4>Total Kosakata</h4></td>
                                 <td width="10px"><h4>:</h4></td>
                                 <td width="100px"><h4>{{$uniqueWords}}</h4></td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td><h4>Total Kata Training</h4></td>
                                 <td><h4>:</h4></td>
                                 <td><h4>{{$total}}</h4></td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                     </table>
                 </div>

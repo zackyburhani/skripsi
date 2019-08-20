@@ -52,13 +52,13 @@
         <div style="display: block;" class="box-body">
             <b1>
                 <p><b>Tentang Aplikasi :</b></p>
-                <p>1. Aplikasi Dapat Melakukan <i>Crawling Data Tweet</i> Secara <i>Real-time</i> </p>
+                <p>1. Aplikasi Dapat Melakukan Crawling Data Tweet Secara Real-time </p>
                 <p>2. Aplikasi Mengklasifikasikan Data Sentimen Kedalam Tiga Kelas : Positif, Netral & Negatif</p>
-                <p>3. Klasifikasi Menggunakan Algoritme <i>Naïve Bayes Classifier (NBC)</i> </p>
-                <p>4. <i>Preprocessing</i> Terdiri Dari 5 tahap : <i>Case Folding</i>, <i>Cleansing</i>, <i>Tokenizing</i>, <i>Stopword</i> & <i>Stemming</i></p>
-                <p>5. Menggunakan Algoritme Nazief & Adriani Pada Proses <i>Stemming</i></p>
-                <p>6. Visualisasi Data Menggunakan <i>Pie Chart</i>, <i>Column Chart</i> & <i>Word Cloud</i></p>
-                <p>7. Pengujian Akurasi Menggunakan Metode <i>Confusion Matrix</i> : <i>Accuracy</i>, <i>Precision</i>, <i>Recall</i> & <i>Error Rate</i></p>
+                <p>3. Klasifikasi Menggunakan Algoritme Naïve Bayes Classifier (NBC) </p>
+                <p>4. Preprocessing> Terdiri Dari 5 tahap : Case Folding, Cleansing, Tokenizing, Stopword & Stemming</p>
+                <p>5. Menggunakan Algoritme Nazief & Adriani Pada Proses Stemming</p>
+                <p>6. Visualisasi Data Menggunakan Pie Chart, Column Chart & Word Cloud</p>
+                <p>7. Pengujian Akurasi Menggunakan Metode Confusion Matrix : Accuracy, Precision, Recall & Error Rate</p>
             </b1>
         </div><!-- /.box-body -->
     </div>
